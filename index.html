@@ -4,300 +4,422 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deadly_wolf</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--accent:#660000;--accent2:#320b35;--bg:#0a0a0f;--panel:#14121c;--text:#eceaf3;--muted:#9a97ab;--border:#2b2438}
+:root{
+  --accent:#660000;
+  --accent2:#320b35;
+  --bg:#0a0a0f;
+  --panel:#121218;
+  --line:#2a2a35;
+  --text:#e8e8ef;
+  --muted:#9a9aa8;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:19px;line-height:1.55;min-height:100vh;position:relative;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
- background:radial-gradient(1100px 560px at 15% -10%,rgba(102,0,0,.40),transparent 62%),
-            radial-gradient(900px 520px at 92% 2%,rgba(50,11,53,.55),transparent 62%)}
-body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;
- background-image:linear-gradient(rgba(102,0,0,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(102,0,0,.25) 1px,transparent 1px);
- background-size:46px 46px}
-.wrap{max-width:1100px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
-header{padding:30px 0 14px;display:flex;align-items:center;gap:16px}
-#avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);box-shadow:0 0 20px rgba(102,0,0,.55)}
-.ch h1{font-family:'Orbitron',sans-serif;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#fff;text-shadow:0 0 18px rgba(102,0,0,.8)}
-.ch p{color:var(--muted);font-size:16px;letter-spacing:.5px}
-nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
-.tab{background:none;border:none;color:var(--muted);font-family:inherit;font-weight:700;font-size:17px;letter-spacing:1.5px;text-transform:uppercase;padding:12px 16px;cursor:pointer;border-bottom:3px solid transparent;transition:.2s}
-.tab:hover{color:#fff}
-.tab.active{color:#fff;border-color:var(--accent);text-shadow:0 0 10px rgba(102,0,0,.9)}
-section{display:none;padding:36px 0 60px}
-section.active{display:block}
-.hero{position:relative;padding:40px 32px;border:1px solid var(--border);
- background:linear-gradient(120deg,rgba(102,0,0,.28),rgba(50,11,53,.55));
- clip-path:polygon(0 0,calc(100% - 30px) 0,100% 30px,100% 100%,30px 100%,0 calc(100% - 30px))}
-.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--accent),var(--accent2));box-shadow:0 0 14px var(--accent)}
-.hero h2{font-family:'Orbitron',sans-serif;font-size:clamp(30px,5.4vw,46px);text-transform:uppercase;letter-spacing:3px;
- background:linear-gradient(92deg,#fff 30%,#ff6a6a);-webkit-background-clip:text;background-clip:text;color:transparent;
- filter:drop-shadow(0 0 24px rgba(102,0,0,.65))}
-.hero p{margin-top:10px;color:var(--muted);font-size:20px;max-width:640px}
-.btn{display:inline-block;margin-top:22px;padding:12px 26px;background:var(--accent);color:#fff;border:none;cursor:pointer;
- font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
- clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
- box-shadow:0 0 22px rgba(102,0,0,.55);transition:.2s}
-.btn:hover{filter:brightness(1.25);box-shadow:0 0 34px rgba(102,0,0,.85)}
-.sec-title{font-family:'Orbitron',sans-serif;font-size:22px;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;color:#fff}
-.sec-title span{color:#ff6a6a;text-shadow:0 0 12px rgba(102,0,0,.9)}
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.vcard{background:var(--panel);border:1px solid var(--border);text-decoration:none;color:var(--text);display:block;
- transition:.2s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
-.vcard:hover{border-color:var(--accent);box-shadow:0 0 24px rgba(102,0,0,.4);transform:translateY(-3px)}
-.vcard .thumb{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;background:#1c1926}
-.vcard .vbody{padding:12px 14px 16px}
-.vcard .vtitle{font-weight:700;font-size:18px;line-height:1.3}
-.vcard .vdate{color:var(--muted);font-size:15px;margin-top:4px}
-.err{padding:26px;border:1px dashed var(--accent);color:var(--muted);background:rgba(102,0,0,.08)}
-.err a{color:#ff6a6a}
-.about{background:var(--panel);border:1px solid var(--border);padding:26px 28px;font-size:20px;
- border-left:4px solid var(--accent);box-shadow:0 0 24px rgba(50,11,53,.5)}
-.links{display:flex;flex-wrap:wrap;gap:14px}
-.lnk{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border:1px solid var(--border);background:var(--panel);
- color:var(--text);text-decoration:none;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:.2s;
- clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
-.lnk:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(102,0,0,.5)}
-.lnk svg{width:22px;height:22px;fill:currentColor}
-.lnk .ltr{width:26px;height:26px;border:1px solid var(--accent);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#ff6a6a}
-footer{border-top:1px solid var(--border);padding:20px 0 90px;color:var(--muted);font-size:16px;text-align:center}
-footer a{color:#ff6a6a;text-decoration:none}
-.banner{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 20px;
- background:#4a3b00;color:#ffe9a8;font-size:16px;border-bottom:1px solid #7a5f00}
-.banner button{background:#ffe9a8;color:#332800;border:none;padding:5px 14px;cursor:pointer;font-family:inherit;font-weight:700}
-#adminBtn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;display:inline-flex;align-items:center;gap:8px;
- padding:10px 22px;background:rgba(20,18,28,.92);border:1px solid var(--accent);color:#fff;text-decoration:none;font-weight:700;
- letter-spacing:1px;font-size:15px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
- box-shadow:0 0 18px rgba(102,0,0,.5)}
-#adminBtn:hover{filter:brightness(1.3)}
-@media(max-width:600px){.hero{padding:28px 20px}.ch h1{font-size:19px}}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;
+}
+/* фоновое свечение и сетка */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, color-mix(in srgb, var(--accent2) 45%, transparent), transparent 70%),
+    linear-gradient(transparent 95%, rgba(255,255,255,.03) 95%) 0 0/100% 28px,
+    linear-gradient(90deg, transparent 95%, rgba(255,255,255,.03) 95%) 0 0/28px 100%;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* шапка */
+header{
+  border-bottom:2px solid var(--accent);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 24px) 100%,0 100%);
+  background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15));
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(6px);
+}
+.head-in{display:flex;align-items:center;gap:16px;padding:14px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.logo img{width:44px;height:44px;border-radius:8px;border:2px solid var(--accent)}
+.logo b{font-size:22px;letter-spacing:2px;text-transform:uppercase}
+.logo small{display:block;color:var(--muted);font-size:13px;letter-spacing:.5px}
+nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+nav a{
+  color:var(--muted);text-decoration:none;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;font-size:14px;padding:8px 14px;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+}
+nav a:hover,nav a.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+/* плашка черновика */
+.draft-bar{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  background:#3a2f00;border:1px solid #b98900;color:#ffe9a8;
+  padding:10px 16px;font-size:14px;margin:14px auto 0;
+}
+.draft-bar button{
+  background:#b98900;color:#1a1400;border:0;font-family:inherit;font-weight:700;
+  padding:6px 14px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;font-size:12px;
+}
+.draft-bar button.ghost{background:transparent;color:#ffe9a8;border:1px solid #b98900}
+
+/* герой */
+.hero{padding:70px 0 40px;text-align:center}
+.hero h1{
+  font-size:clamp(42px,8vw,84px);letter-spacing:6px;text-transform:uppercase;line-height:1;
+  background:linear-gradient(90deg,var(--accent),#ff4d4d,var(--accent2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 40px rgba(102,0,0,.35);
+}
+.hero p{color:var(--muted);font-size:clamp(16px,2.4vw,22px);max-width:640px;margin:16px auto 0}
+.cta{
+  display:inline-block;margin-top:28px;padding:14px 34px;font-family:inherit;font-weight:700;
+  font-size:16px;letter-spacing:2px;text-transform:uppercase;color:#fff;text-decoration:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+  box-shadow:0 0 24px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.cta:hover{filter:brightness(1.25)}
+
+/* секции */
+section{padding:40px 0}
+h2{
+  font-size:28px;letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;
+  padding-left:14px;border-left:4px solid var(--accent);
+}
+
+/* свежее видео */
+.latest{margin-top:10px}
+.latest .frame{
+  position:relative;aspect-ratio:16/9;max-width:820px;margin:0 auto;
+  border:1px solid var(--line);box-shadow:0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
+  background:var(--panel);
+}
+.latest iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.latest .cap{max-width:820px;margin:10px auto 0;color:var(--muted);font-size:15px}
+
+/* сетка видео */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.vcard{
+  background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--text);
+  display:block;transition:.2s;position:relative;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);
+}
+.vcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.vcard:hover{transform:translateY(-4px);box-shadow:0 8px 30px color-mix(in srgb, var(--accent) 45%, transparent)}
+.vcard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.vcard .t{padding:12px 14px 4px;font-weight:600;font-size:16px;line-height:1.3}
+.vcard .d{padding:0 14px 14px;color:var(--muted);font-size:13px}
+.feed-msg{color:var(--muted);padding:20px 0}
+.feed-msg a{color:var(--text)}
+
+/* о канале */
+.about-box{
+  background:var(--panel);border:1px solid var(--line);padding:26px;font-size:17px;line-height:1.65;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);
+}
+
+/* контакты */
+.links{display:flex;gap:14px;flex-wrap:wrap}
+.link-chip{
+  display:flex;align-items:center;gap:10px;padding:12px 20px;text-decoration:none;color:var(--text);
+  background:var(--panel);border:1px solid var(--line);font-weight:600;letter-spacing:1px;
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  transition:.2s;
+}
+.link-chip:hover{border-color:var(--accent);box-shadow:0 0 18px color-mix(in srgb, var(--accent) 50%, transparent)}
+.link-chip svg{width:22px;height:22px;fill:currentColor}
+
+footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0 80px;color:var(--muted);font-size:14px}
+footer a{color:var(--muted)}
+footer .links{margin-top:10px}
+
+/* кнопка админки — одна, внизу по центру */
+.admin-fab{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;
+  width:52px;height:52px;border-radius:50%;border:2px solid var(--accent);
+  background:#141419;color:var(--text);font-size:22px;cursor:pointer;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.admin-fab:hover{filter:brightness(1.3)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
-<div id="draftBanner" class="banner" hidden>
-  <span>Показан черновик из браузера — то, что видят посетители сайта, может отличаться.</span>
-  <button id="clearDraftBtn" type="button">Убрать черновик</button>
-</div>
+
+<header>
+  <div class="wrap head-in">
+    <a class="logo" href="#home">
+      <img id="avatar" alt="аватар">
+      <span><b id="chName">DEADLY_WOLF</b><small id="chTagline"></small></span>
+    </a>
+    <nav>
+      <a href="#home" class="active" data-tab="home">Главная</a>
+      <a href="#videos" data-tab="videos">Видео</a>
+      <a href="#about" data-tab="about">О канале</a>
+      <a href="#contacts" data-tab="contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
 
 <div class="wrap">
-  <header>
-    <img id="avatar" src="" alt="Аватар канала">
-    <div class="ch">
-      <h1 id="chName">Deadly_wolf</h1>
-      <p id="chTagline"></p>
-    </div>
-  </header>
-  <nav>
-    <button class="tab active" data-tab="home">Главная</button>
-    <button class="tab" data-tab="videos">Видео</button>
-    <button class="tab" data-tab="about">О канале</button>
-    <button class="tab" data-tab="contacts">Контакты</button>
-  </nav>
-
-  <section id="tab-home" class="active">
-    <div class="hero">
-      <h2 id="heroTitle">DEADLY_WOLF</h2>
-      <p id="heroSub"></p>
-      <button class="btn" id="heroCta" type="button">Смотреть последние видео</button>
-    </div>
-  </section>
-
-  <section id="tab-videos">
-    <h3 class="sec-title"><span>//</span> Последние видео</h3>
-    <div class="vgrid" id="videosGrid"><div class="err">Загружаю ленту…</div></div>
-  </section>
-
-  <section id="tab-about">
-    <h3 class="sec-title"><span>//</span> О канале</h3>
-    <div class="about" id="aboutText"></div>
-  </section>
-
-  <section id="tab-contacts">
-    <h3 class="sec-title"><span>//</span> Контакты</h3>
-    <div class="links" id="linksBox"></div>
-  </section>
-
-  <footer>
-    © <span id="chName2"></span> · <a href="admin.html">админ-панель</a>
-  </footer>
+  <div id="draftBar" class="draft-bar hidden">
+    <span id="draftText"></span>
+    <button id="draftShow" class="ghost">Показать черновик</button>
+    <button id="draftDrop">Убрать черновик</button>
+  </div>
 </div>
 
-<a id="adminBtn" href="admin.html">⚙ Админ-панель</a>
+<main class="wrap">
+
+  <section id="home" class="tab-panel active">
+    <div class="hero">
+      <h1 id="heroTitle">DEADLY_WOLF</h1>
+      <p id="heroSubtitle"></p>
+      <a class="cta" id="heroCta" href="#videos">Смотреть последние видео</a>
+    </div>
+    <div class="latest">
+      <h2>Свежее видео</h2>
+      <div class="frame" id="latestFrame">
+        <div class="feed-msg" id="latestMsg">Загружаю последнее видео…</div>
+      </div>
+      <div class="cap" id="latestCap"></div>
+    </div>
+  </section>
+
+  <section id="videos" class="tab-panel">
+    <h2>Видео</h2>
+    <div class="grid" id="grid"></div>
+    <div class="feed-msg hidden" id="feedMsg"></div>
+  </section>
+
+  <section id="about" class="tab-panel">
+    <h2>О канале</h2>
+    <div class="about-box" id="aboutText"></div>
+  </section>
+
+  <section id="contacts" class="tab-panel">
+    <h2>Контакты</h2>
+    <div class="links" id="links"></div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>© <span id="chNameF">Deadly_wolf</span></div>
+  <div class="links" id="footLinks"></div>
+  <div style="margin-top:10px"><a href="admin.html">админ-панель</a></div>
+</footer>
+
+<a class="admin-fab" href="admin.html" title="Админ-панель">⚙</a>
 
 <script>
-(function(){
-  var CHANNEL_ID = 'UCN3_YEiDPE_tUzS0vkQoYYg';
-  var DRAFT_KEY = 'dw_draft_config';
-  var q = function(s){return document.querySelector(s)};
-  var FALLBACK = {"channel":{"name":"Deadly_wolf","handle":"@Deadly00wolf","channelId":"UCN3_YEiDPE_tUzS0vkQoYYg","url":"https://www.youtube.com/@Deadly00wolf","avatar":"https://unavatar.io/youtube/Deadly00wolf","tagline":"Прохождения, геймплей и просто играем"},"hero":{"title":"DEADLY_WOLF","subtitle":"Игровые прохождения без пафоса: стреляю, застреваю и помираю.","cta":"Смотреть последние видео"},"about":"Привет! Это канал Deadly_wolf.","links":[{"type":"youtube","title":"YouTube","url":"https://www.youtube.com/@Deadly00wolf"}],"theme":{"accent":"#660000","accent2":"#320b35"}};
+const DRAFT_KEY = 'dw_draft_config';
+const ICONS = {
+  youtube:'<svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>',
+  telegram:'<svg viewBox="0 0 24 24"><path d="M21.9 3.4 2.7 10.8c-1.3.5-1.3 1.3-.2 1.6l4.9 1.5 1.9 5.8c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.6.2 1.8-.9l3.3-15.4c.3-1.3-.5-1.9-1.6-1.7z"/></svg>',
+  vk:'<svg viewBox="0 0 24 24"><path d="M12.8 18.4c-6 0-9.4-4.1-9.6-10.9h3c.1 5 2.3 7.1 4.1 7.6V7.5h2.8v4.3c1.7-.2 3.5-2.2 4.1-4.3h2.8a8.5 8.5 0 0 1-3.9 5.5 8.8 8.8 0 0 1 4.5 5.4h-3.1a5.5 5.5 0 0 0-4.3-3.9v3.9h-.4z"/></svg>',
+  discord:'<svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.2a18 18 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.6.2 18c2 1.5 4 2.4 5.9 3l1.2-2a12 12 0 0 1-1.9-.9l.5-.4a14 14 0 0 0 12.2 0l.5.4c-.6.4-1.2.7-1.9.9l1.2 2c1.9-.6 3.9-1.5 5.9-3 .6-5.1-.7-9.5-3.5-13.6zM8.4 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4zm7.2 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4z"/></svg>',
+  twitch:'<svg viewBox="0 0 24 24"><path d="M4.3 2 2.5 6.7v14.6h5V24h2.8l2.8-2.7h4.2L22.5 16V2H4.3zm16.4 13-3.2 3.2h-5l-2.8 2.7v-2.7H5.8V3.8h14.9V15zm-3.5-7.3v5.4h-1.8V7.7h1.8zm-4.7 0v5.4h-1.8V7.7h1.8z"/></svg>',
+  steam:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 9.6l5.4 2.2a2.8 2.8 0 0 1 1.6-.5h.2l2.4-3.5v-.1a3.7 3.7 0 1 1 3.7 3.7h-.1l-3.4 2.5v.2a2.8 2.8 0 0 1-5.6.3L2.4 15A10 10 0 1 0 12 2zM6.6 17.7l-1.2-.5a2.1 2.1 0 0 0 3.9.6 2.1 2.1 0 0 0-2.7-3l1.3.5a1.5 1.5 0 0 1-1.3 2.4zm11-6.7a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-4.3a1.9 1.9 0 1 0 0 3.7 1.9 1.9 0 0 0 0-3.7z"/></svg>',
+  tiktok:'<svg viewBox="0 0 24 24"><path d="M19.6 6.7a5.6 5.6 0 0 1-3.4-3.5 5.6 5.6 0 0 1-.3-1.7h-3.5v13.7a2.3 2.3 0 1 1-2.3-2.4c.3 0 .5 0 .8.1V9.3a5.9 5.9 0 1 0 5.1 5.8V8.9a8.9 8.9 0 0 0 5.2 1.7V7.1c-.6 0-1.1-.1-1.6-.4z"/></svg>',
+  github:'<svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>'
+};
+function iconFor(type){
+  if(ICONS[type]) return ICONS[type];
+  return '<svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" font-size="14" font-family="Rajdhani,sans-serif" font-weight="700" fill="currentColor">'+(type||'W').charAt(0).toUpperCase()+'</text></svg>';
+}
 
-  var ICONS = {
-    youtube:'<svg viewBox="0 0 24 24"><path d="M23 7.5c-.3-1.2-1.2-2.1-2.4-2.4C18.6 4.5 12 4.5 12 4.5s-6.6 0-8.6.6C2.2 5.4 1.3 6.3 1 7.5.4 9.5.4 12 .4 12s0 2.5.6 4.5c.3 1.2 1.2 2.1 2.4 2.4 2 .6 8.6.6 8.6.6s6.6 0 8.6-.6c1.2-.3 2.1-1.2 2.4-2.4.6-2 .6-4.5.6-4.5s0-2.5-.6-4.5z"/><path d="M9.8 15.1V8.9l5.6 3.1-5.6 3.1z" fill="#0a0a0f"/></svg>',
-    telegram:'<svg viewBox="0 0 24 24"><path d="M21.9 4.6 2.9 12.1c-1 .4-1 1.8.1 2.1l4.8 1.5 1.8 5.5c.3.9 1.4 1.1 2 .4l2.7-2.9 4.9 3.6c.8.6 2 .2 2.2-.9l3-14.9c.2-1.1-.9-2-2.5-1.9zM9.5 15.4l8.6-6.6c.3-.2.1-.5-.2-.3l-9.5 6-3.5-1.2c-.4-.1-.4-.4 0-.6l12.7-4.9c.4-.2.7.1.5.5l-3.1 10.9c-.2.7-.7.8-1.2.3l-3-2.6-1.7 1.6c-.3.3-.6.2-.7-.2l-.9-2.5z" transform="translate(0,0)"/></svg>',
-    discord:'<svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.2a18 18 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.2 13.6.3 18a20 20 0 0 0 6 3l1.3-2.1c-.7-.3-1.4-.6-2-1l.5-.4a14.2 14.2 0 0 0 12 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.9 19.9 0 0 0 6-3c.6-5.2-.8-9.7-3.6-13.6zM8.7 15.3c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm6.6 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>',
-    twitch:'<svg viewBox="0 0 24 24"><path d="M4 2 2 6v14h5v3h3l3-3h4l6-6V2H4zm16 11-3 3h-5l-3 3v-3H5V4h15v9zM14 7h2v5h-2V7zM9 7h2v5H9V7z"/></svg>',
-    steam:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-9.9 8.7l5.3 2.2c.5-.3 1.1-.5 1.7-.5l2.4-3.5v-.1c0-2.1 1.7-3.8 3.8-3.8s3.8 1.7 3.8 3.8-1.7 3.8-3.8 3.8h-.1l-3.4 2.4v.3c0 1.6-1.3 2.9-2.9 2.9-1.4 0-2.5-1-2.8-2.3l-3.8-1.6A10 10 0 1 0 12 2zm-6.1 13.8 1.4.6a2.2 2.2 0 1 0 1.2-2.9l1.5.6a1.6 1.6 0 1 1-1.2 3l-2.9-1.3zm10.5-3.7c-1.4 0-2.5-1.1-2.5-2.5S11 7.3 12.4 7.3s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zm0-.6c1 0 1.9-.9 1.9-1.9s-.9-1.9-1.9-1.9-1.9.9-1.9 1.9.9 1.9 1.9 1.9z"/></svg>',
-    tiktok:'<svg viewBox="0 0 24 24"><path d="M16.6 5.8c-1-.7-1.7-1.9-1.7-3.3h-3v12.4c0 1.5-1.2 2.7-2.7 2.7S6.5 16.4 6.5 14.9s1.2-2.7 2.7-2.7c.3 0 .6 0 .8.1V9.2c-.3 0-.5-.1-.8-.1-3.1 0-5.7 2.6-5.7 5.8s2.6 5.8 5.7 5.8 5.7-2.6 5.7-5.8V9.6c1.2.9 2.7 1.4 4.3 1.4V8c-.9 0-1.9-.3-2.6-1z"/></svg>',
-    vk:null
-  };
+let liveConfig = null;
+let draftConfig = null;
+let viewingDraft = false;
 
-  function iconFor(type, title){
-    var t = (type||'').toLowerCase();
-    if(ICONS[t]) return ICONS[t];
-    if(t === 'vk') return '<span class="ltr">VK</span>';
-    var l = (title || t || '?').trim().charAt(0).toUpperCase();
-    return '<span class="ltr">' + l + '</span>';
+async function init(){
+  try{
+    const r = await fetch('config.json?ts=' + Date.now());
+    if(!r.ok) throw new Error(r.status);
+    liveConfig = await r.json();
+  }catch(e){
+    console.error(e);
+    const m = document.getElementById('feedMsg');
+    if(m){ m.classList.remove('hidden'); m.innerHTML = 'Не удалось загрузить config.json. Проверьте, что файл лежит рядом с index.html в репозитории.'; }
+    document.getElementById('latestMsg').textContent = 'config.json недоступен.';
+    return;
   }
+  try{ draftConfig = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); }catch(e){ draftConfig = null; }
 
-  function applyTheme(c){
-    var r = document.documentElement.style;
-    r.setProperty('--accent', (c.theme && c.theme.accent) || '#660000');
-    r.setProperty('--accent2', (c.theme && c.theme.accent2) || '#320b35');
+  render(liveConfig);        // по умолчанию — опубликованная версия
+  if(liveConfig.channel && liveConfig.channel.channelId) loadFeed(liveConfig.channel.channelId);
+
+  if(draftConfig){
+    const bar = document.getElementById('draftBar');
+    bar.classList.remove('hidden');
+    document.getElementById('draftText').textContent =
+      'В браузере есть локальный черновик — он не опубликован. Сайт показывает опубликованную версию.';
+    document.getElementById('draftShow').style.display = '';
   }
+}
 
-  function renderLinks(links){
-    var box = q('#linksBox');
-    box.innerHTML = '';
-    (links || []).forEach(function(l){
-      var a = document.createElement('a');
-      a.className = 'lnk'; a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
-      a.innerHTML = iconFor(l.type, l.title) + '<span></span>';
-      a.querySelector('span').textContent = l.title || l.type || 'ссылка';
-      box.appendChild(a);
-    });
-    if(!links || !links.length) box.innerHTML = '<div class="err">Ссылок пока нет.</div>';
+function render(cfg){
+  if(!cfg) return;
+  document.title = cfg.channel ? cfg.channel.name : 'Канал';
+  if(cfg.channel){
+    document.getElementById('chName').textContent = (cfg.channel.name||'').toUpperCase();
+    document.getElementById('chNameF').textContent = cfg.channel.name||'';
+    document.getElementById('chTagline').textContent = cfg.channel.tagline||'';
+    document.getElementById('avatar').src = cfg.channel.avatar || 'https://unavatar.io/youtube/default';
   }
-
-  function fillContent(c){
-    document.title = (c.channel && c.channel.name) || 'Deadly_wolf';
-    q('#chName').textContent = c.channel.name || '';
-    q('#chName2').textContent = c.channel.name || '';
-    q('#chTagline').textContent = c.channel.tagline || '';
-    if(c.channel.avatar) q('#avatar').src = c.channel.avatar;
-    q('#heroTitle').textContent = (c.hero && c.hero.title) || '';
-    q('#heroSub').textContent = (c.hero && c.hero.subtitle) || '';
-    q('#heroCta').textContent = (c.hero && c.hero.cta) || 'Смотреть последние видео';
-    q('#aboutText').textContent = c.about || '';
-    renderLinks(c.links);
-    applyTheme(c);
+  if(cfg.hero){
+    document.getElementById('heroTitle').textContent = cfg.hero.title || '';
+    document.getElementById('heroSubtitle').textContent = cfg.hero.subtitle || '';
+    document.getElementById('heroCta').textContent = cfg.hero.cta || 'Смотреть последние видео';
   }
-
-  // --- вкладки ---
-  document.querySelectorAll('.tab').forEach(function(t){
-    t.addEventListener('click', function(){
-      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
-      document.querySelectorAll('section').forEach(function(x){x.classList.remove('active')});
-      t.classList.add('active');
-      q('#tab-' + t.dataset.tab).classList.add('active');
-    });
+  document.getElementById('aboutText').textContent = cfg.about || '';
+  if(cfg.theme){
+    document.documentElement.style.setProperty('--accent', cfg.theme.accent || '#660000');
+    document.documentElement.style.setProperty('--accent2', cfg.theme.accent2 || '#320b35');
+  }
+  const links = document.getElementById('links');
+  const foot = document.getElementById('footLinks');
+  links.innerHTML = ''; foot.innerHTML = '';
+  (cfg.links||[]).forEach(l=>{
+    const a = document.createElement('a');
+    a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+    a.className = 'link-chip';
+    a.innerHTML = iconFor(l.type) + '<span>' + escapeHtml(l.title||l.type||'ссылка') + '</span>';
+    links.appendChild(a);
+    const f = document.createElement('a');
+    f.href = l.url; f.target = '_blank'; f.rel = 'noopener'; f.textContent = l.title||l.type||'ссылка';
+    foot.appendChild(f);
   });
-  q('#heroCta').addEventListener('click', function(){
-    document.querySelector('.tab[data-tab="videos"]').click();
-  });
+}
 
-  // --- черновик ---
-  var draft = null;
-  try{ draft = localStorage.getItem(DRAFT_KEY); }catch(e){}
-  if(draft){
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------- лента видео: ВСЕГДА из опубликованного конфига ---------- */
+let feedLoaded = false;
+
+async function loadFeed(channelId){
+  const feedUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+  const sources = [
+    { name:'rss2json',
+      url:'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl),
+      parse: r => (r.items||[]).map(i=>({ title:i.title, link:i.link, date:i.pubDate })) },
+    { name:'allorigins',
+      url:'https://api.allorigins.win/raw?url=' + encodeURIComponent(feedUrl),
+      xml:true },
+    { name:'corsproxy',
+      url:'https://corsproxy.io/?url=' + encodeURIComponent(feedUrl),
+      xml:true }
+  ];
+  for(const s of sources){
     try{
-      var d = JSON.parse(draft);
-      q('#draftBanner').hidden = false;
-      fillContent(d);
-    }catch(e){ try{localStorage.removeItem(DRAFT_KEY)}catch(_){} }
-  }
-  q('#clearDraftBtn').addEventListener('click', function(){
-    try{ localStorage.removeItem(DRAFT_KEY) }catch(e){}
-    location.reload();
-  });
-
-  // --- конфиг ---
-  if(!draft){
-    fetch('config.json?cache=' + Date.now())
-      .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
-      .then(function(c){ fillContent(c); })
-      .catch(function(){ fillContent(FALLBACK); });
-  }
-
-  // --- видео: три источника по очереди ---
-  function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-  function parseRss(txt){
-    var doc = new DOMParser().parseFromString(txt, 'text/xml');
-    var out = [];
-    var entries = doc.querySelectorAll('entry');
-    for(var i=0;i<entries.length;i++){
-      var e = entries[i];
-      var id = '';
-      var el = e.getElementsByTagNameNS('*','videoId')[0] || e.querySelector('videoId');
-      if(el) id = el.textContent;
-      var link = '';
-      var le = e.querySelector('link');
-      if(le) link = le.getAttribute('href') || '';
-      out.push({
-        title: (e.querySelector('title')||{textContent:''}).textContent,
-        link: link,
-        id: id,
-        pubDate: (e.querySelector('published')||{textContent:''}).textContent
-      });
-    }
-    return out;
-  }
-  function vidId(it){
-    if(it.id) return it.id;
-    var m = /(?:v=|youtu\.be\/|\/shorts\/)([\w-]{11})/.exec(it.link || '');
-    return m ? m[1] : '';
-  }
-  function renderVideos(items){
-    var g = q('#videosGrid');
-    g.innerHTML = '';
-    items.slice(0,12).forEach(function(it){
-      var id = vidId(it);
-      var href = it.link || (id ? 'https://www.youtube.com/watch?v=' + id : '#');
-      var thumb = it.thumbnail || (id ? 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg' : '');
-      var card = document.createElement('a');
-      card.className = 'vcard'; card.href = href; card.target = '_blank'; card.rel = 'noopener';
-      var img = document.createElement('img');
-      img.className = 'thumb'; img.loading = 'lazy'; img.src = thumb; img.alt = '';
-      var body = document.createElement('div'); body.className = 'vbody';
-      var t = document.createElement('div'); t.className = 'vtitle'; t.textContent = it.title || 'Без названия';
-      var d = document.createElement('div'); d.className = 'vdate';
-      try{ d.textContent = it.pubDate ? new Date(it.pubDate).toLocaleDateString('ru-RU') : ''; }catch(e){}
-      body.appendChild(t); body.appendChild(d);
-      card.appendChild(img); card.appendChild(body);
-      g.appendChild(card);
-    });
-  }
-  function loadVideos(){
-    var feed = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-    var sources = [
-      {url:'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed), type:'json'},
-      {url:'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed), type:'raw'},
-      {url:'https://corsproxy.io/?' + encodeURIComponent(feed), type:'raw'}
-    ];
-    var i = 0;
-    function tryNext(){
-      if(i >= sources.length){
-        q('#videosGrid').innerHTML = '<div class="err">Лента временно недоступна. Видео можно посмотреть прямо на канале: <a href="https://www.youtube.com/@Deadly00wolf" target="_blank">youtube.com/@Deadly00wolf</a></div>';
+      const r = await fetch(s.url, {cache:'no-store'});
+      if(!r.ok) throw new Error(s.name + ' HTTP ' + r.status);
+      const items = s.xml ? parseXml(await r.text()) : s.parse(await r.json());
+      if(items && items.length){
+        renderGrid(items);
+        renderLatest(items[0]);
+        feedLoaded = true;
         return;
       }
-      var s = sources[i++];
-      fetch(s.url, {cache:'no-store'}).then(function(r){
-        if(!r.ok) throw new Error();
-        return s.type === 'json' ? r.json() : r.text();
-      }).then(function(data){
-        var items = [];
-        if(s.type === 'json'){ items = (data && data.items) || []; }
-        else { items = parseRss(data); }
-        if(items.length){ renderVideos(items); }
-        else { throw new Error('empty'); }
-      }).catch(tryNext);
-    }
-    tryNext();
+    }catch(e){ console.warn('источник', s.name, 'не сработал:', e); }
   }
-  loadVideos();
-})();
+  const msg = document.getElementById('feedMsg');
+  msg.classList.remove('hidden');
+  msg.innerHTML = 'Сервисы ленты временно недоступны. Видео можно посмотреть прямо на канале: <a href="https://www.youtube.com/@' + (liveConfig.channel.handle||'').replace('@','') + '" target="_blank">YouTube</a>.';
+  document.getElementById('latestMsg').textContent = 'Лента временно недоступна.';
+}
+
+function parseXml(text){
+  const doc = new DOMParser().parseFromString(text, 'text/xml');
+  return Array.from(doc.getElementsByTagName('entry')).map(e=>{
+    const link = Array.from(e.getElementsByTagName('link')).find(l=>l.getAttribute('rel')==='alternate');
+    return {
+      title: (e.getElementsByTagName('title')[0]||{}).textContent || '',
+      link: link ? link.getAttribute('href') : '',
+      date: (e.getElementsByTagName('published')[0]||{}).textContent || ''
+    };
+  });
+}
+
+function videoId(link){
+  const m = String(link||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+
+function renderGrid(items){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  items.slice(0,9).forEach(v=>{
+    const id = videoId(v.link);
+    if(!id) return;
+    const a = document.createElement('a');
+    a.href = v.link; a.target = '_blank'; a.rel = 'noopener';
+    a.className = 'vcard';
+    a.innerHTML = '<img loading="lazy" src="https://i.ytimg.com/vi/' + id + '/mqdefault.jpg" alt="">' +
+                  '<div class="t">' + escapeHtml(v.title) + '</div>' +
+                  '<div class="d">' + fmtDate(v.date) + '</div>';
+    grid.appendChild(a);
+  });
+}
+
+function renderLatest(v){
+  const id = videoId(v.link);
+  const frame = document.getElementById('latestFrame');
+  if(!id){ frame.innerHTML = ''; return; }
+  frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '" title="Свежее видео" allowfullscreen loading="lazy"></iframe>';
+  document.getElementById('latestCap').textContent = v.title || '';
+}
+
+function fmtDate(d){
+  if(!d) return '';
+  const t = new Date(d);
+  return isNaN(t) ? '' : t.toLocaleDateString('ru-RU', {day:'numeric', month:'long', year:'numeric'});
+}
+
+/* ---------- черновик: только по явному выбору ---------- */
+document.getElementById('draftShow').addEventListener('click', function(){
+  if(!draftConfig) return;
+  viewingDraft = !viewingDraft;
+  if(viewingDraft){
+    render(draftConfig);
+    this.textContent = 'Вернуться к опубликованной версии';
+    document.getElementById('draftText').textContent =
+      'Сейчас показан черновик (виден только вам). Видео всегда загружаются из опубликованной версии.';
+  }else{
+    render(liveConfig);
+    this.textContent = 'Показать черновик';
+    document.getElementById('draftText').textContent =
+      'В браузере есть локальный черновик — он не опубликован. Сайт показывает опубликованную версию.';
+  }
+});
+document.getElementById('draftDrop').addEventListener('click', ()=>{
+  localStorage.removeItem(DRAFT_KEY);
+  draftConfig = null;
+  document.getElementById('draftBar').classList.add('hidden');
+  render(liveConfig);
+});
+
+/* вкладки */
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(a.dataset.tab).classList.add('active');
+  });
+});
+
+init();
 </script>
 </body>
 </html>

@@ -2,326 +2,245 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Админ-панель</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Админ-панель — Deadly_wolf</title>
 <style>
-:root{--accent1:#c0392b;--accent2:#8e44ad;--bg:#0d0d12;--panel:#171720;--line:#2a2a38;--text:#e8e6ef;--muted:#9a97ab}
+:root{--accent:#8b5cf6;--accent2:#e11d48;--bg:#0b0d14;--panel:#141828;--line:#23283c;--text:#e8eaf2;--muted:#9aa3b5}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.wrap{max-width:860px;margin:0 auto;padding:24px 16px}
-h1{font-size:1.5rem;margin-bottom:4px}
-.sub{color:var(--muted);font-size:.9rem;margin-bottom:24px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
-label{display:block;font-size:.82rem;color:var(--muted);margin:14px 0 6px;letter-spacing:.3px}
-input[type=text],input[type=number],textarea{width:100%;background:#0f0f16;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:10px 12px;font-size:.95rem}
-input:focus,textarea:focus{outline:none;border-color:var(--accent2)}
-textarea{min-height:90px;resize:vertical;font-family:inherit}
-input[type=color]{width:52px;height:36px;border:1px solid var(--line);border-radius:8px;background:none;vertical-align:middle;cursor:pointer}
-.colorrow{display:flex;align-items:center;gap:10px}
-.colorval{font-size:.85rem;color:var(--muted)}
-button{cursor:pointer;border:none;border-radius:8px;padding:11px 18px;font-size:.92rem;font-weight:600;transition:.15s}
-.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;width:100%;margin-top:18px;padding:13px}
-.primary:hover{opacity:.9}
-.btn2{background:#26263a;color:var(--text)}
-.btn2:hover{background:#31314a}
-.btn-sm{background:#26263a;color:var(--muted);font-size:.8rem;padding:7px 12px}
-.btn-sm:hover{color:var(--text);background:#31314a}
-.danger{background:#3a1d24;color:#e0707f;font-size:.8rem;padding:6px 10px}
-.danger:hover{background:#4d2430}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.item{border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0;background:#12121b;position:relative}
-.item .del{position:absolute;top:8px;right:8px}
-.sec-title{display:flex;justify-content:space-between;align-items:center;margin:18px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.sec-title b{font-size:1rem}
-.shake{animation:sh .4s}
-@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 22px;border-radius:10px;font-size:.9rem;display:none;z-index:99}
-.toast.err{background:#c0392b}
-#lock{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px}
-.lockcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:36px 28px;max-width:380px;width:100%;text-align:center}
-.wolf{font-size:3rem}
-.lockcard input{margin:16px 0 0;text-align:center;letter-spacing:2px}
-.errmsg{color:#e0707f;font-size:.85rem;margin-top:12px;min-height:1.2em}
-.hint{color:var(--muted);font-size:.8rem;margin-top:16px}
-code{background:#0f0f16;padding:2px 6px;border-radius:5px;font-size:.85rem}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.5;min-height:100vh}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 60px}
+h1{font-size:1.6rem;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.status{border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:.95rem;display:none}
+.status.ok{display:block;background:#12301c;border:1px solid #2f7d4a;color:#8fe3ae}
+.status.warn{display:block;background:#33290f;border:1px solid #8a6d1f;color:#f3d98a}
+.status.err{display:block;background:#3a1216;border:1px solid #a33;color:#f1a3a3}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.bar button,.bar label{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:10px 18px;border-radius:10px;cursor:pointer;font-size:.95rem}
+.bar button.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;font-weight:600}
+.bar button:hover{border-color:var(--accent)}
+.fld{margin-bottom:16px}
+.fld label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px;font-family:monospace}
+.fld input[type=text],.fld input[type=number],.fld textarea{width:100%;background:#0e1120;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font:inherit}
+.fld textarea{min-height:110px;resize:vertical}
+.fld input[type=color]{width:52px;height:38px;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer;vertical-align:middle;margin-right:10px}
+.sec{border:1px dashed var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.sec h3{font-size:1rem;margin-bottom:12px;color:var(--accent)}
+.listitem{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.listitem input[type=text]{flex:1;background:#0e1120;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 12px;font:inherit}
+.del{background:none;border:1px solid #a33;color:#f1a3a3;border-radius:8px;padding:6px 12px;cursor:pointer}
+.add{background:none;border:1px dashed var(--muted);color:var(--muted);border-radius:10px;padding:8px 16px;cursor:pointer;margin-top:6px}
+.add:hover{border-color:var(--accent);color:var(--text)}
+.check{display:flex;align-items:center;gap:10px}
+.login{max-width:400px;margin:12vh auto;text-align:center}
+.login input{width:100%;margin:14px 0;background:#0e1120;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px 14px;font-size:1.05rem;text-align:center}
+.login .btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;border-radius:10px;padding:12px;font-size:1rem;font-weight:600;cursor:pointer}
+.login .err{color:#f1a3a3;font-size:.9rem;min-height:1.2em}
+.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.hidden{display:none}
 </style>
 </head>
 <body>
+<div class="login card" id="login-box">
+  <h1>Админ-панель <span>Deadly_wolf</span></h1>
+  <p class="sub">Введите пароль администратора</p>
+  <input type="password" id="pw" placeholder="Пароль" autocomplete="current-password">
+  <button class="btn" id="login-btn">Войти</button>
+  <div class="err" id="login-err"></div>
+</div>
 
-<div id="lock">
-  <div class="lockcard" id="lockcard">
-    <div class="wolf">&#128058;</div>
-    <h1>Вход в админ-панель</h1>
-    <p class="sub">Введите пароль администратора</p>
-    <input type="password" id="pw" placeholder="Пароль" autocomplete="current-password">
-    <div class="errmsg" id="errmsg"></div>
-    <button class="primary" onclick="tryLogin()">Войти</button>
-    <p class="hint">Пароль проверяется локально, хешем SHA-256</p>
+<div class="wrap hidden" id="panel">
+  <h1>Админ-панель <span>Deadly_wolf</span></h1>
+  <p class="sub">Правьте config.json, затем скачайте его и загрузите в репозиторий GitHub — изменения появятся на сайте.</p>
+  <div class="status" id="status"></div>
+  <div class="bar">
+    <button class="primary" id="dl">⬇ Скачать config.json</button>
+    <button id="save-draft">💾 Сохранить в браузере (черновик)</button>
+    <label for="file-inp">📂 Открыть файл…<input type="file" id="file-inp" accept=".json" hidden></label>
+    <button id="reload">↻ Перезагрузить с сайта</button>
+    <button id="add-field">+ Поле</button>
+    <button id="logout">Выйти</button>
   </div>
+  <form id="form" class="card" onsubmit="return false"></form>
 </div>
-
-<div id="panel" style="display:none">
-<div class="wrap">
-  <h1>&#128295; Админ-панель</h1>
-  <p class="sub">Редактирование config.json — подхватывает структуру файла прямо с сайта</p>
-  <div class="row" style="margin-bottom:18px">
-    <button class="btn-sm" onclick="reloadRemote()">&#8635; Перезагрузить с сайта</button>
-    <button class="btn-sm" onclick="loadLocal()">&#128193; Открыть файл с компьютера</button>
-    <input type="file" id="fileInput" accept=".json" style="display:none" onchange="onFile(e)">
-    <button class="btn-sm" onclick="exportCfg()">&#11015;&#65039; Скачать config.json</button>
-    <button class="btn-sm" onclick="saveLocal()">&#128190; Сохранить в браузере (предпросмотр)</button>
-    <button class="btn-sm" onclick="addFieldDialog()">&#10133; Добавить поле</button>
-    <button class="btn-sm danger" onclick="logout()">&#9211; Выйти</button>
-  </div>
-  <div id="editor"></div>
-</div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-'use strict';
-const PW_HASH = '1a3a1223ddbe0648214b4f7797ebf3441e57f28ca30f4b93464ff1d95dc8aee2';
-const SALT = 'Deadly00wolf:';
-let cfg = null;
+const SALT = "Deadly00wolf:";
+const PW_HASH = "1a3a1223ddbe0648214b4f7797ebf3441e57f28ca30f4b93464ff1d95dc8aee2";
+const AUTH_KEY = "dw_admin_auth";
+const DRAFT_KEY = "dw_config_draft_v1";
+let CFG = null;
 
 async function sha256(s){
-  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
-  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
 }
-
+function setStatus(msg, cls){
+  const el = document.getElementById("status");
+  el.className = "status " + cls; el.textContent = msg;
+}
+/* ---------- вход ---------- */
 async function tryLogin(){
-  const v = document.getElementById('pw').value;
-  const h = await sha256(SALT + v);
+  const h = await sha256(SALT + document.getElementById("pw").value);
   if (h === PW_HASH){
-    sessionStorage.setItem('dw_admin','1');
-    document.getElementById('lock').style.display='none';
-    document.getElementById('panel').style.display='block';
-    loadRemote();
+    sessionStorage.setItem(AUTH_KEY, "1");
+    showPanel();
   } else {
-    document.getElementById('errmsg').textContent = 'Неверный пароль. Попробуйте ещё раз.';
-    const c = document.getElementById('lockcard');
-    c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+    document.getElementById("login-err").textContent = "Неверный пароль";
+    const box = document.getElementById("login-box");
+    box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
   }
 }
-document.getElementById('pw').addEventListener('keydown', e=>{ if(e.key==='Enter') tryLogin(); });
+document.getElementById("login-btn").addEventListener("click", tryLogin);
+document.getElementById("pw").addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
+document.getElementById("logout").addEventListener("click", () => { sessionStorage.removeItem(AUTH_KEY); location.reload(); });
+if (sessionStorage.getItem(AUTH_KEY) === "1") showPanel();
 
-function logout(){ sessionStorage.removeItem('dw_admin'); location.reload(); }
-if (sessionStorage.getItem('dw_admin')==='1'){
-  document.getElementById('lock').style.display='none';
-  document.getElementById('panel').style.display='block';
-  loadRemote();
+function showPanel(){
+  document.getElementById("login-box").classList.add("hidden");
+  document.getElementById("panel").classList.remove("hidden");
+  init();
 }
-
-function toast(msg, ok=true){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast' + (ok?'':' err');
-  t.style.display = 'block';
-  clearTimeout(t._tm);
-  t._tm = setTimeout(()=>t.style.display='none', 2600);
-}
-
-const CONFIG_URLS = ['config.json?cb='+Date.now(), '../config.json?cb='+Date.now()];
-
-async function loadRemote(){
-  for (const u of CONFIG_URLS){
-    try{
-      const r = await fetch(u, {cache:'no-store'});
-      if (r.ok){ cfg = await r.json(); render(); toast('Конфиг загружен с сайта'); return; }
-    }catch(e){}
+/* ---------- построение формы по config.json ---------- */
+function setPath(path, value){
+  const parts = path.split(".");
+  let obj = CFG;
+  for (let i = 0; i < parts.length - 1; i++){
+    const k = parts[i];
+    if (Array.isArray(obj)) obj = obj[+k]; else obj = obj[k];
   }
-  cfg = null;
-  renderEmpty();
+  const last = parts[parts.length - 1];
+  if (Array.isArray(obj)) obj[+last] = value; else obj[last] = value;
 }
-
-function loadLocal(){ document.getElementById('fileInput').click(); }
-function onFile(e){
-  const f = e.target.files[0]; if(!f) return;
+function renderField(path, val, container){
+  const wrap = document.createElement("div");
+  wrap.className = "fld";
+  const lab = document.createElement("label");
+  lab.textContent = path;
+  wrap.appendChild(lab);
+  const isColor = typeof val === "string" && /^#[0-9a-fA-F]{6}$/.test(val);
+  if (typeof val === "boolean"){
+    const box = document.createElement("div"); box.className = "check";
+    const inp = document.createElement("input"); inp.type = "checkbox"; inp.checked = val;
+    inp.addEventListener("change", () => setPath(path, inp.checked));
+    box.appendChild(inp); box.appendChild(lab.cloneNode(true)); wrap.innerHTML = ""; wrap.appendChild(box);
+  } else if (isColor){
+    const row = document.createElement("div");
+    const inp = document.createElement("input"); inp.type = "color"; inp.value = val;
+    const txt = document.createElement("input"); txt.type = "text"; txt.value = val; txt.style.width = "110px";
+    inp.addEventListener("input", () => { txt.value = inp.value; setPath(path, inp.value); });
+    txt.addEventListener("input", () => { inp.value = txt.value; setPath(path, txt.value); });
+    row.appendChild(inp); row.appendChild(txt); wrap.appendChild(row);
+  } else if (typeof val === "number"){
+    const inp = document.createElement("input"); inp.type = "number"; inp.value = val;
+    inp.addEventListener("input", () => setPath(path, parseFloat(inp.value) || 0));
+    wrap.appendChild(inp);
+  } else if (typeof val === "string" && val.length > 80){
+    const inp = document.createElement("textarea"); inp.value = val;
+    inp.addEventListener("input", () => setPath(path, inp.value));
+    wrap.appendChild(inp);
+  } else if (typeof val === "string"){
+    const inp = document.createElement("input"); inp.type = "text"; inp.value = val;
+    inp.addEventListener("input", () => setPath(path, inp.value));
+    wrap.appendChild(inp);
+  } else if (Array.isArray(val)){
+    renderList(path, val, wrap);
+  } else if (val && typeof val === "object"){
+    const sec = document.createElement("div"); sec.className = "sec";
+    const h = document.createElement("h3"); h.textContent = path; sec.appendChild(h);
+    for (const [k, v] of Object.entries(val)) renderField(path + "." + k, v, sec);
+    wrap.appendChild(sec);
+  }
+  container.appendChild(wrap);
+}
+function renderList(path, arr, container){
+  const box = document.createElement("div");
+  const itemsAreObjects = arr.length && typeof arr[0] === "object";
+  function draw(){
+    box.innerHTML = "";
+    arr.forEach((item, i) => {
+      if (item && typeof item === "object"){
+        const sec = document.createElement("div"); sec.className = "sec";
+        for (const [k, v] of Object.entries(item)) renderField(path + "." + i + "." + k, v, sec);
+        const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "✕ удалить";
+        del.addEventListener("click", () => { arr.splice(i, 1); draw(); });
+        sec.appendChild(del); box.appendChild(sec);
+      } else {
+        const row = document.createElement("div"); row.className = "listitem";
+        const inp = document.createElement("input"); inp.type = "text"; inp.value = item;
+        inp.addEventListener("input", () => { arr[i] = inp.value; });
+        const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "✕";
+        del.addEventListener("click", () => { arr.splice(i, 1); draw(); });
+        row.appendChild(inp); row.appendChild(del); box.appendChild(row);
+      }
+    });
+    const add = document.createElement("button"); add.type = "button"; add.className = "add"; add.textContent = "+ добавить элемент";
+    add.addEventListener("click", () => { arr.push(itemsAreObjects ? { title: "", url: "" } : ""); draw(); });
+    box.appendChild(add);
+  }
+  draw();
+  container.appendChild(box);
+}
+function renderForm(){
+  const f = document.getElementById("form");
+  f.innerHTML = "";
+  for (const [k, v] of Object.entries(CFG)) renderField(k, v, f);
+}
+/* ---------- добавление нового поля ---------- */
+document.getElementById("add-field").addEventListener("click", () => {
+  const name = prompt("Имя нового поля (по-английски, например mySetting):");
+  if (!name || !/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) { if (name !== null) alert("Только латинские буквы, цифры и подчёркивание."); return; }
+  const type = prompt("Тип поля:\n1 — текст\n2 — длинный текст\n3 — число\n4 — цвет\n5 — список ссылок (заголовок + адрес)");
+  if (!type) return;
+  const val = { "1": "", "2": "", "3": 0, "4": "#8b5cf6", "5": [{ title: "", url: "" }] }[type];
+  if (val === undefined) return;
+  CFG[name] = val; renderForm();
+});
+/* ---------- загрузка конфига ---------- */
+function ingest(obj, msg, cls){
+  try { CFG = typeof obj === "string" ? JSON.parse(obj) : obj; }
+  catch(e){ setStatus("Ошибка: файл не похож на JSON — " + e.message, "err"); return; }
+  renderForm(); setStatus(msg, cls);
+}
+async function loadFromSite(){
+  try {
+    const r = await fetch("config.json", { cache: "no-store" });
+    if (r.ok){ ingest(await r.json(), "Загружен config.json с сайта — вы видите реальное содержимое репозитория.", "ok"); return; }
+    setStatus("config.json не найден рядом с admin.html", "warn");
+  } catch(e){
+    setStatus("Не удалось прочитать config.json. Похоже, вы открыли admin.html как локальный файл двойным кликом — браузер в этом режиме блокирует чтение файлов. Откройте админку по адресу GitHub Pages (…github.io/ваш-репозиторий/admin.html) или загрузите config.json кнопкой «Открыть файл…».", "warn");
+  }
+  if (!CFG) CFG = {};
+}
+document.getElementById("reload").addEventListener("click", loadFromSite);
+document.getElementById("file-inp").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
   const rd = new FileReader();
-  rd.onload = () => {
-    try{ cfg = JSON.parse(rd.result); render(); toast('Конфиг загружен с файла'); }
-    catch(err){ toast('Ошибка чтения JSON: '+err.message, false); }
-  };
+  rd.onload = () => ingest(rd.result, "Загружен файл " + f.name + " с компьютера.", "ok");
   rd.readAsText(f);
-}
-
-function reloadRemote(){ loadRemote(); }
-
-function renderEmpty(){
-  const ed = document.getElementById('editor');
-  ed.innerHTML = '<div class="card"><h1 style="font-size:1.1rem">Конфиг не найден</h1>'+
-    '<p class="sub" style="margin-top:8px">Не удалось загрузить config.json с сайта (возможно, вы открыли файл локально без сервера). '+
-    'Нажмите «Открыть файл с компьютера» и выберите ваш config.json — либо начните пустой конфиг.</p>'+
-    '<div class="row"><button class="btn2" onclick="cfg={}; render();">Начать пустой</button></div></div>';
-}
-
-/* ---------- построение формы ---------- */
-function esc(s){ const d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
-
-function fieldEditor(key, val, path, isItem=false){
-  const type = typeof val;
-  if (type === 'string' || type === 'number'){
-    const t = type==='number' ? 'number' : 'text';
-    const isLong = type==='string' && val.length > 60;
-    let inner;
-    if (isLong){
-      inner = '<textarea data-path="'+path+'">'+esc(val)+'</textarea>';
-    } else if (/^#[0-9a-fA-F]{6}$/.test(String(val))){
-      inner = '<div class="colorrow"><input type="color" value="'+esc(val)+'" data-path="'+path+'" data-color="1">'+
-              '<input type="text" value="'+esc(val)+'" data-path="'+path+'" style="width:120px" class="colortext">'+
-              '<span class="colorval">цвет</span></div>';
-    } else {
-      inner = '<input type="'+t+'" value="'+esc(val)+'" data-path="'+path+'">';
-    }
-    return (isItem?'':'<label>'+esc(key)+'</label>') + inner;
-  }
-  if (type === 'boolean'){
-    return (isItem?'':'<label>'+esc(key)+'</label>') +
-      '<select data-path="'+path+'" data-bool="1" style="width:100%;background:#0f0f16;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:10px">'+
-      '<option value="true"'+(val?' selected':'')+'>да</option><option value="false"'+(!val?' selected':'')+'>нет</option></select>';
-  }
-  if (Array.isArray(val)){
-    let h = '';
-    if (!isItem) h += '<div class="sec-title"><b>'+esc(key)+'</b></div>';
-    h += '<div class="arrwrap" data-path="'+path+'">';
-    val.forEach((it,i)=>{ h += '<div class="item"><button class="btn-sm danger del" data-path="'+path+'" data-idx="'+i+'" onclick="delArrItem(this)">&#10005;</button>'+fieldEditor('элемент', it, path+'.'+i, true)+'</div>'; });
-    h += '</div><div class="row"><button class="btn-sm" data-path="'+path+'" onclick="addArrItem(this)">+ добавить элемент</button></div>';
-    return h;
-  }
-  if (type === 'object'){
-    let h = '';
-    if (!isItem) h += '<div class="card"><div class="sec-title"><b>'+esc(key)+'</b></div>';
-    else h += '<div class="sec-title"><b>Объект</b></div>';
-    for (const k in val) h += fieldEditor(k, val[k], path+'.'+k);
-    h += isItem ? '</div>' : '</div>';
-    return h;
-  }
-  return '';
-}
-
-function render(){
-  const ed = document.getElementById('editor');
-  let h = '<div class="card">';
-  for (const k in cfg){
-    if (typeof cfg[k]==='object' && cfg[k]!==null && !Array.isArray(cfg[k])) continue;
-  }
-  // сначала простые поля верхнего уровня, потом объекты и массивы
-  const keys = Object.keys(cfg);
-  for (const k of keys){
-    const t = typeof cfg[k];
-    if (t==='string'||t==='number'||t==='boolean') h += fieldEditor(k, cfg[k], k);
-  }
-  for (const k of keys){
-    if (Array.isArray(cfg[k])) h += fieldEditor(k, cfg[k], k);
-  }
-  for (const k of keys){
-    if (typeof cfg[k]==='object' && cfg[k]!==null && !Array.isArray(cfg[k])) h += fieldEditor(k, cfg[k], k);
-  }
-  h += '</div>';
-  ed.innerHTML = h;
-  bindColorSync();
-  document.querySelectorAll('[data-path]').forEach(el=>{
-    el.addEventListener('input', onEdit);
-    el.addEventListener('change', onEdit);
-  });
-}
-
-function bindColorSync(){
-  document.querySelectorAll('input[type=color][data-color]').forEach(c=>{
-    const txt = c.parentElement.querySelector('.colortext');
-    c.addEventListener('input', ()=>{ txt.value = c.value; });
-    txt.addEventListener('input', ()=>{ c.value = txt.value; });
-  });
-}
-
-function getByPath(path){
-  const parts = path.split('.');
-  let o = cfg;
-  for (const p of parts){
-    const i = parseInt(p,10);
-    o = isNaN(i) ? o[p] : o[Number(p)];
-    if (o === undefined) return undefined;
-  }
-  return o;
-}
-function setByPath(path, val){
-  const parts = path.split('.');
-  let o = cfg;
-  for (let j=0;j<parts.length-1;j++){
-    const i = parseInt(parts[j],10);
-    o = isNaN(i) ? o[parts[j]] : o[Number(parts[j])];
-  }
-  const last = parts[parts.length-1];
-  const i = parseInt(last,10);
-  if (isNaN(i)) o[last] = val; else o[Number(last)] = val;
-}
-
-function onEdit(e){
-  const el = e.target;
-  const path = el.dataset.path;
-  if (!path) return;
-  let v;
-  if (el.dataset.bool !== undefined) v = el.value === 'true';
-  else if (el.type === 'number') v = parseFloat(el.value) || 0;
-  else if (el.type === 'color') v = el.value;
-  else v = el.value;
-  setByPath(path, v);
-}
-
-function addArrItem(btn){
-  const path = btn.dataset.path;
-  const arr = getByPath(path);
-  let sample = '';
-  if (arr.length && typeof arr[0]==='object') sample = JSON.parse(JSON.stringify(arr[0]));
-  arr.push(sample);
-  render();
-  toast('Элемент добавлен');
-}
-function delArrItem(btn){
-  const arr = getByPath(btn.dataset.path);
-  arr.splice(Number(btn.dataset.idx),1);
-  render();
-  toast('Элемент удалён');
-}
-
-function addFieldDialog(){
-  const name = prompt('Имя нового поля (по-английски, например "youtube")');
-  if (!name) return;
-  const kind = prompt('Тип поля:\n1 — текст\n2 — число\n3 — список\n4 — раздел (объект)', '1');
-  let v;
-  if (kind==='2') v = 0;
-  else if (kind==='3') v = [];
-  else if (kind==='4') v = {};
-  else v = '';
-  cfg[name] = v;
-  render();
-  toast('Поле "'+name+'" добавлено');
-}
-
+});
 /* ---------- сохранение ---------- */
-function download(name, content, mime){
-  const blob = new Blob([content], {type: mime});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 300);
+function download(){
+  const blob = new Blob([JSON.stringify(CFG, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "config.json"; a.click();
+  URL.revokeObjectURL(a.href);
+  setStatus("Файл config.json скачан. Загрузите его в репозиторий: Add file → Upload files → Commit changes.", "ok");
 }
-
-function exportCfg(){
-  if (!cfg) return toast('Сначала загрузите конфиг', false);
-  download('config.json', JSON.stringify(cfg, null, 2), 'application/json');
-  toast('Файл скачан — загрузите его в репозиторий');
-}
-
-function saveLocal(){
-  if (!cfg) return toast('Сначала загрузите конфиг', false);
-  try{
-    localStorage.setItem('dw_cfg_preview', JSON.stringify(cfg));
-    toast('Сохранено в этом браузере (для предпросмотра)');
-  }catch(e){ toast('Не удалось сохранить: '+e.message, false); }
+document.getElementById("dl").addEventListener("click", download);
+document.getElementById("save-draft").addEventListener("click", () => {
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(CFG));
+  setStatus("Черновик сохранён в этом браузере: откройте index.html — он уже показывает ваши правки. Чтобы опубликовать для всех — «Скачать config.json» и загрузить в репозиторий.", "ok");
+});
+async function init(){
+  await loadFromSite();
+  const draft = localStorage.getItem(DRAFT_KEY);
+  if (draft){
+    try { CFG = JSON.parse(draft); renderForm(); setStatus("Загружен ваш черновик из прошлого раза (кнопка «Перезагрузить с сайта» вернёт опубликованную версию).", "warn"); } catch(e){}
+  }
 }
 </script>
 </body>

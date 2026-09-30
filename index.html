@@ -1,371 +1,303 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deadly_wolf — канал</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deadly_wolf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --accent:#660000;
-    --accent2:#320b35;
-    --bg:#0b0b10;
-    --card:#15151d;
-    --text:#e8e6ef;
-    --muted:#9a97a8;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-    min-height:100vh;
-  }
-  /* ---------- шапка ---------- */
-  header{
-    background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
-    padding:36px 20px 26px;
-    text-align:center;
-  }
-  .avatar{
-    width:88px;height:88px;border-radius:50%;
-    border:3px solid rgba(255,255,255,.35);
-    margin:0 auto 12px;display:block;
-    object-fit:cover;background:#222;
-  }
-  header h1{
-    font-size:clamp(24px,5vw,38px);
-    letter-spacing:3px;text-transform:uppercase;
-    text-shadow:0 2px 12px rgba(0,0,0,.5);
-  }
-  header .tagline{color:rgba(255,255,255,.8);margin-top:6px;font-size:15px}
-  .sub{color:rgba(255,255,255,.65);margin-top:4px;font-size:13px}
-  /* ---------- навигация ---------- */
-  nav{
-    display:flex;justify-content:center;gap:6px;flex-wrap:wrap;
-    background:rgba(0,0,0,.35);
-    padding:10px 12px;
-    position:sticky;top:0;z-index:50;
-    backdrop-filter:blur(6px);
-  }
-  nav button{
-    background:transparent;color:var(--text);
-    border:1px solid rgba(255,255,255,.25);
-    border-radius:20px;padding:8px 18px;
-    font-size:14px;cursor:pointer;transition:.2s;
-  }
-  nav button:hover{border-color:var(--accent)}
-  nav button.active{
-    background:var(--accent);border-color:var(--accent);color:#fff;
-  }
-  /* ---------- контент ---------- */
-  main{max-width:960px;margin:0 auto;padding:26px 18px 90px}
-  section{display:none}
-  section.active{display:block}
-  h2{font-size:20px;margin-bottom:16px;color:var(--text)}
-  .card{
-    background:var(--card);border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;padding:18px;margin-bottom:16px;
-  }
-  /* hero */
-  .hero{text-align:center;padding:34px 18px}
-  .hero h2{font-size:clamp(20px,4vw,30px)}
-  .hero p{color:var(--muted);margin:10px auto 20px;max-width:560px}
-  .btn{
-    display:inline-block;background:var(--accent);color:#fff;
-    padding:11px 26px;border-radius:24px;text-decoration:none;
-    font-size:15px;transition:.2s;border:none;cursor:pointer;
-  }
-  .btn:hover{filter:brightness(1.25)}
-  /* видео */
-  .video-main{aspect-ratio:16/9;width:100%;border:none;border-radius:14px;background:#000}
-  .grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-    gap:16px;margin-top:18px;
-  }
-  .vcard{
-    background:var(--card);border:1px solid rgba(255,255,255,.08);
-    border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s;
-    text-decoration:none;color:var(--text);display:block;
-  }
-  .vcard:hover{transform:translateY(-3px);border-color:var(--accent)}
-  .vcard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}
-  .vcard .vt{padding:10px 12px;font-size:14px;line-height:1.35}
-  .vcard .vd{padding:0 12px 12px;font-size:12px;color:var(--muted)}
-  /* about */
-  .about p{line-height:1.65;color:var(--text);white-space:pre-line}
-  /* контакты */
-  .link-btn{
-    display:flex;align-items:center;gap:12px;
-    background:var(--card);border:1px solid rgba(255,255,255,.1);
-    border-radius:12px;padding:14px 18px;margin-bottom:12px;
-    color:var(--text);text-decoration:none;transition:.2s;
-  }
-  .link-btn:hover{border-color:var(--accent);transform:translateX(4px)}
-  .link-btn .ic{font-size:20px}
-  /* сообщения */
-  .note{color:var(--muted);font-size:14px;padding:18px;text-align:center}
-  .draft-banner{
-    background:#4a3b00;color:#ffe9a8;
-    padding:10px 16px;font-size:13.5px;
-    display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;
-  }
-  .draft-banner button{
-    background:#ffe9a8;color:#4a3b00;border:none;border-radius:14px;
-    padding:5px 14px;font-size:13px;cursor:pointer;font-weight:600;
-  }
-  /* ---------- кнопка админки: ОДНА, снизу по центру ---------- */
-  #adminBtn{
-    position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
-    background:rgba(20,20,28,.85);color:var(--muted);
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:18px;padding:6px 16px;font-size:12.5px;
-    cursor:pointer;z-index:90;backdrop-filter:blur(4px);transition:.2s;
-  }
-  #adminBtn:hover{color:var(--text);border-color:var(--accent)}
-  footer{
-    text-align:center;color:var(--muted);font-size:12.5px;
-    padding:20px 0 70px;
-  }
-  footer a{color:var(--muted)}
-  @media(max-width:520px){
-    nav button{padding:7px 12px;font-size:13px}
-  }
+:root{--accent:#660000;--accent2:#320b35;--bg:#0a0a0f;--panel:#14121c;--text:#eceaf3;--muted:#9a97ab;--border:#2b2438}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:19px;line-height:1.55;min-height:100vh;position:relative;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+ background:radial-gradient(1100px 560px at 15% -10%,rgba(102,0,0,.40),transparent 62%),
+            radial-gradient(900px 520px at 92% 2%,rgba(50,11,53,.55),transparent 62%)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.22;
+ background-image:linear-gradient(rgba(102,0,0,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(102,0,0,.25) 1px,transparent 1px);
+ background-size:46px 46px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+header{padding:30px 0 14px;display:flex;align-items:center;gap:16px}
+#avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);box-shadow:0 0 20px rgba(102,0,0,.55)}
+.ch h1{font-family:'Orbitron',sans-serif;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#fff;text-shadow:0 0 18px rgba(102,0,0,.8)}
+.ch p{color:var(--muted);font-size:16px;letter-spacing:.5px}
+nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.tab{background:none;border:none;color:var(--muted);font-family:inherit;font-weight:700;font-size:17px;letter-spacing:1.5px;text-transform:uppercase;padding:12px 16px;cursor:pointer;border-bottom:3px solid transparent;transition:.2s}
+.tab:hover{color:#fff}
+.tab.active{color:#fff;border-color:var(--accent);text-shadow:0 0 10px rgba(102,0,0,.9)}
+section{display:none;padding:36px 0 60px}
+section.active{display:block}
+.hero{position:relative;padding:40px 32px;border:1px solid var(--border);
+ background:linear-gradient(120deg,rgba(102,0,0,.28),rgba(50,11,53,.55));
+ clip-path:polygon(0 0,calc(100% - 30px) 0,100% 30px,100% 100%,30px 100%,0 calc(100% - 30px))}
+.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--accent),var(--accent2));box-shadow:0 0 14px var(--accent)}
+.hero h2{font-family:'Orbitron',sans-serif;font-size:clamp(30px,5.4vw,46px);text-transform:uppercase;letter-spacing:3px;
+ background:linear-gradient(92deg,#fff 30%,#ff6a6a);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 0 24px rgba(102,0,0,.65))}
+.hero p{margin-top:10px;color:var(--muted);font-size:20px;max-width:640px}
+.btn{display:inline-block;margin-top:22px;padding:12px 26px;background:var(--accent);color:#fff;border:none;cursor:pointer;
+ font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
+ clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
+ box-shadow:0 0 22px rgba(102,0,0,.55);transition:.2s}
+.btn:hover{filter:brightness(1.25);box-shadow:0 0 34px rgba(102,0,0,.85)}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:22px;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;color:#fff}
+.sec-title span{color:#ff6a6a;text-shadow:0 0 12px rgba(102,0,0,.9)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.vcard{background:var(--panel);border:1px solid var(--border);text-decoration:none;color:var(--text);display:block;
+ transition:.2s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.vcard:hover{border-color:var(--accent);box-shadow:0 0 24px rgba(102,0,0,.4);transform:translateY(-3px)}
+.vcard .thumb{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;background:#1c1926}
+.vcard .vbody{padding:12px 14px 16px}
+.vcard .vtitle{font-weight:700;font-size:18px;line-height:1.3}
+.vcard .vdate{color:var(--muted);font-size:15px;margin-top:4px}
+.err{padding:26px;border:1px dashed var(--accent);color:var(--muted);background:rgba(102,0,0,.08)}
+.err a{color:#ff6a6a}
+.about{background:var(--panel);border:1px solid var(--border);padding:26px 28px;font-size:20px;
+ border-left:4px solid var(--accent);box-shadow:0 0 24px rgba(50,11,53,.5)}
+.links{display:flex;flex-wrap:wrap;gap:14px}
+.lnk{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border:1px solid var(--border);background:var(--panel);
+ color:var(--text);text-decoration:none;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:.2s;
+ clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.lnk:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(102,0,0,.5)}
+.lnk svg{width:22px;height:22px;fill:currentColor}
+.lnk .ltr{width:26px;height:26px;border:1px solid var(--accent);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#ff6a6a}
+footer{border-top:1px solid var(--border);padding:20px 0 90px;color:var(--muted);font-size:16px;text-align:center}
+footer a{color:#ff6a6a;text-decoration:none}
+.banner{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 20px;
+ background:#4a3b00;color:#ffe9a8;font-size:16px;border-bottom:1px solid #7a5f00}
+.banner button{background:#ffe9a8;color:#332800;border:none;padding:5px 14px;cursor:pointer;font-family:inherit;font-weight:700}
+#adminBtn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;display:inline-flex;align-items:center;gap:8px;
+ padding:10px 22px;background:rgba(20,18,28,.92);border:1px solid var(--accent);color:#fff;text-decoration:none;font-weight:700;
+ letter-spacing:1px;font-size:15px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+ box-shadow:0 0 18px rgba(102,0,0,.5)}
+#adminBtn:hover{filter:brightness(1.3)}
+@media(max-width:600px){.hero{padding:28px 20px}.ch h1{font-size:19px}}
 </style>
 </head>
 <body>
-
-<div id="draftBanner" class="draft-banner" style="display:none">
-  <span>Сейчас показан <b>черновик из админки</b>, а не опубликованный сайт</span>
-  <button id="clearDraft">Убрать черновик</button>
+<div id="draftBanner" class="banner" hidden>
+  <span>Показан черновик из браузера — то, что видят посетители сайта, может отличаться.</span>
+  <button id="clearDraftBtn" type="button">Убрать черновик</button>
 </div>
 
-<header>
-  <img class="avatar" id="avatar" alt="аватар канала">
-  <h1 id="chName">Deadly_wolf</h1>
-  <div class="tagline" id="chTagline"></div>
-  <div class="sub" id="chHandle"></div>
-</header>
-
-<nav>
-  <button data-tab="home" class="active">Главная</button>
-  <button data-tab="videos">Видео</button>
-  <button data-tab="about">О канале</button>
-  <button data-tab="contacts">Контакты</button>
-</nav>
-
-<main>
-  <section id="tab-home" class="active">
-    <div class="card hero">
-      <h2 id="heroTitle"></h2>
-      <p id="heroSubtitle"></p>
-      <a class="btn" id="heroCta" href="#videos">Смотреть последние видео</a>
+<div class="wrap">
+  <header>
+    <img id="avatar" src="" alt="Аватар канала">
+    <div class="ch">
+      <h1 id="chName">Deadly_wolf</h1>
+      <p id="chTagline"></p>
     </div>
-    <h2>Последнее видео</h2>
-    <div id="latestWrap"></div>
-    <div id="homeGrid" class="grid"></div>
+  </header>
+  <nav>
+    <button class="tab active" data-tab="home">Главная</button>
+    <button class="tab" data-tab="videos">Видео</button>
+    <button class="tab" data-tab="about">О канале</button>
+    <button class="tab" data-tab="contacts">Контакты</button>
+  </nav>
+
+  <section id="tab-home" class="active">
+    <div class="hero">
+      <h2 id="heroTitle">DEADLY_WOLF</h2>
+      <p id="heroSub"></p>
+      <button class="btn" id="heroCta" type="button">Смотреть последние видео</button>
+    </div>
   </section>
 
   <section id="tab-videos">
-    <h2>Видео канала</h2>
-    <div id="videosGrid" class="grid"></div>
-    <div id="videosNote" class="note"></div>
+    <h3 class="sec-title"><span>//</span> Последние видео</h3>
+    <div class="vgrid" id="videosGrid"><div class="err">Загружаю ленту…</div></div>
   </section>
 
   <section id="tab-about">
-    <h2>О канале</h2>
-    <div class="card about"><p id="aboutText"></p></div>
+    <h3 class="sec-title"><span>//</span> О канале</h3>
+    <div class="about" id="aboutText"></div>
   </section>
 
   <section id="tab-contacts">
-    <h2>Контакты и ссылки</h2>
-    <div id="linksWrap"></div>
-    <div id="linksNote" class="note" style="display:none">Ссылки появятся, когда админ добавит их в config.json</div>
+    <h3 class="sec-title"><span>//</span> Контакты</h3>
+    <div class="links" id="linksBox"></div>
   </section>
-</main>
 
-<button id="adminBtn" title="Админ-панель">⚙ Админ-панель</button>
+  <footer>
+    © <span id="chName2"></span> · <a href="admin.html">админ-панель</a>
+  </footer>
+</div>
 
-<footer>
-  <span id="footerName">Deadly_wolf</span> · сайт-визитка канала
-</footer>
+<a id="adminBtn" href="admin.html">⚙ Админ-панель</a>
 
 <script>
-const DRAFT_KEY='dw_config_draft';
-const CHANNEL_ID_FALLBACK='UCN3_YEiDPE_tUzS0vkQoYYg';
-let CONFIG=null;
+(function(){
+  var CHANNEL_ID = 'UCN3_YEiDPE_tUzS0vkQoYYg';
+  var DRAFT_KEY = 'dw_draft_config';
+  var q = function(s){return document.querySelector(s)};
+  var FALLBACK = {"channel":{"name":"Deadly_wolf","handle":"@Deadly00wolf","channelId":"UCN3_YEiDPE_tUzS0vkQoYYg","url":"https://www.youtube.com/@Deadly00wolf","avatar":"https://unavatar.io/youtube/Deadly00wolf","tagline":"Прохождения, геймплей и просто играем"},"hero":{"title":"DEADLY_WOLF","subtitle":"Игровые прохождения без пафоса: стреляю, застреваю и помираю.","cta":"Смотреть последние видео"},"about":"Привет! Это канал Deadly_wolf.","links":[{"type":"youtube","title":"YouTube","url":"https://www.youtube.com/@Deadly00wolf"}],"theme":{"accent":"#660000","accent2":"#320b35"}};
 
-/* ---------- загрузка конфига ---------- */
-function applyConfig(c){
-  CONFIG=c;
-  const ch=c.channel||{},th=c.theme||{};
-  document.documentElement.style.setProperty('--accent',th.accent||'#660000');
-  document.documentElement.style.setProperty('--accent2',th.accent2||'#320b35');
-  document.title=(ch.name||'Канал')+' — сайт';
-  document.getElementById('chName').textContent=ch.name||'Канал';
-  document.getElementById('chTagline').textContent=ch.tagline||'';
-  document.getElementById('chHandle').textContent=ch.handle||'';
-  document.getElementById('footerName').textContent=ch.name||'Канал';
-  document.getElementById('avatar').src=ch.avatar||('https://unavatar.io/youtube/'+(ch.handle||'').replace('@',''));
-  const h=c.hero||{};
-  document.getElementById('heroTitle').textContent=h.title||ch.name||'';
-  document.getElementById('heroSubtitle').textContent=h.subtitle||'';
-  document.getElementById('heroCta').textContent=h.cta||'Смотреть видео';
-  document.getElementById('aboutText').textContent=c.about||'';
-  /* ссылки */
-  const lw=document.getElementById('linksWrap');
-  lw.innerHTML='';
-  const icons={youtube:'▶',telegram:'✈',vk:'В',discord:'🎮',twitch:'🎮',steam:'🎮',tiktok:'♪',instagram:'📷',default:'🔗'};
-  (c.links||[]).forEach(l=>{
-    const a=document.createElement('a');
-    a.className='link-btn';a.href=l.url;a.target='_blank';a.rel='noopener';
-    a.innerHTML='<span class="ic">'+(icons[(l.type||'').toLowerCase()]||icons.default)+'</span><span>'+(l.title||l.url)+'</span>';
-    lw.appendChild(a);
-  });
-  document.getElementById('linksNote').style.display=(c.links&&c.links.length)?'none':'block';
-}
-
-function loadConfig(){
-  const draft=localStorage.getItem(DRAFT_KEY);
-  if(draft){
-    try{
-      applyConfig(JSON.parse(draft));
-      document.getElementById('draftBanner').style.display='flex';
-    }catch(e){localStorage.removeItem(DRAFT_KEY);}
-  }
-  fetch('config.json')
-    .then(r=>{if(!r.ok)throw 0;return r.json()})
-    .then(published=>{
-      if(!draft)applyConfig(published);
-      else{
-        /* черновик показан, но сравним с опубликованным */
-        if(JSON.stringify(published)===draft)clearDraft();
-      }
-    })
-    .catch(()=>{ if(!CONFIG)applyConfig(defaultConfig()); });
-}
-function defaultConfig(){
-  return {
-    channel:{name:'Deadly_wolf',handle:'@Deadly00wolf',channelId:CHANNEL_ID_FALLBACK,
-      url:'https://www.youtube.com/@Deadly00wolf',
-      avatar:'https://unavatar.io/youtube/Deadly00wolf',
-      tagline:'Прохождения, геймплей и просто играем'},
-    hero:{title:'DEADLY_WOLF',subtitle:'Игровые прохождения без пафоса: стреляю, застреваю и помираю.',cta:'Смотреть последние видео'},
-    about:'Привет! Это канал Deadly_wolf.',
-    links:[{type:'youtube',title:'YouTube',url:'https://www.youtube.com/@Deadly00wolf'}],
-    theme:{accent:'#660000',accent2:'#320b35'}
+  var ICONS = {
+    youtube:'<svg viewBox="0 0 24 24"><path d="M23 7.5c-.3-1.2-1.2-2.1-2.4-2.4C18.6 4.5 12 4.5 12 4.5s-6.6 0-8.6.6C2.2 5.4 1.3 6.3 1 7.5.4 9.5.4 12 .4 12s0 2.5.6 4.5c.3 1.2 1.2 2.1 2.4 2.4 2 .6 8.6.6 8.6.6s6.6 0 8.6-.6c1.2-.3 2.1-1.2 2.4-2.4.6-2 .6-4.5.6-4.5s0-2.5-.6-4.5z"/><path d="M9.8 15.1V8.9l5.6 3.1-5.6 3.1z" fill="#0a0a0f"/></svg>',
+    telegram:'<svg viewBox="0 0 24 24"><path d="M21.9 4.6 2.9 12.1c-1 .4-1 1.8.1 2.1l4.8 1.5 1.8 5.5c.3.9 1.4 1.1 2 .4l2.7-2.9 4.9 3.6c.8.6 2 .2 2.2-.9l3-14.9c.2-1.1-.9-2-2.5-1.9zM9.5 15.4l8.6-6.6c.3-.2.1-.5-.2-.3l-9.5 6-3.5-1.2c-.4-.1-.4-.4 0-.6l12.7-4.9c.4-.2.7.1.5.5l-3.1 10.9c-.2.7-.7.8-1.2.3l-3-2.6-1.7 1.6c-.3.3-.6.2-.7-.2l-.9-2.5z" transform="translate(0,0)"/></svg>',
+    discord:'<svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.2a18 18 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.2 13.6.3 18a20 20 0 0 0 6 3l1.3-2.1c-.7-.3-1.4-.6-2-1l.5-.4a14.2 14.2 0 0 0 12 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.9 19.9 0 0 0 6-3c.6-5.2-.8-9.7-3.6-13.6zM8.7 15.3c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm6.6 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>',
+    twitch:'<svg viewBox="0 0 24 24"><path d="M4 2 2 6v14h5v3h3l3-3h4l6-6V2H4zm16 11-3 3h-5l-3 3v-3H5V4h15v9zM14 7h2v5h-2V7zM9 7h2v5H9V7z"/></svg>',
+    steam:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-9.9 8.7l5.3 2.2c.5-.3 1.1-.5 1.7-.5l2.4-3.5v-.1c0-2.1 1.7-3.8 3.8-3.8s3.8 1.7 3.8 3.8-1.7 3.8-3.8 3.8h-.1l-3.4 2.4v.3c0 1.6-1.3 2.9-2.9 2.9-1.4 0-2.5-1-2.8-2.3l-3.8-1.6A10 10 0 1 0 12 2zm-6.1 13.8 1.4.6a2.2 2.2 0 1 0 1.2-2.9l1.5.6a1.6 1.6 0 1 1-1.2 3l-2.9-1.3zm10.5-3.7c-1.4 0-2.5-1.1-2.5-2.5S11 7.3 12.4 7.3s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zm0-.6c1 0 1.9-.9 1.9-1.9s-.9-1.9-1.9-1.9-1.9.9-1.9 1.9.9 1.9 1.9 1.9z"/></svg>',
+    tiktok:'<svg viewBox="0 0 24 24"><path d="M16.6 5.8c-1-.7-1.7-1.9-1.7-3.3h-3v12.4c0 1.5-1.2 2.7-2.7 2.7S6.5 16.4 6.5 14.9s1.2-2.7 2.7-2.7c.3 0 .6 0 .8.1V9.2c-.3 0-.5-.1-.8-.1-3.1 0-5.7 2.6-5.7 5.8s2.6 5.8 5.7 5.8 5.7-2.6 5.7-5.8V9.6c1.2.9 2.7 1.4 4.3 1.4V8c-.9 0-1.9-.3-2.6-1z"/></svg>',
+    vk:null
   };
-}
-function clearDraft(){
-  localStorage.removeItem(DRAFT_KEY);
-  document.getElementById('draftBanner').style.display='none';
-  location.reload();
-}
-document.getElementById('clearDraft').addEventListener('click',clearDraft);
 
-/* ---------- вкладки ---------- */
-document.querySelectorAll('nav button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('main section').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    document.getElementById('tab-'+b.dataset.tab).classList.add('active');
-    if(location.hash!=='#'+b.dataset.tab)history.replaceState(null,'','#'+b.dataset.tab);
-  });
-});
-const h=(location.hash||'#home').slice(1);
-if(document.getElementById('tab-'+h)){
-  document.querySelector('nav button[data-tab="'+h+'"]').click();
-}
-document.getElementById('heroCta').addEventListener('click',e=>{
-  e.preventDefault();
-  document.querySelector('nav button[data-tab="videos"]').click();
-  window.scrollTo({top:0,behavior:'smooth'});
-});
+  function iconFor(type, title){
+    var t = (type||'').toLowerCase();
+    if(ICONS[t]) return ICONS[t];
+    if(t === 'vk') return '<span class="ltr">VK</span>';
+    var l = (title || t || '?').trim().charAt(0).toUpperCase();
+    return '<span class="ltr">' + l + '</span>';
+  }
 
-/* ---------- видео: три источника по очереди ---------- */
-function fmtDate(s){
-  try{return new Date(s).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})}catch(e){return ''}
-}
-function parseXmlRss(xml){
-  const doc=new DOMParser().parseFromString(xml,'text/xml');
-  const out=[];
-  doc.querySelectorAll('entry').forEach(en=>{
-    const vid=(en.querySelector('videoId')||{}).textContent;
-    if(!vid)return;
-    out.push({
-      id:vid,
-      title:(en.querySelector('title')||{}).textContent||'Без названия',
-      published:(en.querySelector('published')||{}).textContent||''
+  function applyTheme(c){
+    var r = document.documentElement.style;
+    r.setProperty('--accent', (c.theme && c.theme.accent) || '#660000');
+    r.setProperty('--accent2', (c.theme && c.theme.accent2) || '#320b35');
+  }
+
+  function renderLinks(links){
+    var box = q('#linksBox');
+    box.innerHTML = '';
+    (links || []).forEach(function(l){
+      var a = document.createElement('a');
+      a.className = 'lnk'; a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = iconFor(l.type, l.title) + '<span></span>';
+      a.querySelector('span').textContent = l.title || l.type || 'ссылка';
+      box.appendChild(a);
+    });
+    if(!links || !links.length) box.innerHTML = '<div class="err">Ссылок пока нет.</div>';
+  }
+
+  function fillContent(c){
+    document.title = (c.channel && c.channel.name) || 'Deadly_wolf';
+    q('#chName').textContent = c.channel.name || '';
+    q('#chName2').textContent = c.channel.name || '';
+    q('#chTagline').textContent = c.channel.tagline || '';
+    if(c.channel.avatar) q('#avatar').src = c.channel.avatar;
+    q('#heroTitle').textContent = (c.hero && c.hero.title) || '';
+    q('#heroSub').textContent = (c.hero && c.hero.subtitle) || '';
+    q('#heroCta').textContent = (c.hero && c.hero.cta) || 'Смотреть последние видео';
+    q('#aboutText').textContent = c.about || '';
+    renderLinks(c.links);
+    applyTheme(c);
+  }
+
+  // --- вкладки ---
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+      document.querySelectorAll('section').forEach(function(x){x.classList.remove('active')});
+      t.classList.add('active');
+      q('#tab-' + t.dataset.tab).classList.add('active');
     });
   });
-  return out;
-}
-function loadVideos(){
-  const feed='https://www.youtube.com/feeds/videos.xml?channel_id='+(CONFIG?.channel?.channelId||CHANNEL_ID_FALLBACK);
-  const sources=[
-    ()=>fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed))
-         .then(r=>r.json()).then(j=>{
-            if(!j.items||!j.items.length)throw 0;
-            return j.items.map(i=>({id:(i.link.match(/v=([\w-]+)/)||[])[1]||i.guid,
-              title:i.title,published:i.pubDate}));
-         }),
-    ()=>fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(feed))
-         .then(r=>r.text()).then(parseXmlRss),
-    ()=>fetch('https://corsproxy.io/?url='+encodeURIComponent(feed))
-         .then(r=>r.text()).then(parseXmlRss)
-  ];
-  let i=0;
-  const tryNext=()=>{
-    if(i>=sources.length){showVideoError();return;}
-    sources[i++]().then(renderVideos).catch(()=>setTimeout(tryNext,300));
-  };
-  tryNext();
-}
-function showVideoError(){
-  const n=document.getElementById('videosNote');
-  n.style.display='block';
-  n.innerHTML='Сервис ленты видео временно недоступен. Все видео можно посмотреть прямо на <a href="'+(CONFIG?.channel?.url||'#')+'" target="_blank" rel="noopener" style="color:var(--accent2)">YouTube-канале</a>.';
-}
-function videoCard(v,small){
-  const a=document.createElement('a');
-  a.className='vcard';
-  a.href='https://www.youtube.com/watch?v='+v.id;a.target='_blank';a.rel='noopener';
-  a.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" alt="">'+
-    '<div class="vt">'+v.title+'</div>'+
-    (small?'<div class="vd">'+fmtDate(v.published)+'</div>':'');
-  return a;
-}
-function renderVideos(items){
-  const ids=items.filter(v=>v.id);
-  if(!ids.length){showVideoError();return;}
-  document.getElementById('videosNote').style.display='none';
-  /* главное видео */
-  const lw=document.getElementById('latestWrap');
-  lw.innerHTML='';
-  const f=document.createElement('iframe');
-  f.className='video-main';
-  f.src='https://www.youtube.com/embed/'+ids[0].id;
-  f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
-  f.allowFullscreen=true;f.loading='lazy';
-  lw.appendChild(f);
-  /* сетка на главной */
-  const hg=document.getElementById('homeGrid');
-  hg.innerHTML='';
-  ids.slice(1,7).forEach(v=>hg.appendChild(videoCard(v,true)));
-  /* полная сетка */
-  const vg=document.getElementById('videosGrid');
-  vg.innerHTML='';
-  ids.slice(0,12).forEach(v=>vg.appendChild(videoCard(v,true)));
-}
+  q('#heroCta').addEventListener('click', function(){
+    document.querySelector('.tab[data-tab="videos"]').click();
+  });
 
-/* ---------- админ-кнопка (единственная) ---------- */
-document.getElementById('adminBtn').addEventListener('click',()=>{
-  location.href='admin.html';
-});
+  // --- черновик ---
+  var draft = null;
+  try{ draft = localStorage.getItem(DRAFT_KEY); }catch(e){}
+  if(draft){
+    try{
+      var d = JSON.parse(draft);
+      q('#draftBanner').hidden = false;
+      fillContent(d);
+    }catch(e){ try{localStorage.removeItem(DRAFT_KEY)}catch(_){} }
+  }
+  q('#clearDraftBtn').addEventListener('click', function(){
+    try{ localStorage.removeItem(DRAFT_KEY) }catch(e){}
+    location.reload();
+  });
 
-/* ---------- старт ---------- */
-loadConfig();
-setTimeout(loadVideos,150);
+  // --- конфиг ---
+  if(!draft){
+    fetch('config.json?cache=' + Date.now())
+      .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+      .then(function(c){ fillContent(c); })
+      .catch(function(){ fillContent(FALLBACK); });
+  }
+
+  // --- видео: три источника по очереди ---
+  function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+  function parseRss(txt){
+    var doc = new DOMParser().parseFromString(txt, 'text/xml');
+    var out = [];
+    var entries = doc.querySelectorAll('entry');
+    for(var i=0;i<entries.length;i++){
+      var e = entries[i];
+      var id = '';
+      var el = e.getElementsByTagNameNS('*','videoId')[0] || e.querySelector('videoId');
+      if(el) id = el.textContent;
+      var link = '';
+      var le = e.querySelector('link');
+      if(le) link = le.getAttribute('href') || '';
+      out.push({
+        title: (e.querySelector('title')||{textContent:''}).textContent,
+        link: link,
+        id: id,
+        pubDate: (e.querySelector('published')||{textContent:''}).textContent
+      });
+    }
+    return out;
+  }
+  function vidId(it){
+    if(it.id) return it.id;
+    var m = /(?:v=|youtu\.be\/|\/shorts\/)([\w-]{11})/.exec(it.link || '');
+    return m ? m[1] : '';
+  }
+  function renderVideos(items){
+    var g = q('#videosGrid');
+    g.innerHTML = '';
+    items.slice(0,12).forEach(function(it){
+      var id = vidId(it);
+      var href = it.link || (id ? 'https://www.youtube.com/watch?v=' + id : '#');
+      var thumb = it.thumbnail || (id ? 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg' : '');
+      var card = document.createElement('a');
+      card.className = 'vcard'; card.href = href; card.target = '_blank'; card.rel = 'noopener';
+      var img = document.createElement('img');
+      img.className = 'thumb'; img.loading = 'lazy'; img.src = thumb; img.alt = '';
+      var body = document.createElement('div'); body.className = 'vbody';
+      var t = document.createElement('div'); t.className = 'vtitle'; t.textContent = it.title || 'Без названия';
+      var d = document.createElement('div'); d.className = 'vdate';
+      try{ d.textContent = it.pubDate ? new Date(it.pubDate).toLocaleDateString('ru-RU') : ''; }catch(e){}
+      body.appendChild(t); body.appendChild(d);
+      card.appendChild(img); card.appendChild(body);
+      g.appendChild(card);
+    });
+  }
+  function loadVideos(){
+    var feed = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+    var sources = [
+      {url:'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed), type:'json'},
+      {url:'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed), type:'raw'},
+      {url:'https://corsproxy.io/?' + encodeURIComponent(feed), type:'raw'}
+    ];
+    var i = 0;
+    function tryNext(){
+      if(i >= sources.length){
+        q('#videosGrid').innerHTML = '<div class="err">Лента временно недоступна. Видео можно посмотреть прямо на канале: <a href="https://www.youtube.com/@Deadly00wolf" target="_blank">youtube.com/@Deadly00wolf</a></div>';
+        return;
+      }
+      var s = sources[i++];
+      fetch(s.url, {cache:'no-store'}).then(function(r){
+        if(!r.ok) throw new Error();
+        return s.type === 'json' ? r.json() : r.text();
+      }).then(function(data){
+        var items = [];
+        if(s.type === 'json'){ items = (data && data.items) || []; }
+        else { items = parseRss(data); }
+        if(items.length){ renderVideos(items); }
+        else { throw new Error('empty'); }
+      }).catch(tryNext);
+    }
+    tryNext();
+  }
+  loadVideos();
+})();
 </script>
 </body>
 </html>

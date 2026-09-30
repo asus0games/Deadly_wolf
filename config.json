@@ -18,6 +18,11 @@
       "type": "youtube",
       "title": "YouTube",
       "url": "https://www.youtube.com/@Deadly00wolf"
+    },
+    {
+      "type": "discord",
+      "title": "Discord",
+      "url": "https://discord.gg/pjsm5bcatu"
     }
   ],
   "theme": {

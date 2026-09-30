@@ -2,194 +2,264 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deadly_wolf — официальный сайт канала</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deadly_wolf — канал</title>
+<link rel="icon" href="https://unavatar.io/youtube/Deadly00wolf">
 <style>
-:root{--accent:#8b5cf6;--accent2:#e11d48;--bg:#0b0d14;--panel:#141828;--line:#23283c;--text:#e8eaf2;--muted:#9aa3b5}
+:root{--accent:#660000;--accent2:#320b35;--bg:#0c0a10;--card:#181223;--card2:#221a30;--text:#f0ecf5;--muted:#a79bbd;--radius:14px}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55}
-.hero{position:relative;padding:60px 20px 44px;text-align:center;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.16;pointer-events:none}
-.logo{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
-.handle{color:var(--muted);font-size:1.05rem;position:relative;margin-top:6px}
-.tagline{max-width:640px;margin:14px auto 0;color:var(--text);opacity:.85;position:relative}
-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative}
-nav button{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:10px 24px;border-radius:999px;cursor:pointer;font-size:1rem;transition:.2s}
-nav button:hover{border-color:var(--accent)}
-nav button.active{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;font-weight:600}
-main{max-width:1100px;margin:0 auto;padding:32px 20px 64px}
-.tab{display:none}.tab.active{display:block}
-h2{margin-bottom:18px;font-size:1.5rem}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
-.muted{color:var(--muted)}
-.banner{background:#33290f;border:1px solid #8a6d1f;color:#f3d98a;border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:.95rem}
-.embed{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden}
-.embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.vidgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.vcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;display:block;transition:.2s}
-.vcard:hover{border-color:var(--accent);transform:translateY(-3px)}
-.vcard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.vcard .t{padding:12px 14px 4px;font-weight:600;font-size:.95rem}
-.vcard .d{padding:0 14px 14px;color:var(--muted);font-size:.85rem}
-.btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:13px 26px;border-radius:12px;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:1rem}
-.btn.ghost{background:var(--panel);border:1px solid var(--line);font-weight:400}
-.linkcard{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;text-decoration:none;transition:.2s}
-.linkcard:hover{border-color:var(--accent)}
-.sub{display:flex;justify-content:center;margin-top:22px}
-footer{text-align:center;color:var(--muted);padding:26px 20px;border-top:1px solid var(--line);font-size:.9rem}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit}
+header{position:sticky;top:0;z-index:10;background:rgba(12,10,16,.85);backdrop-filter:blur(8px);border-bottom:1px solid #ffffff14}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.bar{display:flex;align-items:center;gap:16px;padding:14px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.logo img{width:38px;height:38px;border-radius:50%;border:2px solid var(--accent)}
+nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.tab-btn{background:transparent;color:var(--muted);border:1px solid transparent;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:15px;font-family:inherit}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.tab{display:none;padding:28px 0 40px}
+.tab.active{display:block}
+.hero{display:flex;gap:28px;align-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:var(--radius);padding:38px;flex-wrap:wrap}
+.hero h1{font-size:clamp(30px,6vw,52px);letter-spacing:2px;line-height:1.1}
+.hero p{color:#ffffffcc;margin:10px 0 20px;max-width:520px}
+.btn{display:inline-block;background:#fff;color:#1a1420;font-weight:600;padding:12px 22px;border-radius:999px;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.hero-avatar{width:130px;height:130px;border-radius:50%;border:4px solid rgba(255,255,255,.6);margin-left:auto}
+h2{margin-bottom:16px;font-size:22px}
+.video-frame{aspect-ratio:16/9;width:100%;max-width:840px;border-radius:var(--radius);overflow:hidden;background:var(--card);display:flex;align-items:center;justify-content:center}
+.video-frame iframe{width:100%;height:100%;border:0}
+.video-frame .fallback{color:var(--muted);padding:16px;text-align:center}
+.video-frame .fallback a{color:#c9b8e8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.vcard{background:var(--card);border-radius:var(--radius);overflow:hidden;text-decoration:none;transition:transform .15s;display:block}
+.vcard:hover{transform:translateY(-3px)}
+.vcard .thumb{aspect-ratio:16/9;background:var(--card2) center/cover no-repeat}
+.vcard .t{padding:12px 14px;font-size:15px;font-weight:600}
+.vcard .d{padding:0 14px 12px;color:var(--muted);font-size:13px}
+.note{color:var(--muted);padding:14px;background:var(--card);border-radius:var(--radius)}
+.links{display:flex;flex-direction:column;gap:10px;max-width:560px}
+.lrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid #ffffff14;padding:14px 18px;border-radius:var(--radius);text-decoration:none;font-weight:600}
+.lrow .ic{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex:none}
+.lrow span.url{color:var(--muted);font-weight:400;font-size:13px;margin-left:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:50%}
+footer{border-top:1px solid #ffffff14;margin-top:30px}
+footer .wrap{padding:20px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.draft-banner{background:#7a5c00;color:#ffe9a8;padding:10px 20px;font-size:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.draft-banner button{background:#ffe9a8;color:#3a2c00;border:0;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600;font-family:inherit}
+@media(max-width:640px){.hero{padding:24px}.hero-avatar{margin:0 auto}}
 </style>
 </head>
 <body>
-<header class="hero">
-  <div class="logo" id="ch-name">Deadly_wolf</div>
-  <div class="handle" id="ch-handle">@Deadly00wolf</div>
-  <p class="tagline" id="ch-tagline"></p>
-  <nav>
-    <button class="active" data-tab="home">Главная</button>
-    <button data-tab="videos">Видео</button>
-    <button data-tab="about">О канале</button>
-    <button data-tab="contacts">Контакты</button>
+<div id="draftBanner" class="draft-banner" hidden>
+  <span>Сейчас показан черновик из админки — он виден только в этом браузере и ещё не опубликован для всех.</span>
+  <button id="clearDraftBtn">Убрать черновик</button>
+</div>
+<header><div class="wrap bar">
+  <div class="logo"><img id="avatar" alt="аватар"><span id="chName"></span></div>
+  <nav id="tabs">
+    <button class="tab-btn active" data-tab="home">Главная</button>
+    <button class="tab-btn" data-tab="videos">Видео</button>
+    <button class="tab-btn" data-tab="about">О канале</button>
+    <button class="tab-btn" data-tab="links">Контакты</button>
   </nav>
-</header>
-<main>
-  <section class="tab active" id="tab-home">
-    <h2>Последнее видео</h2>
-    <div class="embed" id="latest-embed"><div class="card muted">Загружаю последнее видео…</div></div>
-    <div class="sub"><a class="btn" id="sub-btn" href="#" target="_blank" rel="noopener">Подписаться на канал</a></div>
+</div></header>
+<main class="wrap">
+  <section id="tab-home" class="tab active">
+    <div class="hero">
+      <div>
+        <h1 id="heroTitle"></h1>
+        <p id="heroSub"></p>
+        <a id="heroCta" class="btn" target="_blank" rel="noopener"></a>
+      </div>
+      <img id="heroAvatar" class="hero-avatar" alt="аватар канала">
+    </div>
+    <h2 style="margin-top:30px">Последнее видео</h2>
+    <div id="latestWrap" class="video-frame"></div>
   </section>
-  <section class="tab" id="tab-videos">
-    <h2>Все видео</h2>
-    <div class="vidgrid" id="vid-grid"><div class="card muted">Загружаю видео…</div></div>
+  <section id="tab-videos" class="tab">
+    <h2>Видео</h2>
+    <div id="videoGrid" class="grid"></div>
+    <div id="videoStatus" class="note" hidden></div>
   </section>
-  <section class="tab" id="tab-about">
+  <section id="tab-about" class="tab">
     <h2>О канале</h2>
-    <div class="card" id="about-text"></div>
+    <p id="aboutText" style="margin-bottom:20px"></p>
+    <a id="chLink" class="btn" target="_blank" rel="noopener">Перейти на YouTube-канал</a>
   </section>
-  <section class="tab" id="tab-contacts">
+  <section id="tab-links" class="tab">
     <h2>Контакты и соцсети</h2>
-    <div id="links-list"></div>
+    <div id="linksList" class="links"></div>
   </section>
 </main>
-<footer id="footer-line">Сайт канала Deadly_wolf</footer>
-<div id="draft-banner"></div>
+<footer><div class="wrap"><span id="footLeft"></span><a id="footLink" target="_blank" rel="noopener">YouTube</a></div></footer>
 <script>
-const DRAFT_KEY = "dw_config_draft_v1";
-const FALLBACK = {
-  channel: { name: "Deadly_wolf", handle: "@Deadly00wolf",
-    url: "https://www.youtube.com/channel/UCN3_YEiDPE_tUzS0vkQoYYg",
-    tagline: "Прохождения игр без воды и лишних слов" },
-  about: "Привет! Я Deadly_wolf — на этом канале я выкладываю прохождения игр.",
-  links: [{ title: "YouTube", url: "https://www.youtube.com/channel/UCN3_YEiDPE_tUzS0vkQoYYg" }],
-  colors: { accent: "#8b5cf6", accent2: "#e11d48" },
-  channelId: "UCN3_YEiDPE_tUzS0vkQoYYg"
-};
-let CFG = FALLBACK;
+"use strict";
+var DRAFT_KEY = "dw_config_draft";
+var DEFAULT_CONFIG = {"channel":{"name":"Deadly_wolf","handle":"@Deadly00wolf","channelId":"UCN3_YEiDPE_tUzS0vkQoYYg","url":"https://www.youtube.com/@Deadly00wolf","avatar":"https://unavatar.io/youtube/Deadly00wolf","tagline":"Прохождения, геймплей и просто играем"},"hero":{"title":"DEADLY_WOLF","subtitle":"Игровые прохождения без пафоса: стреляю, застреваю и помираю.","cta":"Смотреть последние видео"},"about":"Привет! Это канал Deadly_wolf. Здесь я выкладываю прохождения игр: Titanfall 2, Euro Truck Simulator 2, Lethal Company, Half-Life 2 и не только. Играю в своё удовольствие — если тебе зашло, подписывайся, дальше будет интереснее.","links":[{"type":"youtube","title":"YouTube","url":"https://www.youtube.com/@Deadly00wolf"}],"theme":{"accent":"#660000","accent2":"#320b35"}};
+var config = null;
 
-function esc(s){const d=document.createElement("div");d.textContent=s==null?"":String(s);return d.innerHTML;}
-function applyConfig(c){
-  CFG = c || CFG;
-  const ch = CFG.channel || {};
-  document.title = (ch.name || "Канал") + " — сайт канала";
-  document.getElementById("ch-name").textContent = ch.name || "Канал";
-  document.getElementById("ch-handle").textContent = ch.handle || "";
-  document.getElementById("ch-tagline").textContent = ch.tagline || "";
-  document.getElementById("about-text").textContent = CFG.about || "";
-  document.getElementById("sub-btn").href = ch.url || "#";
-  document.getElementById("footer-line").textContent = "Сайт канала " + (ch.name || "");
-  const col = CFG.colors || {};
-  if (col.accent) document.documentElement.style.setProperty("--accent", col.accent);
-  if (col.accent2) document.documentElement.style.setProperty("--accent2", col.accent2);
-  const box = document.getElementById("links-list");
-  box.innerHTML = "";
-  (CFG.links || []).forEach(l => {
-    if (!l || !l.url) return;
-    const a = document.createElement("a");
-    a.className = "linkcard"; a.href = l.url; a.target = "_blank"; a.rel = "noopener";
-    a.innerHTML = "<span><b>" + esc(l.title || l.url) + "</b></span><span class='muted'>" + esc(l.url) + "</span>";
+function $(id){return document.getElementById(id);}
+function isObj(v){return v && typeof v === 'object' && !Array.isArray(v);}
+function vidId(url){
+  var s = String(url || '');
+  var m = s.match(/[?&]v=([A-Za-z0-9_-]+)/);
+  if (m) return m[1];
+  var m2 = s.match(/youtu\.be\/([A-Za-z0-9_-]+)/);
+  return m2 ? m2[1] : null;
+}
+function fmtDate(s){
+  try { return new Date(s).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}); }
+  catch(e){ return ''; }
+}
+
+async function loadConfig(){
+  var cfg = null;
+  try {
+    var r = await fetch('config.json', {cache:'no-store'});
+    if (r.ok) cfg = await r.json();
+  } catch(e){}
+  if (!isObj(cfg)) cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+  var draft = null;
+  try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch(e){}
+  if (isObj(draft)) {
+    cfg = draft;
+    $('draftBanner').hidden = false;
+  }
+  return cfg;
+}
+
+function applyConfig(){
+  var c = config;
+  var th = c.theme || {};
+  document.documentElement.style.setProperty('--accent', th.accent || '#660000');
+  document.documentElement.style.setProperty('--accent2', th.accent2 || '#320b35');
+  var ch = c.channel || {};
+  document.title = (ch.name || 'Канал') + ' — сайт';
+  $('avatar').src = ch.avatar || '';
+  $('heroAvatar').src = ch.avatar || '';
+  $('chName').textContent = ch.name || '';
+  $('heroTitle').textContent = (c.hero && c.hero.title) || ch.name || '';
+  $('heroSub').textContent = (c.hero && c.hero.subtitle) || (ch.tagline || '');
+  $('heroCta').textContent = (c.hero && c.hero.cta) || 'Смотреть последние видео';
+  $('heroCta').href = ch.url || '#';
+  $('aboutText').textContent = c.about || '';
+  $('chLink').href = ch.url || '#';
+  $('footLeft').textContent = (ch.name || '') + ' ' + (ch.handle || '');
+  $('footLink').href = ch.url || '#';
+  renderLinks(c.links || []);
+}
+
+var ICONS = [['youtube','\u25B6'],['t.me','\u2708'],['telegram','\u2708'],['vk','\u0412'],['discord','\uD83D\uDCAC'],['twitch','\uD83C\uDF9E'],['steam','\uD83C\uDFAE']];
+function iconFor(l){
+  var t = ((l.type || '') + ' ' + (l.url || '')).toLowerCase();
+  for (var i = 0; i < ICONS.length; i++) if (t.indexOf(ICONS[i][0]) !== -1) return ICONS[i][1];
+  return '\uD83D\uDD17';
+}
+
+function renderLinks(links){
+  var box = $('linksList'); box.innerHTML = '';
+  if (!links.length) { box.innerHTML = '<div class="note">Ссылки пока не добавлены.</div>'; return; }
+  links.forEach(function(l){
+    if (!isObj(l)) return;
+    var a = document.createElement('a');
+    a.className = 'lrow'; a.href = l.url || '#'; a.target = '_blank'; a.rel = 'noopener';
+    var ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = iconFor(l);
+    var t = document.createElement('span'); t.textContent = l.title || l.url || '';
+    var u = document.createElement('span'); u.className = 'url'; u.textContent = l.url || '';
+    a.append(ic, t, u);
     box.appendChild(a);
   });
 }
-function showDraftBanner(show){
-  document.getElementById("draft-banner").innerHTML = show
-    ? "<div class='banner' style='max-width:1100px;margin:0 auto 8px;padding:10px 16px'>Сейчас показан черновик из админ-панели — он виден только в вашем браузере. Нажмите «Скачать config.json» в админке и загрузите файл в репозиторий, чтобы опубликовать изменения.</div>"
-    : "";
-  document.querySelector(".hero").style.paddingTop = show ? "36px" : "60px";
+
+function showVideoStatus(msg){
+  $('videoStatus').textContent = msg;
+  $('videoStatus').hidden = false;
 }
-async function loadConfig(){
-  let fromSite = null;
-  try {
-    const r = await fetch("config.json", { cache: "no-store" });
-    if (r.ok) fromSite = await r.json();
-  } catch(e){}
-  let draft = null;
-  try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch(e){}
-  if (draft) { CFG = draft; applyConfig(CFG); showDraftBanner(true); }
-  else if (fromSite) { CFG = fromSite; applyConfig(CFG); showDraftBanner(false); }
-  else { applyConfig(FALLBACK); }
-}
-/* ---------- видео по RSS ---------- */
-const FEED = "https://www.youtube.com/feeds/videos.xml?channel_id=" + encodeURIComponent(CFG.channelId || "");
+
 function renderVideos(items){
-  const grid = document.getElementById("vid-grid");
-  const emb = document.getElementById("latest-embed");
-  if (!items.length){ grid.innerHTML = "<div class='card muted'>Не удалось загрузить видео. Проверьте интернет и обновите страницу.</div>"; return; }
-  grid.innerHTML = "";
-  items.forEach((v, i) => {
-    const id = v.id || "";
-    const a = document.createElement("a");
-    a.className = "vcard";
-    a.href = "https://www.youtube.com/watch?v=" + id; a.target = "_blank"; a.rel = "noopener";
-    const date = v.date ? new Date(v.date).toLocaleDateString("ru-RU") : "";
-    a.innerHTML = "<img loading='lazy' src='" + esc(v.thumb) + "' alt=''><div class='t'>" + esc(v.title) + "</div><div class='d'>" + esc(date) + "</div>";
+  $('videoStatus').hidden = true;
+  var grid = $('videoGrid'); grid.innerHTML = '';
+  items.forEach(function(v, i){
+    var id = vidId(v.url);
+    if (!v.thumb && id) v.thumb = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+    var a = document.createElement('a');
+    a.className = 'vcard'; a.href = v.url || '#'; a.target = '_blank'; a.rel = 'noopener';
+    var th = document.createElement('div'); th.className = 'thumb';
+    if (v.thumb) th.style.backgroundImage = 'url(' + v.thumb + ')';
+    var t = document.createElement('div'); t.className = 't'; t.textContent = v.title || 'Без названия';
+    var d = document.createElement('div'); d.className = 'd'; d.textContent = fmtDate(v.pub);
+    a.append(th, t, d);
     grid.appendChild(a);
-    if (i === 0){
-      emb.innerHTML = "<iframe src='https://www.youtube-nocookie.com/embed/" + id + "' title='Последнее видео' allowfullscreen loading='lazy'></iframe>";
+    if (i === 0 && id) {
+      $('latestWrap').innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '" title="Последнее видео" allowfullscreen loading="lazy"></iframe>';
     }
   });
+  if (!items.length) showVideoStatus('На канале пока нет загруженных видео.');
 }
+
+async function fetchViaRss2json(rss){
+  var r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rss));
+  var j = await r.json();
+  if (j.status !== 'ok' || !Array.isArray(j.items)) throw new Error('rss2json');
+  return j.items.map(function(i){ return {title:i.title, url:i.link, thumb:i.thumbnail, pub:i.pubDate}; });
+}
+async function fetchViaXmlProxy(base, rss){
+  var r = await fetch(base + encodeURIComponent(rss));
+  var txt = await r.text();
+  var xml = new DOMParser().parseFromString(txt, 'text/xml');
+  var entries = Array.prototype.slice.call(xml.getElementsByTagName('entry'));
+  if (!entries.length) throw new Error('empty feed');
+  return entries.map(function(e){
+    var title = (e.getElementsByTagName('title')[0] || {textContent:''}).textContent;
+    var url = '';
+    var links = e.getElementsByTagName('link');
+    for (var k = 0; k < links.length; k++) {
+      if (links[k].getAttribute('rel') === 'alternate') url = links[k].getAttribute('href');
+    }
+    if (!url && links[0]) url = links[0].getAttribute('href') || '';
+    var thEl = e.getElementsByTagName('media:thumbnail')[0];
+    var pubEl = e.getElementsByTagName('published')[0];
+    return {title:title, url:url, thumb: thEl ? thEl.getAttribute('url') : '', pub: pubEl ? pubEl.textContent : ''};
+  });
+}
+
 async function loadVideos(){
-  const xmlUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + encodeURIComponent(CFG.channelId || "");
-  try {
-    const r = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(xmlUrl));
-    if (r.ok){
-      const d = await r.json();
-      if (d.items && d.items.length){
-        renderVideos(d.items.map(it => ({
-          id: it.guid ? String(it.guid).split("=").pop() : (it.link || "").split("v=")[1],
-          title: it.title, thumb: it.thumbnail || (it.enclosure && it.enclosure.link) || "", date: it.pubDate
-        })));
-        return;
-      }
-    }
-  } catch(e){}
-  try {
-    const r2 = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(xmlUrl));
-    if (r2.ok){
-      const xml = new DOMParser().parseFromString(await r2.text(), "text/xml");
-      const items = [];
-      xml.querySelectorAll("entry").forEach(en => {
-        const get = s => (en.querySelector(s) || {}).textContent || "";
-        items.push({
-          id: get("yt\\:videoId") || get("videoId"),
-          title: get("title"),
-          thumb: (en.querySelector("media\\:thumbnail, thumbnail") || {}).getAttribute ? (en.querySelector("media\\:thumbnail, thumbnail").getAttribute("url") || "") : "",
-          date: get("published")
-        });
-      });
-      renderVideos(items);
-      return;
-    }
-  } catch(e){}
-  renderVideos([]);
+  var ch = config.channel || {};
+  if (!ch.channelId) return;
+  var rss = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + encodeURIComponent(ch.channelId);
+  var sources = [
+    function(){ return fetchViaRss2json(rss); },
+    function(){ return fetchViaXmlProxy('https://api.allorigins.win/raw?url=', rss); },
+    function(){ return fetchViaXmlProxy('https://corsproxy.io/?url=', rss); }
+  ];
+  for (var i = 0; i < sources.length; i++) {
+    try {
+      var items = await sources[i]();
+      if (items && items.length) { renderVideos(items); return; }
+    } catch(e){}
+  }
+  showVideoStatus('Не удалось загрузить ленту видео — сервис ленты временно недоступен. Видео никуда не пропали: посмотрите канал на YouTube: ' + (ch.url || ''));
+  $('latestWrap').innerHTML = '<div class="fallback">Последнее видео сейчас не подгружается.<br><a href="' + (ch.url || '#') + '" target="_blank" rel="noopener">Открыть канал на YouTube</a></div>';
 }
-/* ---------- вкладки ---------- */
-document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => {
-  document.querySelectorAll("nav button").forEach(x => x.classList.remove("active"));
-  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-  b.classList.add("active");
-  document.getElementById("tab-" + b.dataset.tab).classList.add("active");
-}));
-loadConfig().then(loadVideos);
+
+document.getElementById('tabs').addEventListener('click', function(e){
+  var b = e.target.closest('.tab-btn');
+  if (!b) return;
+  document.querySelectorAll('.tab-btn').forEach(function(x){ x.classList.toggle('active', x === b); });
+  document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('active', x.id === 'tab-' + b.dataset.tab); });
+});
+$('clearDraftBtn').onclick = function(){
+  localStorage.removeItem(DRAFT_KEY);
+  $('draftBanner').hidden = true;
+  location.reload();
+};
+
+(async function(){
+  config = await loadConfig();
+  applyConfig();
+  loadVideos();
+})();
 </script>
 </body>
 </html>

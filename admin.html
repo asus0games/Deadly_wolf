@@ -2,246 +2,373 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Админ-панель — Deadly_wolf</title>
 <style>
-:root{--accent:#8b5cf6;--accent2:#e11d48;--bg:#0b0d14;--panel:#141828;--line:#23283c;--text:#e8eaf2;--muted:#9aa3b5}
+:root{--accent:#660000;--accent2:#320b35;--bg:#0c0a10;--card:#181223;--text:#f0ecf5;--muted:#a79bbd}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.5;min-height:100vh}
-.wrap{max-width:860px;margin:0 auto;padding:32px 20px 60px}
-h1{font-size:1.6rem;margin-bottom:6px}
-h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--muted);margin-bottom:20px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
-.status{border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:.95rem;display:none}
-.status.ok{display:block;background:#12301c;border:1px solid #2f7d4a;color:#8fe3ae}
-.status.warn{display:block;background:#33290f;border:1px solid #8a6d1f;color:#f3d98a}
-.status.err{display:block;background:#3a1216;border:1px solid #a33;color:#f1a3a3}
-.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.bar button,.bar label{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:10px 18px;border-radius:10px;cursor:pointer;font-size:.95rem}
-.bar button.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;font-weight:600}
-.bar button:hover{border-color:var(--accent)}
-.fld{margin-bottom:16px}
-.fld label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px;font-family:monospace}
-.fld input[type=text],.fld input[type=number],.fld textarea{width:100%;background:#0e1120;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font:inherit}
-.fld textarea{min-height:110px;resize:vertical}
-.fld input[type=color]{width:52px;height:38px;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer;vertical-align:middle;margin-right:10px}
-.sec{border:1px dashed var(--line);border-radius:14px;padding:16px;margin:14px 0}
-.sec h3{font-size:1rem;margin-bottom:12px;color:var(--accent)}
-.listitem{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
-.listitem input[type=text]{flex:1;background:#0e1120;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 12px;font:inherit}
-.del{background:none;border:1px solid #a33;color:#f1a3a3;border-radius:8px;padding:6px 12px;cursor:pointer}
-.add{background:none;border:1px dashed var(--muted);color:var(--muted);border-radius:10px;padding:8px 16px;cursor:pointer;margin-top:6px}
-.add:hover{border-color:var(--accent);color:var(--text)}
-.check{display:flex;align-items:center;gap:10px}
-.login{max-width:400px;margin:12vh auto;text-align:center}
-.login input{width:100%;margin:14px 0;background:#0e1120;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px 14px;font-size:1.05rem;text-align:center}
-.login .btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;border-radius:10px;padding:12px;font-size:1rem;font-weight:600;cursor:pointer}
-.login .err{color:#f1a3a3;font-size:.9rem;min-height:1.2em}
-.shake{animation:shake .35s}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px}
+.card{max-width:420px;margin:12vh auto;background:var(--card);border-radius:16px;padding:32px;box-shadow:0 20px 60px #000a}
+.card h1{font-size:22px;margin-bottom:6px}
+.card p{color:var(--muted);margin-bottom:18px}
+input{font-family:inherit}
+#pw{width:100%;padding:12px;border-radius:10px;border:1px solid #ffffff22;background:#0f0c15;color:var(--text);font-size:16px}
+button{font-family:inherit;cursor:pointer}
+.big{width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:700;font-size:16px}
+.err{color:#ff8f8f;margin-top:10px;font-size:14px}
+.shake{animation:shake .4s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.hidden{display:none}
+#panel{max-width:900px;margin:0 auto}
+#panel h1{margin-bottom:4px}
+.topbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.status{flex:1 1 100%;font-size:14px;margin-bottom:4px}
+.status.ok{color:#8fd694}.status.warn{color:#ffd97a}.status.err{color:#ff8f8f}
+button.tb{background:var(--card);color:var(--text);border:1px solid #ffffff22;border-radius:8px;padding:8px 12px;font-size:13px}
+button.tb:hover{border-color:#ffffff55}
+button.tb.warn{color:#ffd97a}
+fieldset{background:var(--card);border:1px solid #ffffff14;border-radius:12px;padding:14px 16px;margin:14px 0}
+legend{font-weight:700;padding:0 8px;color:#c9b8e8}
+.row{margin:10px 0}
+.row label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;letter-spacing:.4px}
+.row input[type=text],.row input[type=number],.row textarea{width:100%;padding:9px 12px;border-radius:8px;border:1px solid #ffffff22;background:#0f0c15;color:var(--text);font-size:14px}
+.row textarea{min-height:90px;resize:vertical}
+.row input[type=color]{width:60px;height:34px;padding:2px;border-radius:8px;border:1px solid #ffffff22;background:#0f0c15;vertical-align:middle}
+.row .hex{margin-left:8px;width:110px!important;padding:9px 12px;border-radius:8px;border:1px solid #ffffff22;background:#0f0c15;color:var(--text);font-size:14px}
+.item{border:1px dashed #ffffff22;border-radius:10px;padding:10px 12px;margin:10px 0;position:relative;padding-right:90px}
+.item .del{position:absolute;top:8px;right:8px;background:#3a1020;color:#ff9b9b;border:1px solid #ff9b9b33;border-radius:8px;padding:4px 10px;font-size:12px}
+.add{background:#2a1f3d;color:#c9b8e8;border:1px dashed #ffffff33;border-radius:8px;padding:7px 14px;font-size:13px}
+#form{margin-top:6px}
+a.hint{color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
-<div class="login card" id="login-box">
-  <h1>Админ-панель <span>Deadly_wolf</span></h1>
-  <p class="sub">Введите пароль администратора</p>
+<div id="gate" class="card">
+  <h1>&#128272; Админ-панель</h1>
+  <p>Введите пароль администратора</p>
   <input type="password" id="pw" placeholder="Пароль" autocomplete="current-password">
-  <button class="btn" id="login-btn">Войти</button>
-  <div class="err" id="login-err"></div>
+  <button class="big" id="loginBtn">Войти</button>
+  <div class="err" id="gateErr" hidden></div>
 </div>
-
-<div class="wrap hidden" id="panel">
-  <h1>Админ-панель <span>Deadly_wolf</span></h1>
-  <p class="sub">Правьте config.json, затем скачайте его и загрузите в репозиторий GitHub — изменения появятся на сайте.</p>
-  <div class="status" id="status"></div>
-  <div class="bar">
-    <button class="primary" id="dl">⬇ Скачать config.json</button>
-    <button id="save-draft">💾 Сохранить в браузере (черновик)</button>
-    <label for="file-inp">📂 Открыть файл…<input type="file" id="file-inp" accept=".json" hidden></label>
-    <button id="reload">↻ Перезагрузить с сайта</button>
-    <button id="add-field">+ Поле</button>
-    <button id="logout">Выйти</button>
+<div id="panel" hidden>
+  <h1>&#9881;&#65039; Настройки сайта</h1>
+  <div class="topbar">
+    <div class="status" id="status">Загрузка…</div>
+    <button class="tb" id="btnReload">&#10227; Перезагрузить с сайта</button>
+    <button class="tb" id="btnOpen">&#128193; Открыть файл…</button>
+    <input type="file" id="fileIn" accept=".json,application/json" hidden>
+    <button class="tb" id="btnDraft">&#128190; Сохранить в браузере</button>
+    <button class="tb warn" id="btnClearDraft">&#128465; Убрать черновик</button>
+    <button class="tb" id="btnDownload">&#11015; Скачать config.json</button>
+    <button class="tb" id="btnLogout">Выйти</button>
+    <a class="hint" href="index.html">&#8592; открыть сайт</a>
   </div>
-  <form id="form" class="card" onsubmit="return false"></form>
+  <div id="form"></div>
+  <button class="add" id="addRoot">+ поле в корень конфига</button>
 </div>
-
 <script>
-const SALT = "Deadly00wolf:";
-const PW_HASH = "1a3a1223ddbe0648214b4f7797ebf3441e57f28ca30f4b93464ff1d95dc8aee2";
-const AUTH_KEY = "dw_admin_auth";
-const DRAFT_KEY = "dw_config_draft_v1";
-let CFG = null;
+"use strict";
+var PW_HASH = "1a3a1223ddbe0648214b4f7797ebf3441e57f28ca30f4b93464ff1d95dc8aee2";
+var DRAFT_KEY = "dw_config_draft";
+var AUTH_KEY = "dw_admin_auth";
+var FALLBACK_CONFIG = {"channel":{"name":"Deadly_wolf","handle":"@Deadly00wolf","channelId":"UCN3_YEiDPE_tUzS0vkQoYYg","url":"https://www.youtube.com/@Deadly00wolf","avatar":"https://unavatar.io/youtube/Deadly00wolf","tagline":"Прохождения, геймплей и просто играем"},"hero":{"title":"DEADLY_WOLF","subtitle":"Игровые прохождения без пафоса: стреляю, застреваю и помираю.","cta":"Смотреть последние видео"},"about":"Привет! Это канал Deadly_wolf. Здесь я выкладываю прохождения игр: Titanfall 2, Euro Truck Simulator 2, Lethal Company, Half-Life 2 и не только. Играю в своё удовольствие — если тебе зашло, подписывайся, дальше будет интереснее.","links":[{"type":"youtube","title":"YouTube","url":"https://www.youtube.com/@Deadly00wolf"}],"theme":{"accent":"#660000","accent2":"#320b35"}};
+var config = null;
 
-async function sha256(s){
-  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
-  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+function $(id){return document.getElementById(id);}
+
+/* Компактная реализация SHA-256 (public domain, geraintluff) — работает
+   даже там, где недоступен crypto.subtle (например, file://) */
+function sha256sync(ascii){
+  function rightRotate(value, amount){return (value>>>amount) | (value<<(32-amount));}
+  var mathPow = Math.pow, maxWord = mathPow(2, 32), result = '';
+  var words = [], asciiBitLength = ascii.length * 8;
+  var hash = [], k = [], primeCounter = 0;
+  var isComposite = {};
+  for (var candidate = 2; primeCounter < 64; candidate++) {
+    if (!isComposite[candidate]) {
+      for (var c = 0; c < 313; c += candidate) isComposite[c] = candidate;
+      hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+      k[primeCounter++] = (mathPow(candidate, 1/3) * maxWord) | 0;
+    }
+  }
+  ascii += '\x80';
+  while (ascii.length % 64 - 56) ascii += '\x00';
+  for (var i = 0; i < ascii.length; i++) {
+    var j = ascii.charCodeAt(i);
+    if (j >> 8) return '';
+    words[i >> 2] |= j << ((3 - i) % 4) * 8;
+  }
+  words[words.length] = ((asciiBitLength / maxWord) | 0);
+  words[words.length] = (asciiBitLength);
+  for (j = 0; j < words.length;) {
+    var w = words.slice(j, j += 16);
+    var oldHash = hash;
+    hash = hash.slice(0, 8);
+    for (i = 0; i < 64; i++) {
+      var w15 = w[i - 15], w2 = w[i - 2];
+      var a = hash[0], e = hash[4];
+      var temp1 = hash[7]
+        + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+        + ((e & hash[5]) ^ ((~e) & hash[6]))
+        + k[i]
+        + (w[i] = (i < 16) ? w[i] : (
+            w[i - 16]
+            + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+            + w[i - 7]
+            + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+          ) | 0);
+      var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+        + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+      hash = [(temp1 + temp2) | 0].concat(hash);
+      hash[4] = (hash[4] + temp1) | 0;
+    }
+    for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+  }
+  for (i = 0; i < 8; i++) {
+    for (j = 3; j + 1; j--) {
+      var b = (hash[i] >> (j * 8)) & 255;
+      result += ((b < 16) ? 0 : '') + b.toString(16);
+    }
+  }
+  return result;
 }
+
+async function sha256(text){
+  if (window.crypto && crypto.subtle && crypto.subtle.digest) {
+    try {
+      var b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return Array.prototype.map.call(new Uint8Array(b), function(x){return x.toString(16).padStart(2,'0');}).join('');
+    } catch(e){}
+  }
+  return sha256sync(text);
+}
+
 function setStatus(msg, cls){
-  const el = document.getElementById("status");
-  el.className = "status " + cls; el.textContent = msg;
+  var s = $('status');
+  s.textContent = msg;
+  s.className = 'status ' + (cls || '');
 }
-/* ---------- вход ---------- */
-async function tryLogin(){
-  const h = await sha256(SALT + document.getElementById("pw").value);
-  if (h === PW_HASH){
-    sessionStorage.setItem(AUTH_KEY, "1");
-    showPanel();
-  } else {
-    document.getElementById("login-err").textContent = "Неверный пароль";
-    const box = document.getElementById("login-box");
-    box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-  }
-}
-document.getElementById("login-btn").addEventListener("click", tryLogin);
-document.getElementById("pw").addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
-document.getElementById("logout").addEventListener("click", () => { sessionStorage.removeItem(AUTH_KEY); location.reload(); });
-if (sessionStorage.getItem(AUTH_KEY) === "1") showPanel();
 
-function showPanel(){
-  document.getElementById("login-box").classList.add("hidden");
-  document.getElementById("panel").classList.remove("hidden");
-  init();
-}
-/* ---------- построение формы по config.json ---------- */
-function setPath(path, value){
-  const parts = path.split(".");
-  let obj = CFG;
-  for (let i = 0; i < parts.length - 1; i++){
-    const k = parts[i];
-    if (Array.isArray(obj)) obj = obj[+k]; else obj = obj[k];
+async function tryLogin(){
+  var pw = $('pw').value;
+  if (!pw) return;
+  var h = await sha256('Deadly00wolf:' + pw);
+  if (h === PW_HASH) {
+    sessionStorage.setItem(AUTH_KEY, '1');
+    enter();
+  } else {
+    $('gateErr').textContent = 'Неверный пароль';
+    $('gateErr').hidden = false;
+    var card = document.querySelector('.card');
+    card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
   }
-  const last = parts[parts.length - 1];
-  if (Array.isArray(obj)) obj[+last] = value; else obj[last] = value;
 }
-function renderField(path, val, container){
-  const wrap = document.createElement("div");
-  wrap.className = "fld";
-  const lab = document.createElement("label");
-  lab.textContent = path;
-  wrap.appendChild(lab);
-  const isColor = typeof val === "string" && /^#[0-9a-fA-F]{6}$/.test(val);
-  if (typeof val === "boolean"){
-    const box = document.createElement("div"); box.className = "check";
-    const inp = document.createElement("input"); inp.type = "checkbox"; inp.checked = val;
-    inp.addEventListener("change", () => setPath(path, inp.checked));
-    box.appendChild(inp); box.appendChild(lab.cloneNode(true)); wrap.innerHTML = ""; wrap.appendChild(box);
-  } else if (isColor){
-    const row = document.createElement("div");
-    const inp = document.createElement("input"); inp.type = "color"; inp.value = val;
-    const txt = document.createElement("input"); txt.type = "text"; txt.value = val; txt.style.width = "110px";
-    inp.addEventListener("input", () => { txt.value = inp.value; setPath(path, inp.value); });
-    txt.addEventListener("input", () => { inp.value = txt.value; setPath(path, txt.value); });
-    row.appendChild(inp); row.appendChild(txt); wrap.appendChild(row);
-  } else if (typeof val === "number"){
-    const inp = document.createElement("input"); inp.type = "number"; inp.value = val;
-    inp.addEventListener("input", () => setPath(path, parseFloat(inp.value) || 0));
-    wrap.appendChild(inp);
-  } else if (typeof val === "string" && val.length > 80){
-    const inp = document.createElement("textarea"); inp.value = val;
-    inp.addEventListener("input", () => setPath(path, inp.value));
-    wrap.appendChild(inp);
-  } else if (typeof val === "string"){
-    const inp = document.createElement("input"); inp.type = "text"; inp.value = val;
-    inp.addEventListener("input", () => setPath(path, inp.value));
-    wrap.appendChild(inp);
-  } else if (Array.isArray(val)){
-    renderList(path, val, wrap);
-  } else if (val && typeof val === "object"){
-    const sec = document.createElement("div"); sec.className = "sec";
-    const h = document.createElement("h3"); h.textContent = path; sec.appendChild(h);
-    for (const [k, v] of Object.entries(val)) renderField(path + "." + k, v, sec);
-    wrap.appendChild(sec);
-  }
-  container.appendChild(wrap);
+function enter(){
+  $('gate').hidden = true;
+  $('panel').hidden = false;
+  loadFromSite();
 }
-function renderList(path, arr, container){
-  const box = document.createElement("div");
-  const itemsAreObjects = arr.length && typeof arr[0] === "object";
-  function draw(){
-    box.innerHTML = "";
-    arr.forEach((item, i) => {
-      if (item && typeof item === "object"){
-        const sec = document.createElement("div"); sec.className = "sec";
-        for (const [k, v] of Object.entries(item)) renderField(path + "." + i + "." + k, v, sec);
-        const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "✕ удалить";
-        del.addEventListener("click", () => { arr.splice(i, 1); draw(); });
-        sec.appendChild(del); box.appendChild(sec);
-      } else {
-        const row = document.createElement("div"); row.className = "listitem";
-        const inp = document.createElement("input"); inp.type = "text"; inp.value = item;
-        inp.addEventListener("input", () => { arr[i] = inp.value; });
-        const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "✕";
-        del.addEventListener("click", () => { arr.splice(i, 1); draw(); });
-        row.appendChild(inp); row.appendChild(del); box.appendChild(row);
-      }
-    });
-    const add = document.createElement("button"); add.type = "button"; add.className = "add"; add.textContent = "+ добавить элемент";
-    add.addEventListener("click", () => { arr.push(itemsAreObjects ? { title: "", url: "" } : ""); draw(); });
-    box.appendChild(add);
-  }
-  draw();
-  container.appendChild(box);
-}
-function renderForm(){
-  const f = document.getElementById("form");
-  f.innerHTML = "";
-  for (const [k, v] of Object.entries(CFG)) renderField(k, v, f);
-}
-/* ---------- добавление нового поля ---------- */
-document.getElementById("add-field").addEventListener("click", () => {
-  const name = prompt("Имя нового поля (по-английски, например mySetting):");
-  if (!name || !/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) { if (name !== null) alert("Только латинские буквы, цифры и подчёркивание."); return; }
-  const type = prompt("Тип поля:\n1 — текст\n2 — длинный текст\n3 — число\n4 — цвет\n5 — список ссылок (заголовок + адрес)");
-  if (!type) return;
-  const val = { "1": "", "2": "", "3": 0, "4": "#8b5cf6", "5": [{ title: "", url: "" }] }[type];
-  if (val === undefined) return;
-  CFG[name] = val; renderForm();
-});
-/* ---------- загрузка конфига ---------- */
-function ingest(obj, msg, cls){
-  try { CFG = typeof obj === "string" ? JSON.parse(obj) : obj; }
-  catch(e){ setStatus("Ошибка: файл не похож на JSON — " + e.message, "err"); return; }
-  renderForm(); setStatus(msg, cls);
-}
+$('loginBtn').onclick = tryLogin;
+$('pw').addEventListener('keydown', function(e){ if (e.key === 'Enter') tryLogin(); });
+if (sessionStorage.getItem(AUTH_KEY) === '1') enter();
+
 async function loadFromSite(){
+  setStatus('Загружаю config.json с сайта…');
   try {
-    const r = await fetch("config.json", { cache: "no-store" });
-    if (r.ok){ ingest(await r.json(), "Загружен config.json с сайта — вы видите реальное содержимое репозитория.", "ok"); return; }
-    setStatus("config.json не найден рядом с admin.html", "warn");
-  } catch(e){
-    setStatus("Не удалось прочитать config.json. Похоже, вы открыли admin.html как локальный файл двойным кликом — браузер в этом режиме блокирует чтение файлов. Откройте админку по адресу GitHub Pages (…github.io/ваш-репозиторий/admin.html) или загрузите config.json кнопкой «Открыть файл…».", "warn");
+    var r = await fetch('config.json', {cache:'no-store'});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    config = await r.json();
+    buildForm();
+    setStatus('\u2714 Загружен config.json с сайта. После правок нажмите «Скачать config.json» и загрузите файл в репозиторий (Add file → Upload files), чтобы изменения увидели все.', 'ok');
+  } catch(e) {
+    config = JSON.parse(JSON.stringify(FALLBACK_CONFIG));
+    buildForm();
+    setStatus('\u26A0 Не удалось прочитать config.json с сайта. Если вы открыли admin.html с диска — браузер блокирует чтение локальных файлов: откройте админку по адресу GitHub Pages (…/admin.html) или загрузите файл кнопкой «Открыть файл…». Сейчас показан запасной вариант конфига.', 'warn');
   }
-  if (!CFG) CFG = {};
 }
-document.getElementById("reload").addEventListener("click", loadFromSite);
-document.getElementById("file-inp").addEventListener("change", e => {
-  const f = e.target.files[0]; if (!f) return;
-  const rd = new FileReader();
-  rd.onload = () => ingest(rd.result, "Загружен файл " + f.name + " с компьютера.", "ok");
-  rd.readAsText(f);
-});
-/* ---------- сохранение ---------- */
-function download(){
-  const blob = new Blob([JSON.stringify(CFG, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = "config.json"; a.click();
+
+function isColor(v){ return typeof v === 'string' && /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v); }
+function isLongText(k, v){
+  if (typeof v !== 'string') return false;
+  var keys = ['about','description','bio','tagline','subtitle','text','title_about'];
+  return v.length > 90 || keys.indexOf(String(k).toLowerCase()) !== -1;
+}
+function setPath(path, value){
+  var parts = path.split('.');
+  var cur = config;
+  for (var i = 0; i < parts.length - 1; i++) cur = cur[parts[i]];
+  cur[parts[parts.length - 1]] = value;
+}
+
+function buildRow(key, val, path){
+  var row = document.createElement('div'); row.className = 'row';
+  var label = document.createElement('label'); label.textContent = key; row.appendChild(label);
+  if (isColor(val)) {
+    var wrap = document.createElement('div');
+    var c = document.createElement('input'); c.type = 'color'; c.value = val;
+    var t = document.createElement('input'); t.type = 'text'; t.className = 'hex'; t.value = val;
+    c.oninput = function(){ t.value = c.value; setPath(path, c.value); };
+    t.oninput = function(){ if (isColor(t.value)) c.value = t.value; setPath(path, t.value); };
+    wrap.append(c, t); row.appendChild(wrap);
+  } else if (isLongText(key, val)) {
+    var ta = document.createElement('textarea'); ta.value = val;
+    ta.oninput = function(){ setPath(path, ta.value); };
+    row.appendChild(ta);
+  } else if (typeof val === 'number') {
+    var n = document.createElement('input'); n.type = 'number'; n.value = val;
+    n.oninput = function(){ setPath(path, parseFloat(n.value) || 0); };
+    row.appendChild(n);
+  } else {
+    var s = document.createElement('input'); s.type = 'text'; s.value = val;
+    s.oninput = function(){ setPath(path, s.value); };
+    row.appendChild(s);
+  }
+  return row;
+}
+
+function buildArray(key, arr, path){
+  var fs = document.createElement('fieldset');
+  var lg = document.createElement('legend');
+  fs.appendChild(lg);
+  var holder = document.createElement('div');
+  fs.appendChild(holder);
+  function template(){
+    if (arr.length) {
+      var f = arr[0];
+      if (f && typeof f === 'object' && !Array.isArray(f)) {
+        var o = {};
+        Object.keys(f).forEach(function(kk){
+          var v = f[kk];
+          if (Array.isArray(v)) o[kk] = [];
+          else if (v && typeof v === 'object') o[kk] = {};
+          else if (typeof v === 'number') o[kk] = 0;
+          else o[kk] = '';
+        });
+        return o;
+      }
+      return '';
+    }
+    return '';
+  }
+  function rebuild(){
+    holder.innerHTML = '';
+    arr.forEach(function(item, idx){
+      var d = document.createElement('div'); d.className = 'item';
+      var del = document.createElement('button'); del.type = 'button'; del.className = 'del'; del.textContent = '\u2715 удалить';
+      del.onclick = function(){
+        arr.splice(idx, 1);
+        buildForm();
+        setStatus('Элемент удалён из списка «' + key + '». Не забудьте скачать config.json и загрузить его в репозиторий.', 'warn');
+      };
+      d.appendChild(del);
+      if (item && typeof item === 'object' && !Array.isArray(item)) {
+        Object.keys(item).forEach(function(kk){
+          d.appendChild(buildRow(kk, item[kk], path + '.' + idx + '.' + kk));
+        });
+        var ab = document.createElement('button'); ab.type = 'button'; ab.className = 'add'; ab.textContent = '+ поле';
+        ab.onclick = function(){
+          var name = prompt('Имя нового поля (латиницей, без пробелов):');
+          if (!name) return;
+          if (!/^[A-Za-z0-9_]+$/.test(name)) { alert('Имя поля должно состоять из латинских букв, цифр и подчёркиваний.'); return; }
+          item[name] = '';
+          buildForm();
+        };
+        d.appendChild(ab);
+      } else {
+        d.appendChild(buildRow(key, item, path + '.' + idx));
+      }
+      holder.appendChild(d);
+    });
+    lg.textContent = key + ' (список, ' + arr.length + ')';
+    var add = document.createElement('button'); add.type = 'button'; add.className = 'add'; add.textContent = '+ элемент';
+    add.onclick = function(){
+      arr.push(template());
+      buildForm();
+      setStatus('Добавлен элемент в список «' + key + '». Заполните поля и не забудьте скачать config.json.', 'warn');
+    };
+    fs.appendChild(add);
+  }
+  rebuild();
+  return fs;
+}
+
+function addField(obj){
+  var name = prompt('Имя нового поля (латиницей, без пробелов):');
+  if (!name) return;
+  if (!/^[A-Za-z0-9_]+$/.test(name)) { setStatus('Имя поля должно состоять из латинских букв, цифр и подчёркиваний.', 'warn'); return; }
+  if (name in obj) { setStatus('Поле «' + name + '» уже есть в этом разделе.', 'warn'); return; }
+  var t = prompt('Тип поля. Введите один из вариантов: текст / число / цвет / список / раздел', 'текст');
+  if (!t) return;
+  var tt = t.trim().toLowerCase();
+  if (tt.indexOf('числ') === 0) obj[name] = 0;
+  else if (tt.indexOf('цвет') === 0) obj[name] = '#ff0000';
+  else if (tt.indexOf('спис') === 0) obj[name] = [];
+  else if (tt.indexOf('раздел') === 0) obj[name] = {};
+  else obj[name] = '';
+  buildForm();
+  setStatus('Добавлено поле «' + name + '». Не забудьте скачать config.json и загрузить его в репозиторий.', 'warn');
+}
+
+function buildSection(container, obj, prefix, label){
+  var fs = document.createElement('fieldset');
+  var lg = document.createElement('legend'); lg.textContent = label; fs.appendChild(lg);
+  Object.keys(obj).forEach(function(key){
+    var val = obj[key];
+    var path = prefix ? prefix + '.' + key : key;
+    if (val && typeof val === 'object' && !Array.isArray(val)) {
+      buildSection(fs, val, path, key);
+    } else if (Array.isArray(val)) {
+      fs.appendChild(buildArray(key, val, path));
+    } else {
+      fs.appendChild(buildRow(key, val, path));
+    }
+  });
+  var add = document.createElement('button'); add.type = 'button'; add.className = 'add'; add.textContent = '+ поле';
+  add.onclick = function(){ addField(obj); };
+  fs.appendChild(add);
+  container.appendChild(fs);
+}
+function buildForm(){
+  var form = $('form'); form.innerHTML = '';
+  buildSection(form, config, '', 'Корень конфига');
+}
+
+$('btnDownload').onclick = function(){
+  var blob = new Blob([JSON.stringify(config, null, 2)], {type: 'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'config.json';
+  a.click();
   URL.revokeObjectURL(a.href);
-  setStatus("Файл config.json скачан. Загрузите его в репозиторий: Add file → Upload files → Commit changes.", "ok");
-}
-document.getElementById("dl").addEventListener("click", download);
-document.getElementById("save-draft").addEventListener("click", () => {
-  localStorage.setItem(DRAFT_KEY, JSON.stringify(CFG));
-  setStatus("Черновик сохранён в этом браузере: откройте index.html — он уже показывает ваши правки. Чтобы опубликовать для всех — «Скачать config.json» и загрузить в репозиторий.", "ok");
-});
-async function init(){
-  await loadFromSite();
-  const draft = localStorage.getItem(DRAFT_KEY);
-  if (draft){
-    try { CFG = JSON.parse(draft); renderForm(); setStatus("Загружен ваш черновик из прошлого раза (кнопка «Перезагрузить с сайта» вернёт опубликованную версию).", "warn"); } catch(e){}
-  }
-}
+  setStatus('config.json скачан. Загрузите его в репозиторий (Add file → Upload files), чтобы изменения увидели все посетители.', 'ok');
+};
+$('btnDraft').onclick = function(){
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(config));
+  setStatus('Черновик сохранён в этом браузере — он уже виден на index.html в этом браузере (баннер вверху сайта можно убрать кнопкой там же). Публикация для всех: «Скачать config.json» → загрузить в репозиторий.', 'ok');
+};
+$('btnClearDraft').onclick = function(){
+  localStorage.removeItem(DRAFT_KEY);
+  setStatus('Черновик убран. Сайт снова показывает config.json из репозитория (если открыли index.html — обновите страницу).', 'ok');
+};
+$('btnReload').onclick = loadFromSite;
+$('btnOpen').onclick = function(){ $('fileIn').click(); };
+$('fileIn').onchange = function(e){
+  var f = e.target.files[0]; if (!f) return;
+  var rd = new FileReader();
+  rd.onload = function(){
+    try {
+      config = JSON.parse(rd.result);
+      buildForm();
+      setStatus('Загружен файл с компьютера. Отредактируйте и нажмите «Скачать config.json».', 'ok');
+    } catch(err) {
+      setStatus('Не удалось прочитать файл: ' + err.message, 'err');
+    }
+  };
+  rd.readAsText(f);
+};
+$('btnLogout').onclick = function(){
+  sessionStorage.removeItem(AUTH_KEY);
+  location.reload();
+};
 </script>
 </body>
 </html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Админ-панель — Deadly_wolf</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0d12;--panel:#13161f;--panel2:#1a1f2b;--text:#e8eaf2;--muted:#9aa3b5;--accent:#ff4655;--accent2:#7c3aed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;padding:40px 20px}
+.box{max-width:720px;margin:0 auto}
+h1{font-size:24px;margin-bottom:6px}
+.hint{color:var(--muted);font-size:14px;margin-bottom:26px;line-height:1.6}
+.card{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:22px;margin-bottom:18px}
+.card h3{font-size:15px;margin-bottom:14px;color:var(--accent)}
+label{display:block;font-size:12.5px;color:var(--muted);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.5px}
+input,textarea{width:100%;background:var(--panel2);border:1px solid rgba(255,255,255,.1);border-radius:9px;
+  padding:11px 13px;color:var(--text);font-family:'Manrope';font-size:14px;outline:none;transition:.2s}
+input:focus,textarea:focus{border-color:var(--accent)}
+textarea{min-height:110px;resize:vertical;line-height:1.55}
+.linkrow{display:grid;grid-template-columns:1fr 1fr 2fr 2fr auto;gap:8px;align-items:end;margin-bottom:10px}
+@media(max-width:640px){.linkrow{grid-template-columns:1fr 1fr}}
+.linkrow input,.linkrow select{padding:9px 10px;font-size:13px}
+select{background:var(--panel2);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:var(--text);padding:9px;font-family:'Manrope'}
+.del{background:transparent;border:1px solid rgba(255,80,80,.4);color:#ff7b7b;border-radius:9px;padding:9px 12px;cursor:pointer}
+.del:hover{background:rgba(255,80,80,.15)}
+.add{background:transparent;border:1px dashed rgba(255,255,255,.25);color:var(--muted);border-radius:9px;
+  padding:10px;width:100%;cursor:pointer;margin-top:4px}
+.add:hover{color:var(--text);border-color:var(--accent)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:12px 22px;border-radius:10px;border:0;cursor:pointer;font-weight:700;font-size:14px;color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));font-family:'Manrope'}
+.btn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.2)}
+.btn:hover{filter:brightness(1.15)}
+.ok{color:#5dd97c;font-size:13px;margin-top:12px;display:none}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>⚙ Админ-панель сайта</h1>
+<p class="hint">Меняете данные → жмёте «Скачать config.json» → заменяете этот файл в репозитории (через Add file → Upload files → Commit).
+Через минуту сайт обновится. Кнопка «Сохранить в браузере» — для быстрого предпросмотра только на этом устройстве.</p>
+
+<div class="card">
+  <h3>Канал</h3>
+  <label>Название канала</label><input id="cName">
+  <label>Подпись под названием (header)</label><input id="cTagline">
+  <label>YouTube handle (с @)</label><input id="cHandle">
+  <label>ID канала (находится в RSS-ссылке, менять не нужно)</label><input id="cChannelId">
+  <label>Ссылка на канал</label><input id="cUrl">
+  <label>Ссылка на аватарку</label><input id="cAvatar">
+</div>
+
+<div class="card">
+  <h3>Главная страница</h3>
+  <label>Большой заголовок</label><input id="hTitle">
+  <label>Подзаголовок</label><textarea id="hSub"></textarea>
+  <label>Текст в разделе «О канале»</label><textarea id="about" style="min-height:140px"></textarea>
+</div>
+
+<div class="card">
+  <h3>Ссылки (Telegram, VK, Discord и т.д.)</h3>
+  <div id="linksList"></div>
+  <button class="add" onclick="addLink()">+ Добавить ссылку</button>
+</div>
+
+<div class="card">
+  <h3>Оформление</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div><label>Акцентный цвет 1</label><input id="tA1" type="color" style="height:42px;padding:4px"></div>
+    <div><label>Акцентный цвет 2</label><input id="tA2" type="color" style="height:42px;padding:4px"></div>
+  </div>
+</div>
+
+<div class="actions">
+  <button class="btn" onclick="save(false)">⬇ Скачать config.json</button>
+  <button class="btn ghost" onclick="save(true)">💾 Сохранить в браузере (предпросмотр)</button>
+</div>
+<div class="ok" id="ok">Готово! Файл config.json скачан — загрузите его в репозиторий сайта.</div>
+<p class="hint" style="margin-top:24px">→ <a href="index.html">Вернуться на сайт</a></p>
+</div>
+
+<script>
+const TYPES = [['youtube','YouTube'],['telegram','Telegram'],['vk','VK'],['discord','Discord'],
+  ['twitch','Twitch'],['tiktok','TikTok'],['boosty','Boosty'],['rutube','Rutube'],['other','Другое']];
+let links = [];
+
+function addLink(l){
+  links.push(l || {type:'telegram', title:'', url:'', note:''});
+  renderLinks();
+}
+function delLink(i){ links.splice(i,1); renderLinks(); }
+function renderLinks(){
+  document.getElementById('linksList').innerHTML = links.map((l,i) => `
+    <div class="linkrow">
+      <select onchange="links[${i}].type=this.value">${TYPES.map(t=>`<option value="${t[0]}" ${l.type===t[0]?'selected':''}>${t[1]}</option>`).join('')}</select>
+      <input placeholder="Название" value="${l.title||''}" oninput="links[${i}].title=this.value">
+      <input placeholder="https://..." value="${l.url||''}" oninput="links[${i}].url=this.value">
+      <input placeholder="Подпись (необязательно)" value="${l.note||''}" oninput="links[${i}].note=this.value">
+      <button class="del" onclick="delLink(${i})">✕</button>
+    </div>`).join('');
+}
+const v = id => document.getElementById(id).value.trim();
+
+async function init(){
+  try{
+    const local = localStorage.getItem('dw_config');
+    if(local){ fill(JSON.parse(local)); return; }
+    const r = await fetch('config.json?ts=' + Date.now());
+    if(r.ok) fill(await r.json());
+  }catch(e){}
+}
+function fill(c){
+  v('cName') || (document.getElementById('cName').value = c.channel?.name || '');
+  document.getElementById('cTagline').value = c.channel?.tagline || '';
+  document.getElementById('cHandle').value = c.channel?.handle || '';
+  document.getElementById('cChannelId').value = c.channel?.channelId || '';
+  document.getElementById('cUrl').value = c.channel?.url || '';
+  document.getElementById('cAvatar').value = c.channel?.avatar || '';
+  document.getElementById('hTitle').value = c.hero?.title || '';
+  document.getElementById('hSub').value = c.hero?.subtitle || '';
+  document.getElementById('about').value = c.about || '';
+  document.getElementById('tA1').value = c.theme?.accent || '#ff4655';
+  document.getElementById('tA2').value = c.theme?.accent2 || '#7c3aed';
+  links = c.links || []; renderLinks();
+}
+function collect(local){
+  return {
+    channel:{name:v('cName'), handle:v('cHandle'), channelId:v('cChannelId'), url:v('cUrl'),
+      avatar:v('cAvatar'), tagline:v('cTagline')},
+    hero:{title:v('hTitle'), subtitle:v('hSub')},
+    about:v('about'),
+    links:links.filter(l => l.url),
+    theme:{accent:v('tA1'), accent2:v('tA2')}
+  };
+}
+function save(toLocal){
+  const cfg = collect();
+  if(toLocal){
+    localStorage.setItem('dw_config', JSON.stringify(cfg));
+    const ok = document.getElementById('ok');
+    ok.textContent = 'Сохранено в этом браузере. Откройте index.html — увидите изменения. Чтобы изменения видели все, скачайте config.json и загрузите в репозиторий.';
+    ok.style.display = 'block'; return;
+  }
+  const blob = new Blob([JSON.stringify(cfg, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'config.json'; a.click();
+  document.getElementById('ok').style.display = 'block';
+}
+init();
+</script>
+</body>
+</html>

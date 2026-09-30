@@ -1,0 +1,27 @@
+{
+  "channel": {
+    "name": "Deadly_wolf",
+    "handle": "@Deadly00wolf",
+    "channelId": "UCN3_YEiDPE_tUzS0vkQoYYg",
+    "url": "https://www.youtube.com/@Deadly00wolf",
+    "avatar": "https://unavatar.io/youtube/Deadly00wolf",
+    "tagline": "Прохождения, геймплей и просто играем"
+  },
+  "hero": {
+    "title": "DEADLY_WOLF",
+    "subtitle": "Игровые прохождения без пафоса: стреляю, отстраиваюсь, застреваю в Halflife 2 — и всё это с комментариями.",
+    "cta": "Смотреть последние видео"
+  },
+  "about": "Привет! Это канал Deadly_wolf. Здесь я выкладываю прохождения игр: Titanfall 2, Euro Truck Simulator 2, Lethal Company, Half-Life 2 и не только. Играю в своё удовольствие — если тебе зашло, подписывайся, дальше будет интереснее.",
+  "links": [
+    {
+      "type": "youtube",
+      "title": "YouTube",
+      "url": "https://www.youtube.com/@Deadly00wolf"
+    }
+  ],
+  "theme": {
+    "accent": "#ff4655",
+    "accent2": "#7c3aed"
+  }
+}

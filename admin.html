@@ -3,230 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>Админ-панель — Deadly_wolf</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<title>Админ-панель</title>
 <style>
-:root{--bg:#0d0b14;--card:#171325;--text:#f0ebf5;--muted:#9b8fae;--accent1:#8b5cf6;--accent2:#e11d48;}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:32px 20px 60px}
-h1{font-family:'Unbounded',sans-serif;font-size:1.5rem;margin-bottom:6px}
-.sub{color:var(--muted);font-size:.9rem;margin-bottom:28px}
-.card{background:var(--card);border:1px solid rgba(139,92,246,.18);border-radius:16px;padding:22px;margin-bottom:18px}
-.card h2{font-size:1rem;margin-bottom:14px;color:var(--accent1)}
-label{display:block;font-size:.8rem;color:var(--muted);margin:12px 0 5px}
-input[type=text],input[type=url],input[type=password],textarea{width:100%;background:#0f0c1a;border:1px solid rgba(139,92,246,.25);border-radius:10px;color:var(--text);padding:10px 12px;font:inherit;font-size:.95rem}
-textarea{min-height:110px;resize:vertical}
-input:focus,textarea:focus{outline:none;border-color:var(--accent1)}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.link-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px;border:1px dashed rgba(139,92,246,.25);border-radius:10px;margin-top:10px}
-.link-row input{flex:1;min-width:130px}
-.link-row input.i-name{max-width:150px}
-button{font:inherit;font-weight:600;border:none;border-radius:10px;padding:11px 20px;cursor:pointer;transition:.2s}
-.btn-primary{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff}
-.btn-primary:hover{filter:brightness(1.12)}
-.btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(139,92,246,.3)}
-.btn-ghost:hover{color:var(--text)}
-.btn-danger{background:transparent;color:var(--accent2);border:1px solid rgba(225,29,72,.4);padding:8px 12px;font-size:.85rem}
-.btn-del{background:transparent;color:var(--accent2);border:none;padding:6px;font-size:1.1rem}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.msg{margin-top:14px;color:var(--accent1);font-size:.9rem;min-height:1.2em}
-/* login */
-#login{max-width:380px;margin:14vh auto 0;text-align:center}
-#login .card{padding:34px 28px}
-#login h1{font-size:1.4rem}
-.wolf{font-size:3rem;display:block;margin-bottom:12px}
-#pw{margin:16px 0 14px;text-align:center;letter-spacing:2px}
-.err{color:var(--accent2);font-size:.85rem;min-height:1.2em;margin-bottom:10px}
-.shake{animation:sh .35s}
+:root{--accent1:#c0392b;--accent2:#8e44ad;--bg:#0d0d12;--panel:#171720;--line:#2a2a38;--text:#e8e6ef;--muted:#9a97ab}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin-bottom:4px}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
+label{display:block;font-size:.82rem;color:var(--muted);margin:14px 0 6px;letter-spacing:.3px}
+input[type=text],input[type=number],textarea{width:100%;background:#0f0f16;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:10px 12px;font-size:.95rem}
+input:focus,textarea:focus{outline:none;border-color:var(--accent2)}
+textarea{min-height:90px;resize:vertical;font-family:inherit}
+input[type=color]{width:52px;height:36px;border:1px solid var(--line);border-radius:8px;background:none;vertical-align:middle;cursor:pointer}
+.colorrow{display:flex;align-items:center;gap:10px}
+.colorval{font-size:.85rem;color:var(--muted)}
+button{cursor:pointer;border:none;border-radius:8px;padding:11px 18px;font-size:.92rem;font-weight:600;transition:.15s}
+.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;width:100%;margin-top:18px;padding:13px}
+.primary:hover{opacity:.9}
+.btn2{background:#26263a;color:var(--text)}
+.btn2:hover{background:#31314a}
+.btn-sm{background:#26263a;color:var(--muted);font-size:.8rem;padding:7px 12px}
+.btn-sm:hover{color:var(--text);background:#31314a}
+.danger{background:#3a1d24;color:#e0707f;font-size:.8rem;padding:6px 10px}
+.danger:hover{background:#4d2430}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.item{border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0;background:#12121b;position:relative}
+.item .del{position:absolute;top:8px;right:8px}
+.sec-title{display:flex;justify-content:space-between;align-items:center;margin:18px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.sec-title b{font-size:1rem}
+.shake{animation:sh .4s}
 @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.hint{color:var(--muted);font-size:.78rem;margin-top:18px;line-height:1.5}
-@media(max-width:600px){.link-row input.i-name{max-width:none}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 22px;border-radius:10px;font-size:.9rem;display:none;z-index:99}
+.toast.err{background:#c0392b}
+#lock{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px}
+.lockcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:36px 28px;max-width:380px;width:100%;text-align:center}
+.wolf{font-size:3rem}
+.lockcard input{margin:16px 0 0;text-align:center;letter-spacing:2px}
+.errmsg{color:#e0707f;font-size:.85rem;margin-top:12px;min-height:1.2em}
+.hint{color:var(--muted);font-size:.8rem;margin-top:16px}
+code{background:#0f0f16;padding:2px 6px;border-radius:5px;font-size:.85rem}
 </style>
 </head>
 <body>
 
-<!-- ЭКРАН ВХОДА -->
-<div id="login" class="wrap">
-  <div class="card">
-    <span class="wolf">🐺</span>
-    <h1>Админ-панель</h1>
-    <p class="sub" style="margin-bottom:0">Вход только для администраторов</p>
+<div id="lock">
+  <div class="lockcard" id="lockcard">
+    <div class="wolf">&#128058;</div>
+    <h1>Вход в админ-панель</h1>
+    <p class="sub">Введите пароль администратора</p>
     <input type="password" id="pw" placeholder="Пароль" autocomplete="current-password">
-    <div class="err" id="err"></div>
-    <button class="btn-primary" id="btn-enter" style="width:100%">Войти</button>
-    <p class="hint">Пароль хранится в виде хеша. Это защита от случайных посетителей,<br>а не от целевой атаки — репозиторий GitHub всё равно публичный.</p>
+    <div class="errmsg" id="errmsg"></div>
+    <button class="primary" onclick="tryLogin()">Войти</button>
+    <p class="hint">Пароль проверяется локально, хешем SHA-256</p>
   </div>
 </div>
 
-<!-- ПАНЕЛЬ -->
-<div id="panel" class="wrap" style="display:none">
-  <h1>⚙️ Админ-панель</h1>
-  <p class="sub">Deadly_wolf — редактирование сайта канала. Кнопки внизу — экспорт config.json.</p>
-
-  <div class="card">
-    <h2>Основное</h2>
-    <label for="f-title">Название канала</label>
-    <input type="text" id="f-title">
-    <label for="f-tagline">Подпись под названием</label>
-    <input type="text" id="f-tagline">
-    <label for="f-about">Текст на вкладке «О канале»</label>
-    <textarea id="f-about"></textarea>
+<div id="panel" style="display:none">
+<div class="wrap">
+  <h1>&#128295; Админ-панель</h1>
+  <p class="sub">Редактирование config.json — подхватывает структуру файла прямо с сайта</p>
+  <div class="row" style="margin-bottom:18px">
+    <button class="btn-sm" onclick="reloadRemote()">&#8635; Перезагрузить с сайта</button>
+    <button class="btn-sm" onclick="loadLocal()">&#128193; Открыть файл с компьютера</button>
+    <input type="file" id="fileInput" accept=".json" style="display:none" onchange="onFile(e)">
+    <button class="btn-sm" onclick="exportCfg()">&#11015;&#65039; Скачать config.json</button>
+    <button class="btn-sm" onclick="saveLocal()">&#128190; Сохранить в браузере (предпросмотр)</button>
+    <button class="btn-sm" onclick="addFieldDialog()">&#10133; Добавить поле</button>
+    <button class="btn-sm danger" onclick="logout()">&#9211; Выйти</button>
   </div>
-
-  <div class="card">
-    <h2>Ссылки (Telegram, VK, Discord…)</h2>
-    <div id="links"></div>
-    <div class="row"><button class="btn-ghost" id="btn-add">+ Добавить ссылку</button></div>
-  </div>
-
-  <div class="card">
-    <h2>Цвета оформления</h2>
-    <div class="row">
-      <div style="flex:1;min-width:140px"><label for="f-a1">Акцент 1</label><input type="color" id="f-a1" style="width:100%;height:42px;border:none;background:none;cursor:pointer"></div>
-      <div style="flex:1;min-width:140px"><label for="f-a2">Акцент 2</label><input type="color" id="f-a2" style="width:100%;height:42px;border:none;background:none;cursor:pointer"></div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button class="btn-primary" id="btn-download">💾 Скачать config.json</button>
-    <button class="btn-ghost" id="btn-preview">👁 Сохранить в браузере (предпросмотр)</button>
-    <button class="btn-ghost" id="btn-logout">Выйти</button>
-  </div>
-  <div class="msg" id="msg"></div>
+  <div id="editor"></div>
 </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-/* ---------- ХЕШ ПАРОЛЯ ---------- */
-/* SHA-256 от строки "Deadly00wolf" */
-const PW_HASH = "1a3a1223ddbe0648214b4f7797ebf3441e57f28ca30f4b93464ff1d95dc8aee2";
-const SESSION_KEY = "dw_admin_ok";
+'use strict';
+const PW_HASH = '1a3a1223ddbe0648214b4f7797ebf3441e57f28ca30f4b93464ff1d95dc8aee2';
+const SALT = 'Deadly00wolf:';
+let cfg = null;
 
-function fallbackHash(str){
-  /* запасной вариант на случай file://, где недоступен crypto.subtle */
-  let h1=0x811c9dc5, h2=0x1000193;
-  for(let i=0;i<str.length;i++){
-    const c=str.charCodeAt(i);
-    h1=(h1^c)*16777619>>>0;
-    h2=(h2+c*31+i)>>>0; h2=(h2^(h2>>>13))*2654435761>>>0;
-  }
-  return ("fnv_"+h1.toString(16)+"_"+h2.toString(16)+"_"+str.length);
+async function sha256(s){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
-
-async function sha256(text){
-  try{
-    if(crypto && crypto.subtle){
-      const buf=await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-      return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
-    }
-  }catch(e){}
-  return fallbackHash(text);
-}
-
-const loginEl=document.getElementById("login");
-const panelEl=document.getElementById("panel");
-const pwEl=document.getElementById("pw");
-const errEl=document.getElementById("err");
-
-function unlock(){ sessionStorage.setItem(SESSION_KEY,"1"); loginEl.style.display="none"; panelEl.style.display="block"; }
 
 async function tryLogin(){
-  const h=await sha256("Deadly00wolf:"+pwEl.value);
-  if(h===PW_HASH){ errEl.textContent=""; unlock(); }
-  else{
-    errEl.textContent="Неверный пароль. Попробуйте ещё раз.";
-    document.querySelector("#login .card").classList.remove("shake");
-    void document.querySelector("#login .card").offsetWidth;
-    document.querySelector("#login .card").classList.add("shake");
-    pwEl.value=""; pwEl.focus();
+  const v = document.getElementById('pw').value;
+  const h = await sha256(SALT + v);
+  if (h === PW_HASH){
+    sessionStorage.setItem('dw_admin','1');
+    document.getElementById('lock').style.display='none';
+    document.getElementById('panel').style.display='block';
+    loadRemote();
+  } else {
+    document.getElementById('errmsg').textContent = 'Неверный пароль. Попробуйте ещё раз.';
+    const c = document.getElementById('lockcard');
+    c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
   }
 }
-document.getElementById("btn-enter").addEventListener("click",tryLogin);
-pwEl.addEventListener("keydown",e=>{ if(e.key==="Enter") tryLogin(); });
+document.getElementById('pw').addEventListener('keydown', e=>{ if(e.key==='Enter') tryLogin(); });
 
-document.getElementById("btn-logout").addEventListener("click",()=>{
-  sessionStorage.removeItem(SESSION_KEY);
-  panelEl.style.display="none"; loginEl.style.display="block"; pwEl.value="";
-});
-
-if(sessionStorage.getItem(SESSION_KEY)==="1") unlock();
-
-/* ---------- РЕДАКТИРОВАНИЕ КОНФИГА ---------- */
-const ICONS={telegram:"✈️",vk:"🅥",discord:"🎮",youtube:"▶️",boosty:"🚀",twitch:"🟣",steam:"♨️",donationalerts:"💚",other:"🔗"};
-
-let cfg={siteTitle:"Deadly_wolf",tagline:"",aboutText:"",links:[],accent1:"#8b5cf6",accent2:"#e11d48"};
-
-async function loadConfig(){
-  try{
-    const r=await fetch("config.json",{cache:"no-store"});
-    if(r.ok) cfg=Object.assign(cfg,await r.json());
-  }catch(e){}
-  const saved=localStorage.getItem("dw_cfg_preview");
-  if(saved){ try{ cfg=Object.assign(cfg,JSON.parse(saved)); }catch(e){} }
-  fillForm();
+function logout(){ sessionStorage.removeItem('dw_admin'); location.reload(); }
+if (sessionStorage.getItem('dw_admin')==='1'){
+  document.getElementById('lock').style.display='none';
+  document.getElementById('panel').style.display='block';
+  loadRemote();
 }
 
-function fillForm(){
-  document.getElementById("f-title").value=cfg.siteTitle||"";
-  document.getElementById("f-tagline").value=cfg.tagline||"";
-  document.getElementById("f-about").value=cfg.aboutText||"";
-  document.getElementById("f-a1").value=cfg.accent1||"#8b5cf6";
-  document.getElementById("f-a2").value=cfg.accent2||"#e11d48";
-  const box=document.getElementById("links");
-  box.innerHTML="";
-  (cfg.links||[]).forEach(l=>addLinkRow(l));
+function toast(msg, ok=true){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (ok?'':' err');
+  t.style.display = 'block';
+  clearTimeout(t._tm);
+  t._tm = setTimeout(()=>t.style.display='none', 2600);
 }
 
-function addLinkRow(l){
-  const row=document.createElement("div");
-  row.className="link-row";
-  row.innerHTML=`
-    <select class="i-icon"></select>
-    <input class="i-name" type="text" placeholder="Название">
-    <input class="i-url" type="url" placeholder="https://…">
-    <button class="btn-del" title="Удалить">✕</button>`;
-  const sel=row.querySelector(".i-icon");
-  Object.entries(ICONS).forEach(([k,v])=>{
-    const o=document.createElement("option");
-    o.value=k;o.textContent=v+" "+k;sel.appendChild(o);
-  });
-  if(l){ sel.value=ICONS[l.icon]?l.icon:"other"; row.querySelector(".i-name").value=l.name||""; row.querySelector(".i-url").value=l.url||""; }
-  row.querySelector(".btn-del").addEventListener("click",()=>row.remove());
-  document.getElementById("links").appendChild(row);
-}
-document.getElementById("btn-add").addEventListener("click",()=>addLinkRow(null));
+const CONFIG_URLS = ['config.json?cb='+Date.now(), '../config.json?cb='+Date.now()];
 
-function collect(){
-  return {
-    siteTitle:document.getElementById("f-title").value.trim(),
-    tagline:document.getElementById("f-tagline").value.trim(),
-    aboutText:document.getElementById("f-about").value,
-    links:[...document.querySelectorAll(".link-row")].map(r=>({
-      icon:r.querySelector(".i-icon").value,
-      name:r.querySelector(".i-name").value.trim(),
-      url:r.querySelector(".i-url").value.trim()
-    })).filter(l=>l.name&&l.url),
-    accent1:document.getElementById("f-a1").value,
-    accent2:document.getElementById("f-a2").value
+async function loadRemote(){
+  for (const u of CONFIG_URLS){
+    try{
+      const r = await fetch(u, {cache:'no-store'});
+      if (r.ok){ cfg = await r.json(); render(); toast('Конфиг загружен с сайта'); return; }
+    }catch(e){}
+  }
+  cfg = null;
+  renderEmpty();
+}
+
+function loadLocal(){ document.getElementById('fileInput').click(); }
+function onFile(e){
+  const f = e.target.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try{ cfg = JSON.parse(rd.result); render(); toast('Конфиг загружен с файла'); }
+    catch(err){ toast('Ошибка чтения JSON: '+err.message, false); }
   };
+  rd.readAsText(f);
 }
 
-document.getElementById("btn-download").addEventListener("click",()=>{
-  const data=JSON.stringify(collect(),null,2);
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));
-  a.download="config.json"; a.click(); URL.revokeObjectURL(a.href);
-  document.getElementById("msg").textContent="Файл config.json скачан. Загрузите его в репозиторий — изменения появятся на сайте через минуту.";
-});
+function reloadRemote(){ loadRemote(); }
 
-document.getElementById("btn-preview").addEventListener("click",()=>{
-  localStorage.setItem("dw_cfg_preview",JSON.stringify(collect()));
-  document.getElementById("msg").textContent="Сохранено в этом браузере. Откройте index.html — увидите изменения. Чтобы они появились у всех, скачайте config.json и загрузите на GitHub.";
-});
+function renderEmpty(){
+  const ed = document.getElementById('editor');
+  ed.innerHTML = '<div class="card"><h1 style="font-size:1.1rem">Конфиг не найден</h1>'+
+    '<p class="sub" style="margin-top:8px">Не удалось загрузить config.json с сайта (возможно, вы открыли файл локально без сервера). '+
+    'Нажмите «Открыть файл с компьютера» и выберите ваш config.json — либо начните пустой конфиг.</p>'+
+    '<div class="row"><button class="btn2" onclick="cfg={}; render();">Начать пустой</button></div></div>';
+}
 
-loadConfig();
+/* ---------- построение формы ---------- */
+function esc(s){ const d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
+
+function fieldEditor(key, val, path, isItem=false){
+  const type = typeof val;
+  if (type === 'string' || type === 'number'){
+    const t = type==='number' ? 'number' : 'text';
+    const isLong = type==='string' && val.length > 60;
+    let inner;
+    if (isLong){
+      inner = '<textarea data-path="'+path+'">'+esc(val)+'</textarea>';
+    } else if (/^#[0-9a-fA-F]{6}$/.test(String(val))){
+      inner = '<div class="colorrow"><input type="color" value="'+esc(val)+'" data-path="'+path+'" data-color="1">'+
+              '<input type="text" value="'+esc(val)+'" data-path="'+path+'" style="width:120px" class="colortext">'+
+              '<span class="colorval">цвет</span></div>';
+    } else {
+      inner = '<input type="'+t+'" value="'+esc(val)+'" data-path="'+path+'">';
+    }
+    return (isItem?'':'<label>'+esc(key)+'</label>') + inner;
+  }
+  if (type === 'boolean'){
+    return (isItem?'':'<label>'+esc(key)+'</label>') +
+      '<select data-path="'+path+'" data-bool="1" style="width:100%;background:#0f0f16;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:10px">'+
+      '<option value="true"'+(val?' selected':'')+'>да</option><option value="false"'+(!val?' selected':'')+'>нет</option></select>';
+  }
+  if (Array.isArray(val)){
+    let h = '';
+    if (!isItem) h += '<div class="sec-title"><b>'+esc(key)+'</b></div>';
+    h += '<div class="arrwrap" data-path="'+path+'">';
+    val.forEach((it,i)=>{ h += '<div class="item"><button class="btn-sm danger del" data-path="'+path+'" data-idx="'+i+'" onclick="delArrItem(this)">&#10005;</button>'+fieldEditor('элемент', it, path+'.'+i, true)+'</div>'; });
+    h += '</div><div class="row"><button class="btn-sm" data-path="'+path+'" onclick="addArrItem(this)">+ добавить элемент</button></div>';
+    return h;
+  }
+  if (type === 'object'){
+    let h = '';
+    if (!isItem) h += '<div class="card"><div class="sec-title"><b>'+esc(key)+'</b></div>';
+    else h += '<div class="sec-title"><b>Объект</b></div>';
+    for (const k in val) h += fieldEditor(k, val[k], path+'.'+k);
+    h += isItem ? '</div>' : '</div>';
+    return h;
+  }
+  return '';
+}
+
+function render(){
+  const ed = document.getElementById('editor');
+  let h = '<div class="card">';
+  for (const k in cfg){
+    if (typeof cfg[k]==='object' && cfg[k]!==null && !Array.isArray(cfg[k])) continue;
+  }
+  // сначала простые поля верхнего уровня, потом объекты и массивы
+  const keys = Object.keys(cfg);
+  for (const k of keys){
+    const t = typeof cfg[k];
+    if (t==='string'||t==='number'||t==='boolean') h += fieldEditor(k, cfg[k], k);
+  }
+  for (const k of keys){
+    if (Array.isArray(cfg[k])) h += fieldEditor(k, cfg[k], k);
+  }
+  for (const k of keys){
+    if (typeof cfg[k]==='object' && cfg[k]!==null && !Array.isArray(cfg[k])) h += fieldEditor(k, cfg[k], k);
+  }
+  h += '</div>';
+  ed.innerHTML = h;
+  bindColorSync();
+  document.querySelectorAll('[data-path]').forEach(el=>{
+    el.addEventListener('input', onEdit);
+    el.addEventListener('change', onEdit);
+  });
+}
+
+function bindColorSync(){
+  document.querySelectorAll('input[type=color][data-color]').forEach(c=>{
+    const txt = c.parentElement.querySelector('.colortext');
+    c.addEventListener('input', ()=>{ txt.value = c.value; });
+    txt.addEventListener('input', ()=>{ c.value = txt.value; });
+  });
+}
+
+function getByPath(path){
+  const parts = path.split('.');
+  let o = cfg;
+  for (const p of parts){
+    const i = parseInt(p,10);
+    o = isNaN(i) ? o[p] : o[Number(p)];
+    if (o === undefined) return undefined;
+  }
+  return o;
+}
+function setByPath(path, val){
+  const parts = path.split('.');
+  let o = cfg;
+  for (let j=0;j<parts.length-1;j++){
+    const i = parseInt(parts[j],10);
+    o = isNaN(i) ? o[parts[j]] : o[Number(parts[j])];
+  }
+  const last = parts[parts.length-1];
+  const i = parseInt(last,10);
+  if (isNaN(i)) o[last] = val; else o[Number(last)] = val;
+}
+
+function onEdit(e){
+  const el = e.target;
+  const path = el.dataset.path;
+  if (!path) return;
+  let v;
+  if (el.dataset.bool !== undefined) v = el.value === 'true';
+  else if (el.type === 'number') v = parseFloat(el.value) || 0;
+  else if (el.type === 'color') v = el.value;
+  else v = el.value;
+  setByPath(path, v);
+}
+
+function addArrItem(btn){
+  const path = btn.dataset.path;
+  const arr = getByPath(path);
+  let sample = '';
+  if (arr.length && typeof arr[0]==='object') sample = JSON.parse(JSON.stringify(arr[0]));
+  arr.push(sample);
+  render();
+  toast('Элемент добавлен');
+}
+function delArrItem(btn){
+  const arr = getByPath(btn.dataset.path);
+  arr.splice(Number(btn.dataset.idx),1);
+  render();
+  toast('Элемент удалён');
+}
+
+function addFieldDialog(){
+  const name = prompt('Имя нового поля (по-английски, например "youtube")');
+  if (!name) return;
+  const kind = prompt('Тип поля:\n1 — текст\n2 — число\n3 — список\n4 — раздел (объект)', '1');
+  let v;
+  if (kind==='2') v = 0;
+  else if (kind==='3') v = [];
+  else if (kind==='4') v = {};
+  else v = '';
+  cfg[name] = v;
+  render();
+  toast('Поле "'+name+'" добавлено');
+}
+
+/* ---------- сохранение ---------- */
+function download(name, content, mime){
+  const blob = new Blob([content], {type: mime});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 300);
+}
+
+function exportCfg(){
+  if (!cfg) return toast('Сначала загрузите конфиг', false);
+  download('config.json', JSON.stringify(cfg, null, 2), 'application/json');
+  toast('Файл скачан — загрузите его в репозиторий');
+}
+
+function saveLocal(){
+  if (!cfg) return toast('Сначала загрузите конфиг', false);
+  try{
+    localStorage.setItem('dw_cfg_preview', JSON.stringify(cfg));
+    toast('Сохранено в этом браузере (для предпросмотра)');
+  }catch(e){ toast('Не удалось сохранить: '+e.message, false); }
+}
 </script>
 </body>
 </html>

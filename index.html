@@ -4,422 +4,322 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deadly_wolf</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --accent:#660000;
-  --accent2:#320b35;
-  --bg:#0a0a0f;
-  --panel:#121218;
-  --line:#2a2a35;
-  --text:#e8e8ef;
-  --muted:#9a9aa8;
-}
+:root{--accent:#660000;--accent2:#320b35;--bg:#0b0b0e;--panel:#141318;--text:#e8e6e3;--muted:#9a97a0;--line:#2a2830}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Rajdhani',sans-serif;
-  min-height:100vh;
-}
-/* фоновое свечение и сетка */
-body::before{
-  content:"";position:fixed;inset:0;z-index:-1;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%),
-    radial-gradient(ellipse 60% 50% at 90% 100%, color-mix(in srgb, var(--accent2) 45%, transparent), transparent 70%),
-    linear-gradient(transparent 95%, rgba(255,255,255,.03) 95%) 0 0/100% 28px,
-    linear-gradient(90deg, transparent 95%, rgba(255,255,255,.03) 95%) 0 0/28px 100%;
-}
-.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:18px;line-height:1.5;
+  background-image:linear-gradient(160deg,rgba(102,0,0,.28),rgba(50,11,53,.28) 60%,transparent),
+  repeating-linear-gradient(0deg,transparent 0 39px,rgba(255,255,255,.025) 39px 40px),
+  repeating-linear-gradient(90deg,transparent 0 39px,rgba(255,255,255,.025) 39px 40px);
+  background-attachment:fixed;min-height:100vh}
+a{color:inherit}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
 /* шапка */
-header{
-  border-bottom:2px solid var(--accent);
-  clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 24px) 100%,0 100%);
-  background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15));
-  position:sticky;top:0;z-index:50;backdrop-filter:blur(6px);
-}
-.head-in{display:flex;align-items:center;gap:16px;padding:14px 0;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-.logo img{width:44px;height:44px;border-radius:8px;border:2px solid var(--accent)}
-.logo b{font-size:22px;letter-spacing:2px;text-transform:uppercase}
-.logo small{display:block;color:var(--muted);font-size:13px;letter-spacing:.5px}
-nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
-nav a{
-  color:var(--muted);text-decoration:none;font-weight:600;letter-spacing:1.5px;
-  text-transform:uppercase;font-size:14px;padding:8px 14px;
-  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
-}
-nav a:hover,nav a.active{color:var(--text);background:rgba(255,255,255,.06)}
-
-/* плашка черновика */
-.draft-bar{
-  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
-  background:#3a2f00;border:1px solid #b98900;color:#ffe9a8;
-  padding:10px 16px;font-size:14px;margin:14px auto 0;
-}
-.draft-bar button{
-  background:#b98900;color:#1a1400;border:0;font-family:inherit;font-weight:700;
-  padding:6px 14px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;font-size:12px;
-}
-.draft-bar button.ghost{background:transparent;color:#ffe9a8;border:1px solid #b98900}
-
-/* герой */
-.hero{padding:70px 0 40px;text-align:center}
-.hero h1{
-  font-size:clamp(42px,8vw,84px);letter-spacing:6px;text-transform:uppercase;line-height:1;
-  background:linear-gradient(90deg,var(--accent),#ff4d4d,var(--accent2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:0 0 40px rgba(102,0,0,.35);
-}
-.hero p{color:var(--muted);font-size:clamp(16px,2.4vw,22px);max-width:640px;margin:16px auto 0}
-.cta{
-  display:inline-block;margin-top:28px;padding:14px 34px;font-family:inherit;font-weight:700;
-  font-size:16px;letter-spacing:2px;text-transform:uppercase;color:#fff;text-decoration:none;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
-  box-shadow:0 0 24px color-mix(in srgb, var(--accent) 60%, transparent);
-}
-.cta:hover{filter:brightness(1.25)}
-
-/* секции */
-section{padding:40px 0}
-h2{
-  font-size:28px;letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;
-  padding-left:14px;border-left:4px solid var(--accent);
-}
-
+.site-header{position:relative;padding:34px 0 0;overflow:hidden}
+.site-header:before{content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);opacity:.45;z-index:-1;
+  clip-path:polygon(0 0,100% 0,100% 78%,0 100%)}
+.site-header:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent))}
+.head-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.avatar{width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);
+  box-shadow:0 0 18px rgba(102,0,0,.6)}
+.ch-name{font-size:34px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  background:linear-gradient(90deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ch-tagline{color:var(--muted);font-weight:500}
+nav{display:flex;gap:6px;margin:22px 0 0;border-bottom:1px solid var(--line)}
+nav button{background:none;border:none;color:var(--muted);font:inherit;font-weight:600;text-transform:uppercase;
+  letter-spacing:1px;padding:10px 16px;cursor:pointer;border-bottom:3px solid transparent}
+nav button:hover{color:var(--text)}
+nav button.active{color:#fff;border-bottom-color:var(--accent)}
+main{padding:28px 0 70px}
+.hero{padding:14px 0 8px}
+.hero h1{font-size:clamp(38px,7vw,64px);font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  text-shadow:0 0 24px rgba(102,0,0,.8)}
+.hero p{color:var(--muted);font-size:22px;margin:8px 0 18px}
+.btn{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;
+  font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 26px;text-decoration:none;
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  box-shadow:0 0 16px rgba(102,0,0,.55);transition:filter .2s}
+.btn:hover{filter:brightness(1.25)}
+h2.sec{font-size:26px;text-transform:uppercase;letter-spacing:2px;margin:34px 0 16px;position:relative;padding-left:14px}
+h2.sec:before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:5px;background:var(--accent);box-shadow:0 0 10px var(--accent)}
 /* свежее видео */
-.latest{margin-top:10px}
-.latest .frame{
-  position:relative;aspect-ratio:16/9;max-width:820px;margin:0 auto;
-  border:1px solid var(--line);box-shadow:0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
-  background:var(--panel);
-}
-.latest iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.latest .cap{max-width:820px;margin:10px auto 0;color:var(--muted);font-size:15px}
-
+.fresh-card{display:flex;gap:0;background:var(--panel);border:1px solid var(--line);overflow:hidden;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+.fresh-card img{width:56%;object-fit:cover;display:block;aspect-ratio:16/9}
+.fresh-info{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.fresh-info .vtitle{font-size:22px;font-weight:700;text-decoration:none}
+.fresh-info .vtitle:hover{color:var(--accent)}
+.vdate{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:1px}
 /* сетка видео */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.vcard{
-  background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--text);
-  display:block;transition:.2s;position:relative;
-  clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);
-}
-.vcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.vcard:hover{transform:translateY(-4px);box-shadow:0 8px 30px color-mix(in srgb, var(--accent) 45%, transparent)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.vcard{background:var(--panel);border:1px solid var(--line);text-decoration:none;display:block;
+  transition:transform .15s,box-shadow .15s,border-color .15s;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)}
+.vcard:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 0 18px rgba(102,0,0,.45)}
 .vcard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.vcard .t{padding:12px 14px 4px;font-weight:600;font-size:16px;line-height:1.3}
-.vcard .d{padding:0 14px 14px;color:var(--muted);font-size:13px}
-.feed-msg{color:var(--muted);padding:20px 0}
-.feed-msg a{color:var(--text)}
-
+.vcard .vt{padding:10px 12px 4px;font-weight:600;line-height:1.3}
+.vcard .vd{padding:0 12px 12px;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:1px}
+.status{color:var(--muted);padding:20px 0}
 /* о канале */
-.about-box{
-  background:var(--panel);border:1px solid var(--line);padding:26px;font-size:17px;line-height:1.65;
-  clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);
-}
-
+.about-text{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);
+  padding:20px 22px;font-size:19px}
 /* контакты */
 .links{display:flex;gap:14px;flex-wrap:wrap}
-.link-chip{
-  display:flex;align-items:center;gap:10px;padding:12px 20px;text-decoration:none;color:var(--text);
-  background:var(--panel);border:1px solid var(--line);font-weight:600;letter-spacing:1px;
-  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-  transition:.2s;
-}
-.link-chip:hover{border-color:var(--accent);box-shadow:0 0 18px color-mix(in srgb, var(--accent) 50%, transparent)}
-.link-chip svg{width:22px;height:22px;fill:currentColor}
-
-footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0 80px;color:var(--muted);font-size:14px}
-footer a{color:var(--muted)}
-footer .links{margin-top:10px}
-
-/* кнопка админки — одна, внизу по центру */
-.admin-fab{
-  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;
-  width:52px;height:52px;border-radius:50%;border:2px solid var(--accent);
-  background:#141419;color:var(--text);font-size:22px;cursor:pointer;text-decoration:none;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
-}
-.admin-fab:hover{filter:brightness(1.3)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.hidden{display:none!important}
+.link-card{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);
+  padding:12px 18px;text-decoration:none;font-weight:600;transition:border-color .2s,box-shadow .2s;
+  clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px)}
+.link-card:hover{border-color:var(--accent);box-shadow:0 0 14px rgba(102,0,0,.5)}
+.link-card svg{width:22px;height:22px;fill:currentColor}
+.badge{display:inline-block;background:var(--accent2);padding:2px 8px;font-size:12px;letter-spacing:1px;color:#d9cfe6}
+/* плашка черновика */
+#draft-banner{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#2b2410;color:#ffe9b0;
+  border-top:2px solid #b58a2a;padding:12px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:16px}
+#draft-banner button{background:#b58a2a;border:none;color:#1c1608;font:inherit;font-weight:700;padding:6px 14px;cursor:pointer}
+#draft-banner button.ghost{background:none;border:1px solid #b58a2a;color:#ffe9b0}
+/* кнопка админки */
+#admin-btn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:70;
+  width:46px;height:46px;border-radius:50%;border:2px solid var(--accent);background:var(--panel);
+  color:var(--text);font-size:20px;cursor:pointer;box-shadow:0 0 14px rgba(102,0,0,.6)}
+#admin-btn:hover{filter:brightness(1.3)}
+footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted);text-align:center;font-size:14px}
+@media(max-width:640px){.fresh-card{flex-direction:column}.fresh-card img{width:100%}}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap head-in">
-    <a class="logo" href="#home">
-      <img id="avatar" alt="аватар">
-      <span><b id="chName">DEADLY_WOLF</b><small id="chTagline"></small></span>
-    </a>
+<header class="site-header">
+  <div class="wrap">
+    <div class="head-row">
+      <img class="avatar" id="avatar" alt="Аватар канала">
+      <div>
+        <div class="ch-name" id="ch-name"></div>
+        <div class="ch-tagline" id="ch-tagline"></div>
+      </div>
+    </div>
     <nav>
-      <a href="#home" class="active" data-tab="home">Главная</a>
-      <a href="#videos" data-tab="videos">Видео</a>
-      <a href="#about" data-tab="about">О канале</a>
-      <a href="#contacts" data-tab="contacts">Контакты</a>
+      <button data-tab="home" class="active">Главная</button>
+      <button data-tab="videos">Видео</button>
+      <button data-tab="about">О канале</button>
+      <button data-tab="contact">Контакты</button>
     </nav>
   </div>
 </header>
 
-<div class="wrap">
-  <div id="draftBar" class="draft-bar hidden">
-    <span id="draftText"></span>
-    <button id="draftShow" class="ghost">Показать черновик</button>
-    <button id="draftDrop">Убрать черновик</button>
-  </div>
-</div>
-
 <main class="wrap">
-
-  <section id="home" class="tab-panel active">
+  <section id="tab-home">
     <div class="hero">
-      <h1 id="heroTitle">DEADLY_WOLF</h1>
-      <p id="heroSubtitle"></p>
-      <a class="cta" id="heroCta" href="#videos">Смотреть последние видео</a>
+      <h1 id="hero-title"></h1>
+      <p id="hero-subtitle"></p>
+      <a class="btn" id="hero-cta" href="#" onclick="switchTab('videos');return false;"></a>
     </div>
-    <div class="latest">
-      <h2>Свежее видео</h2>
-      <div class="frame" id="latestFrame">
-        <div class="feed-msg" id="latestMsg">Загружаю последнее видео…</div>
-      </div>
-      <div class="cap" id="latestCap"></div>
-    </div>
+    <h2 class="sec">Свежее видео</h2>
+    <div id="fresh-slot"><div class="status">Загружаю…</div></div>
   </section>
 
-  <section id="videos" class="tab-panel">
-    <h2>Видео</h2>
-    <div class="grid" id="grid"></div>
-    <div class="feed-msg hidden" id="feedMsg"></div>
+  <section id="tab-videos" hidden>
+    <h2 class="sec">Последние видео</h2>
+    <div class="vgrid" id="videos-grid"></div>
+    <div class="status" id="videos-status" hidden></div>
   </section>
 
-  <section id="about" class="tab-panel">
-    <h2>О канале</h2>
-    <div class="about-box" id="aboutText"></div>
+  <section id="tab-about" hidden>
+    <h2 class="sec">О канале</h2>
+    <div class="about-text" id="about-text"></div>
   </section>
 
-  <section id="contacts" class="tab-panel">
-    <h2>Контакты</h2>
-    <div class="links" id="links"></div>
+  <section id="tab-contact" hidden>
+    <h2 class="sec">Контакты и ссылки</h2>
+    <div class="links" id="links-list"></div>
   </section>
-
 </main>
 
-<footer class="wrap">
-  <div>© <span id="chNameF">Deadly_wolf</span></div>
-  <div class="links" id="footLinks"></div>
-  <div style="margin-top:10px"><a href="admin.html">админ-панель</a></div>
+<footer>
+  <div class="wrap">© <span id="year"></span> <span id="f-name"></span> · канал на YouTube</div>
 </footer>
 
-<a class="admin-fab" href="admin.html" title="Админ-панель">⚙</a>
+<div id="draft-banner" hidden>
+  <span>Черновик не опубликован: сайт показывает версию из репозитория.</span>
+  <button id="btn-show-draft">Показать черновик</button>
+  <button id="btn-del-draft" class="ghost">Убрать черновик</button>
+</div>
+
+<button id="admin-btn" title="Админ-панель" onclick="location.href='admin.html'">⚙</button>
 
 <script>
-const DRAFT_KEY = 'dw_draft_config';
-const ICONS = {
-  youtube:'<svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>',
-  telegram:'<svg viewBox="0 0 24 24"><path d="M21.9 3.4 2.7 10.8c-1.3.5-1.3 1.3-.2 1.6l4.9 1.5 1.9 5.8c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.6.2 1.8-.9l3.3-15.4c.3-1.3-.5-1.9-1.6-1.7z"/></svg>',
-  vk:'<svg viewBox="0 0 24 24"><path d="M12.8 18.4c-6 0-9.4-4.1-9.6-10.9h3c.1 5 2.3 7.1 4.1 7.6V7.5h2.8v4.3c1.7-.2 3.5-2.2 4.1-4.3h2.8a8.5 8.5 0 0 1-3.9 5.5 8.8 8.8 0 0 1 4.5 5.4h-3.1a5.5 5.5 0 0 0-4.3-3.9v3.9h-.4z"/></svg>',
-  discord:'<svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.2a18 18 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.6.2 18c2 1.5 4 2.4 5.9 3l1.2-2a12 12 0 0 1-1.9-.9l.5-.4a14 14 0 0 0 12.2 0l.5.4c-.6.4-1.2.7-1.9.9l1.2 2c1.9-.6 3.9-1.5 5.9-3 .6-5.1-.7-9.5-3.5-13.6zM8.4 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4zm7.2 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4z"/></svg>',
-  twitch:'<svg viewBox="0 0 24 24"><path d="M4.3 2 2.5 6.7v14.6h5V24h2.8l2.8-2.7h4.2L22.5 16V2H4.3zm16.4 13-3.2 3.2h-5l-2.8 2.7v-2.7H5.8V3.8h14.9V15zm-3.5-7.3v5.4h-1.8V7.7h1.8zm-4.7 0v5.4h-1.8V7.7h1.8z"/></svg>',
-  steam:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 9.6l5.4 2.2a2.8 2.8 0 0 1 1.6-.5h.2l2.4-3.5v-.1a3.7 3.7 0 1 1 3.7 3.7h-.1l-3.4 2.5v.2a2.8 2.8 0 0 1-5.6.3L2.4 15A10 10 0 1 0 12 2zM6.6 17.7l-1.2-.5a2.1 2.1 0 0 0 3.9.6 2.1 2.1 0 0 0-2.7-3l1.3.5a1.5 1.5 0 0 1-1.3 2.4zm11-6.7a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-4.3a1.9 1.9 0 1 0 0 3.7 1.9 1.9 0 0 0 0-3.7z"/></svg>',
-  tiktok:'<svg viewBox="0 0 24 24"><path d="M19.6 6.7a5.6 5.6 0 0 1-3.4-3.5 5.6 5.6 0 0 1-.3-1.7h-3.5v13.7a2.3 2.3 0 1 1-2.3-2.4c.3 0 .5 0 .8.1V9.3a5.9 5.9 0 1 0 5.1 5.8V8.9a8.9 8.9 0 0 0 5.2 1.7V7.1c-.6 0-1.1-.1-1.6-.4z"/></svg>',
-  github:'<svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>'
+'use strict';
+var DRAFT_KEY = 'dw_draft_config';
+var FALLBACK_CFG = {"channel":{"name":"Deadly_wolf","handle":"@Deadly00wolf","channelId":"UCN3_YEiDPE_tUzS0vkQoYYg","url":"https://www.youtube.com/@Deadly00wolf","avatar":"https://unavatar.io/youtube/Deadly00wolf","tagline":"Прохождения, геймплей и просто играем"},"hero":{"title":"DEADLY_WOLF","subtitle":"Игровые прохождения без пафоса: стреляю, застреваю и помираю.","cta":"Смотреть последние видео"},"about":"Привет! Это канал Deadly_wolf. Здесь я выкладываю прохождения игр: Titanfall 2, Euro Truck Simulator 2, Lethal Company, Half-Life 2 и не только.","links":[{"type":"youtube","title":"YouTube","url":"https://www.youtube.com/@Deadly00wolf"}],"theme":{"accent":"#660000","accent2":"#320b35"}};
+
+var ICONS = {
+  youtube:'<svg viewBox="0 0 24 24"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.4-1C16.6 4 12 4 12 4s-4.6 0-7.7.2c-.5.1-1.5.1-2.4 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.7c0 1.9.2 3.8.2 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.6.2 7.6.2s4.6 0 7.7-.2c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.7c0-1.9-.2-3.8-.2-3.8zM9.8 15.1V8.6l6.2 3.3-6.2 3.2z"/></svg>',
+  telegram:'<svg viewBox="0 0 24 24"><path d="M21.9 4.4 2.7 11.8c-1 .4-1 1.8 0 2.1l4.8 1.6 1.8 5.5c.3.9 1.4 1.1 2 .4l2.6-2.6 4.9 3.6c.7.5 1.7.1 1.9-.7l3-16c.2-1-.8-1.7-1.8-1.3zM8.5 14.9l9.3-6.6c.3-.2.6.2.4.4l-7.6 7.2-.3 3.1-1.8-4.1z"/></svg>',
+  vk:'<svg viewBox="0 0 24 24"><path d="M12.8 18.4c-6 0-9.5-4.2-9.6-11h3c.1 5 2.3 7.1 4 7.5V7.4h2.9v4.3c1.7-.2 3.5-2.2 4.1-4.3h2.8c-.5 2.6-2.4 4.6-3.8 5.4 1.4.7 3.5 2.4 4.3 5.6h-3.1c-.6-2-2.2-3.6-4.3-3.8v3.8h-.3z"/></svg>',
+  discord:'<svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.9 3l-.6 1.2a16 16 0 0 0-6.6 0L8.1 3a19.7 19.7 0 0 0-4.4 1.4C.9 8.6.2 12.7.6 16.7a20 20 0 0 0 5.9 3l1.3-2a12 12 0 0 1-2-1l.5-.4a13.9 13.9 0 0 0 11.4 0l.5.4a12 12 0 0 1-2 1l1.3 2a20 20 0 0 0 5.9-3c.5-4.6-.7-8.6-3.1-12.3zM8.7 14.2c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3zm6.6 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3z"/></svg>',
+  twitch:'<svg viewBox="0 0 24 24"><path d="M4.3 2 2.5 5.7v14h4.7V22h2.6l2.4-2.4h3.6L21.5 14V2H4.3zm15.4 11.2-3 3h-4.7l-2.4 2.4v-2.4H5.9V3.7h13.8v9.5zM16.5 7v5.1h-1.8V7h1.8zm-4.7 0v5.1H10V7h1.8z"/></svg>',
+  steam:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 9.4l5.4 2.2a2.8 2.8 0 0 1 1.6-.5l2.4-3.5v-.1a3.8 3.8 0 1 1 3.8 3.8h-.1l-3.4 2.5a2.8 2.8 0 0 1-5.5.7L2.3 14.6A10 10 0 1 0 12 2zm-5.5 14.7.1.1-1.2-.5 1.1.4zm5-9a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm0 .5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>'
 };
-function iconFor(type){
-  if(ICONS[type]) return ICONS[type];
-  return '<svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" font-size="14" font-family="Rajdhani,sans-serif" font-weight="700" fill="currentColor">'+(type||'W').charAt(0).toUpperCase()+'</text></svg>';
+
+function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function fmtDate(s){if(!s)return '';var d=new Date(s);return isNaN(d)?'':d.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});}
+function iconFor(type,name){
+  if(ICONS[type])return ICONS[type];
+  return '<svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" font-size="14" font-family="Rajdhani" fill="currentColor">'+esc((name||type||'?').charAt(0).toUpperCase())+'</text></svg>';
 }
 
-let liveConfig = null;
-let draftConfig = null;
-let viewingDraft = false;
-
-async function init(){
-  try{
-    const r = await fetch('config.json?ts=' + Date.now());
-    if(!r.ok) throw new Error(r.status);
-    liveConfig = await r.json();
-  }catch(e){
-    console.error(e);
-    const m = document.getElementById('feedMsg');
-    if(m){ m.classList.remove('hidden'); m.innerHTML = 'Не удалось загрузить config.json. Проверьте, что файл лежит рядом с index.html в репозитории.'; }
-    document.getElementById('latestMsg').textContent = 'config.json недоступен.';
-    return;
-  }
-  try{ draftConfig = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); }catch(e){ draftConfig = null; }
-
-  render(liveConfig);        // по умолчанию — опубликованная версия
-  if(liveConfig.channel && liveConfig.channel.channelId) loadFeed(liveConfig.channel.channelId);
-
-  if(draftConfig){
-    const bar = document.getElementById('draftBar');
-    bar.classList.remove('hidden');
-    document.getElementById('draftText').textContent =
-      'В браузере есть локальный черновик — он не опубликован. Сайт показывает опубликованную версию.';
-    document.getElementById('draftShow').style.display = '';
-  }
-}
+var PUBLISHED = null, SHOWING_DRAFT = false;
 
 function render(cfg){
-  if(!cfg) return;
-  document.title = cfg.channel ? cfg.channel.name : 'Канал';
-  if(cfg.channel){
-    document.getElementById('chName').textContent = (cfg.channel.name||'').toUpperCase();
-    document.getElementById('chNameF').textContent = cfg.channel.name||'';
-    document.getElementById('chTagline').textContent = cfg.channel.tagline||'';
-    document.getElementById('avatar').src = cfg.channel.avatar || 'https://unavatar.io/youtube/default';
-  }
-  if(cfg.hero){
-    document.getElementById('heroTitle').textContent = cfg.hero.title || '';
-    document.getElementById('heroSubtitle').textContent = cfg.hero.subtitle || '';
-    document.getElementById('heroCta').textContent = cfg.hero.cta || 'Смотреть последние видео';
-  }
-  document.getElementById('aboutText').textContent = cfg.about || '';
-  if(cfg.theme){
-    document.documentElement.style.setProperty('--accent', cfg.theme.accent || '#660000');
-    document.documentElement.style.setProperty('--accent2', cfg.theme.accent2 || '#320b35');
-  }
-  const links = document.getElementById('links');
-  const foot = document.getElementById('footLinks');
-  links.innerHTML = ''; foot.innerHTML = '';
-  (cfg.links||[]).forEach(l=>{
-    const a = document.createElement('a');
-    a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
-    a.className = 'link-chip';
-    a.innerHTML = iconFor(l.type) + '<span>' + escapeHtml(l.title||l.type||'ссылка') + '</span>';
-    links.appendChild(a);
-    const f = document.createElement('a');
-    f.href = l.url; f.target = '_blank'; f.rel = 'noopener'; f.textContent = l.title||l.type||'ссылка';
-    foot.appendChild(f);
+  var ch = cfg.channel||{}, hero = cfg.hero||{}, theme = cfg.theme||{};
+  document.documentElement.style.setProperty('--accent', theme.accent||'#660000');
+  document.documentElement.style.setProperty('--accent2', theme.accent2||'#320b35');
+  document.title = ch.name||'Канал';
+  document.getElementById('ch-name').textContent = ch.name||'';
+  document.getElementById('ch-tagline').textContent = ch.tagline||'';
+  document.getElementById('f-name').textContent = ch.name||'';
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('avatar').src = ch.avatar||'';
+  document.getElementById('hero-title').textContent = hero.title||'';
+  document.getElementById('hero-subtitle').textContent = hero.subtitle||'';
+  document.getElementById('hero-cta').textContent = hero.cta||'Смотреть видео';
+  document.getElementById('about-text').textContent = cfg.about||'';
+  var ll = document.getElementById('links-list');
+  ll.innerHTML = '';
+  (cfg.links||[]).forEach(function(l){
+    var a = document.createElement('a');
+    a.className='link-card'; a.href=l.url||'#'; a.target='_blank'; a.rel='noopener';
+    a.innerHTML = iconFor(l.type,l.title)+'<span>'+esc(l.title||l.url||'')+'</span>';
+    ll.appendChild(a);
   });
 }
 
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function vcard(v,big){
+  if(big){
+    return '<a class="fresh-card" href="'+esc(v.url)+'" target="_blank" rel="noopener">'+
+      '<img src="'+esc(v.thumbnail)+'" alt="" loading="lazy">'+
+      '<span class="fresh-info"><span class="vtitle">'+esc(v.title)+'</span>'+
+      '<span class="vdate">'+fmtDate(v.published)+'</span>'+
+      '<span class="badge">Смотреть на YouTube</span></span></a>';
+  }
+  return '<a class="vcard" href="'+esc(v.url)+'" target="_blank" rel="noopener">'+
+    '<img src="'+esc(v.thumbnail)+'" alt="" loading="lazy">'+
+    '<span class="vt">'+esc(v.title)+'</span><span class="vd">'+fmtDate(v.published)+'</span></a>';
 }
 
-/* ---------- лента видео: ВСЕГДА из опубликованного конфига ---------- */
-let feedLoaded = false;
+function showStatus(msg){var s=document.getElementById('videos-status');s.textContent=msg;s.hidden=false;}
+
+function renderVideos(videos){
+  var grid=document.getElementById('videos-grid'), fresh=document.getElementById('fresh-slot');
+  if(!videos||!videos.length){
+    document.getElementById('fresh-slot').innerHTML='';
+    showStatus('Лента временно недоступна. Смотрите видео прямо на канале: '+(PUBLISHED&&PUBLISHED.channel?PUBLISHED.channel.url:''));
+    return;
+  }
+  document.getElementById('videos-status').hidden=true;
+  fresh.innerHTML=vcard(videos[0],true);
+  grid.innerHTML=videos.slice(1,10).map(function(v){return vcard(v,false);}).join('');
+}
+
+function fetchWithTimeout(url,ms){
+  return new Promise(function(res,rej){
+    var t=setTimeout(function(){rej(new Error('timeout'));},ms||10000);
+    fetch(url).then(function(r){clearTimeout(t);res(r);},function(e){clearTimeout(t);rej(e);});
+  });
+}
 
 async function loadFeed(channelId){
-  const feedUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
-  const sources = [
-    { name:'rss2json',
-      url:'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl),
-      parse: r => (r.items||[]).map(i=>({ title:i.title, link:i.link, date:i.pubDate })) },
-    { name:'allorigins',
-      url:'https://api.allorigins.win/raw?url=' + encodeURIComponent(feedUrl),
-      xml:true },
-    { name:'corsproxy',
-      url:'https://corsproxy.io/?url=' + encodeURIComponent(feedUrl),
-      xml:true }
-  ];
-  for(const s of sources){
-    try{
-      const r = await fetch(s.url, {cache:'no-store'});
-      if(!r.ok) throw new Error(s.name + ' HTTP ' + r.status);
-      const items = s.xml ? parseXml(await r.text()) : s.parse(await r.json());
-      if(items && items.length){
-        renderGrid(items);
-        renderLatest(items[0]);
-        feedLoaded = true;
-        return;
-      }
-    }catch(e){ console.warn('источник', s.name, 'не сработал:', e); }
-  }
-  const msg = document.getElementById('feedMsg');
-  msg.classList.remove('hidden');
-  msg.innerHTML = 'Сервисы ленты временно недоступны. Видео можно посмотреть прямо на канале: <a href="https://www.youtube.com/@' + (liveConfig.channel.handle||'').replace('@','') + '" target="_blank">YouTube</a>.';
-  document.getElementById('latestMsg').textContent = 'Лента временно недоступна.';
+  // 1) локальный кэш, который обновляет GitHub Actions
+  try{
+    var r=await fetchWithTimeout('videos.json?cb='+Date.now(),8000);
+    if(r.ok){var j=await r.json();if(j&&j.videos&&j.videos.length)return j.videos;}
+  }catch(e){}
+  var rss='https://www.youtube.com/feeds/videos.xml?channel_id='+channelId;
+  // 2) rss2json
+  try{
+    var r2=await fetchWithTimeout('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(rss),9000);
+    if(r2.ok){var j2=await r2.json();
+      if(j2&&j2.items&&j2.items.length)return j2.items.map(function(it){
+        return {id:(it.guid||'').replace(/^yt:video:/,''),title:it.title,published:it.pubDate,
+          url:it.link||it.url,thumbnail:it.thumbnail||((it.enclosure&&it.enclosure.link)||''),
+          description:it.description||''};
+      }).filter(function(v){return v.id;});}
+  }catch(e){}
+  // 3) allorigins
+  try{
+    var r3=await fetchWithTimeout('https://api.allorigins.win/raw?url='+encodeURIComponent(rss),9000);
+    if(r3.ok){var txt=await r3.text();return parseRss(txt);}
+  }catch(e){}
+  // 4) corsproxy
+  try{
+    var r4=await fetchWithTimeout('https://corsproxy.io/?url='+encodeURIComponent(rss),9000);
+    if(r4.ok){var txt4=await r4.text();return parseRss(txt4);}
+  }catch(e){}
+  return [];
 }
 
-function parseXml(text){
-  const doc = new DOMParser().parseFromString(text, 'text/xml');
-  return Array.from(doc.getElementsByTagName('entry')).map(e=>{
-    const link = Array.from(e.getElementsByTagName('link')).find(l=>l.getAttribute('rel')==='alternate');
-    return {
-      title: (e.getElementsByTagName('title')[0]||{}).textContent || '',
-      link: link ? link.getAttribute('href') : '',
-      date: (e.getElementsByTagName('published')[0]||{}).textContent || ''
-    };
+function parseRss(xmlText){
+  try{
+    var doc=new DOMParser().parseFromString(xmlText,'text/xml');
+    var out=[],entries=doc.getElementsByTagName('entry');
+    for(var i=0;i<entries.length;i++){
+      var e=entries[i],get=function(t){var el=e.getElementsByTagName(t)[0];return el?el.textContent:'';};
+      var vid=get('videoId')||get('yt:videoId');
+      if(!vid)continue;
+      var thumb=get('thumbnail')||get('media:thumbnail');
+      out.push({id:vid,title:get('title'),published:get('published'),
+        url:'https://www.youtube.com/watch?v='+vid,
+        thumbnail:thumb||('https://i.ytimg.com/vi/'+vid+'/hqdefault.jpg'),description:get('description')});
+    }
+    return out;
+  }catch(e){return [];}
+}
+
+function switchTab(name){
+  ['home','videos','about','contact'].forEach(function(t){
+    document.getElementById('tab-'+t).hidden=(t!==name);
   });
-}
-
-function videoId(link){
-  const m = String(link||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);
-  return m ? m[1] : null;
-}
-
-function renderGrid(items){
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  items.slice(0,9).forEach(v=>{
-    const id = videoId(v.link);
-    if(!id) return;
-    const a = document.createElement('a');
-    a.href = v.link; a.target = '_blank'; a.rel = 'noopener';
-    a.className = 'vcard';
-    a.innerHTML = '<img loading="lazy" src="https://i.ytimg.com/vi/' + id + '/mqdefault.jpg" alt="">' +
-                  '<div class="t">' + escapeHtml(v.title) + '</div>' +
-                  '<div class="d">' + fmtDate(v.date) + '</div>';
-    grid.appendChild(a);
+  document.querySelectorAll('nav button').forEach(function(b){
+    b.classList.toggle('active',b.dataset.tab===name);
   });
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('nav button').forEach(function(b){b.addEventListener('click',function(){switchTab(b.dataset.tab);});});
+
+async function boot(cfg){
+  PUBLISHED = cfg;
+  render(cfg);
+  var vids = await loadFeed(cfg.channel.channelId);
+  renderVideos(vids);
 }
 
-function renderLatest(v){
-  const id = videoId(v.link);
-  const frame = document.getElementById('latestFrame');
-  if(!id){ frame.innerHTML = ''; return; }
-  frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '" title="Свежее видео" allowfullscreen loading="lazy"></iframe>';
-  document.getElementById('latestCap').textContent = v.title || '';
+function checkDraft(){
+  var raw=null;
+  try{raw=localStorage.getItem(DRAFT_KEY);}catch(e){}
+  var banner=document.getElementById('draft-banner');
+  if(!raw){banner.hidden=true;return;}
+  banner.hidden=false;
+  document.getElementById('btn-show-draft').onclick=function(){
+    try{SHOWING_DRAFT=true;render(JSON.parse(raw));}catch(e){}
+    banner.hidden=true;
+  };
+  document.getElementById('btn-del-draft').onclick=function(){
+    try{localStorage.removeItem(DRAFT_KEY);}catch(e){}
+    banner.hidden=true;
+    if(SHOWING_DRAFT&&PUBLISHED){SHOWING_DRAFT=false;render(PUBLISHED);}
+  };
 }
 
-function fmtDate(d){
-  if(!d) return '';
-  const t = new Date(d);
-  return isNaN(t) ? '' : t.toLocaleDateString('ru-RU', {day:'numeric', month:'long', year:'numeric'});
-}
-
-/* ---------- черновик: только по явному выбору ---------- */
-document.getElementById('draftShow').addEventListener('click', function(){
-  if(!draftConfig) return;
-  viewingDraft = !viewingDraft;
-  if(viewingDraft){
-    render(draftConfig);
-    this.textContent = 'Вернуться к опубликованной версии';
-    document.getElementById('draftText').textContent =
-      'Сейчас показан черновик (виден только вам). Видео всегда загружаются из опубликованной версии.';
-  }else{
-    render(liveConfig);
-    this.textContent = 'Показать черновик';
-    document.getElementById('draftText').textContent =
-      'В браузере есть локальный черновик — он не опубликован. Сайт показывает опубликованную версию.';
-  }
-});
-document.getElementById('draftDrop').addEventListener('click', ()=>{
-  localStorage.removeItem(DRAFT_KEY);
-  draftConfig = null;
-  document.getElementById('draftBar').classList.add('hidden');
-  render(liveConfig);
-});
-
-/* вкладки */
-document.querySelectorAll('nav a').forEach(a=>{
-  a.addEventListener('click', ()=>{
-    document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
-    a.classList.add('active');
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-    document.getElementById(a.dataset.tab).classList.add('active');
-  });
-});
-
-init();
+(async function(){
+  var cfg=FALLBACK_CFG;
+  try{
+    var r=await fetchWithTimeout('config.json?cb='+Date.now(),8000);
+    if(r.ok)cfg=await r.json();
+  }catch(e){}
+  checkDraft();
+  boot(cfg);
+})();
 </script>
 </body>
 </html>

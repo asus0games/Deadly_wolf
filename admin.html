@@ -4,300 +4,231 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Админ-панель — Deadly_wolf</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--accent:#660000;--accent2:#320b35;--bg:#0a0a0f;--panel:#14121c;--text:#eceaf3;--muted:#9a97ab;--border:#2b2438}
+:root{--accent:#660000;--accent2:#320b35;--bg:#0b0b0e;--panel:#141318;--text:#e8e6e3;--muted:#9a97a0;--line:#2a2830}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:18px;line-height:1.5;min-height:100vh;padding:0 0 80px}
-.wrap{max-width:860px;margin:0 auto;padding:24px 20px}
-h1{font-size:26px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-#status{padding:10px 14px;border:1px solid var(--border);background:var(--panel);color:var(--muted);font-size:16px;margin-bottom:18px}
-#status.ok{border-color:#2f6b2f;color:#8fd98f}
-#status.warn{border-color:#7a5f00;background:#4a3b00;color:#ffe9a8}
-#login{max-width:380px;margin:80px auto;padding:28px;background:var(--panel);border:1px solid var(--border)}
-#login h2{margin-bottom:14px;font-size:20px;text-transform:uppercase;letter-spacing:1px}
-input,select,textarea{width:100%;background:#0d0c13;border:1px solid var(--border);color:var(--text);
- font-family:inherit;font-size:17px;padding:9px 12px;outline:none}
-input:focus,textarea:focus,select:focus{border-color:var(--accent)}
-textarea{min-height:90px;resize:vertical}
-label{display:block;margin:14px 0 5px;color:var(--muted);font-size:15px;letter-spacing:.5px}
-button.b{background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:inherit;font-weight:700;
- font-size:16px;letter-spacing:1px;padding:10px 18px;margin:6px 8px 0 0}
-button.b:hover{filter:brightness(1.25)}
-button.b.dim{background:#2a2438;color:var(--muted)}
-button.b.warn{background:#4a3b00;color:#ffe9a8}
-fieldset{border:1px solid var(--border);margin:16px 0;padding:12px 14px}
-legend{color:#ff6a6a;letter-spacing:1px;font-size:14px;text-transform:uppercase;padding:0 6px}
-.linkrow{display:grid;grid-template-columns:130px 1fr 2fr 40px;gap:8px;align-items:end;margin-bottom:8px}
-.linkrow button{height:40px;background:#3a1020;color:#ff8a8a;border:1px solid #5a1c2e;cursor:pointer;font-size:18px}
-.colorrow{display:flex;gap:8px;align-items:center}
-.colorrow input[type=color]{width:52px;height:40px;padding:2px;flex:none}
-.btns{margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif;font-size:17px;line-height:1.5;
+  background-image:linear-gradient(160deg,rgba(102,0,0,.25),rgba(50,11,53,.25) 60%,transparent);background-attachment:fixed;min-height:100vh}
+.wrap{max-width:820px;margin:0 auto;padding:26px 20px 90px}
+h1{font-size:30px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+h1 span{color:var(--accent)}
+#status{color:var(--muted);font-size:14px;margin-bottom:18px}
+label{display:block;font-weight:600;margin:14px 0 4px}
+label small{color:var(--muted);font-weight:400;letter-spacing:1px}
+input[type=text],input[type=url],textarea{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);
+  font:inherit;padding:9px 12px;border-radius:4px}
+input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:80px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.row>div{flex:1;min-width:150px}
+.color-row{display:flex;gap:8px;align-items:center}
+.color-row input[type=color]{width:46px;height:38px;border:1px solid var(--line);background:none;border-radius:4px;padding:2px}
+button{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:4px;padding:9px 16px}
+.btn{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff}
+.btn:hover{filter:brightness(1.25)}
+.ghost{background:none;border:1px solid var(--line);color:var(--text)}
+.ghost:hover{border-color:var(--accent)}
+.danger{background:none;border:1px solid #7a2020;color:#ff9c9c}
+.link-row{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);padding:12px;margin:10px 0;border-radius:4px}
+.panel{background:var(--panel);border:1px solid var(--line);padding:16px;margin:16px 0;border-radius:4px}
+#login-box{max-width:420px;margin:12vh auto;text-align:center}
+#login-box input{margin:14px 0}
+.msg{margin:10px 0;font-weight:600;min-height:22px}
+.msg.ok{color:#7fd77f}.msg.err{color:#ff9c9c}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.hidden{display:none}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div id="login" hidden>
-    <h2>Вход в админ-панель</h2>
-    <label for="pw">Пароль</label>
-    <input id="pw" type="password" placeholder="Пароль">
-    <div style="margin-top:14px"><button class="b" id="loginBtn" type="button">Войти</button></div>
-    <p id="loginErr" style="color:#ff8a8a;margin-top:10px;min-height:1em"></p>
+  <div id="login-box">
+    <h1>Админ<span>-</span>панель</h1>
+    <p style="color:var(--muted)">Введите пароль администратора</p>
+    <input type="text" id="pwd" placeholder="Пароль" autocomplete="off">
+    <br><button class="btn" id="btn-login">Войти</button>
+    <div class="msg" id="login-msg"></div>
   </div>
 
-  <div id="panel" hidden>
-    <h1>Админ-панель</h1>
-    <div id="status">Загрузка…</div>
-    <div id="form"></div>
-    <div class="btns">
-      <button class="b" id="dlBtn" type="button">Скачать config.json</button>
-      <button class="b" id="openBtn" type="button">Открыть файл с компьютера</button>
-      <button class="b dim" id="reloadBtn" type="button">Перезагрузить с сайта</button>
-      <button class="b dim" id="draftBtn" type="button">Сохранить в браузере</button>
-      <button class="b warn" id="clearDraftBtn" type="button">Убрать черновик</button>
-      <button class="b dim" id="addFieldBtn" type="button">+ Поле</button>
-      <button class="b dim" id="logoutBtn" type="button">Выйти</button>
+  <div id="editor" class="hidden">
+    <h1>Админ<span>-</span>панель</h1>
+    <div id="status"></div>
+
+    <div class="toolbar">
+      <button class="btn" id="btn-download">Скачать config.json</button>
+      <button class="btn" id="btn-draft">Сохранить в браузере (черновик)</button>
+      <button class="ghost" id="btn-preview">Предпросмотр</button>
+      <button class="ghost" id="btn-load-draft">Загрузить черновик в форму</button>
+      <button class="danger" id="btn-del-draft">Убрать черновик</button>
     </div>
-    <input id="fileInput" type="file" accept=".json,application/json" hidden>
+    <div class="msg" id="edit-msg"></div>
+
+    <div id="form"></div>
+
+    <div class="toolbar">
+      <button class="ghost" id="btn-add-field">+ Поле</button>
+      <button class="btn" id="btn-save2">Скачать config.json</button>
+    </div>
   </div>
 </div>
 
 <script>
-(function(){
-  var SHA = '59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491';
-  var FNV = 'cd4cd7b8';
-  var DRAFT_KEY = 'dw_draft_config';
-  var q = function(s){return document.querySelector(s)};
-  var CFG = null;
+'use strict';
+var HASH = '59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491';
+var DRAFT_KEY = 'dw_draft_config';
+var cfg = null;
 
-  function fnv(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*16777619)>>>0}return ('0000000'+h.toString(16)).slice(-8)}
-  function sha256Hex(str){
-    if(!(window.crypto && crypto.subtle)) return Promise.resolve(null);
-    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
-      .then(function(buf){return Array.prototype.map.call(new Uint8Array(buf), function(x){return ('0'+x.toString(16)).slice(-2)}).join('')});
+function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function msg(txt,ok){var m=document.getElementById('edit-msg');m.textContent=txt;m.className='msg '+(ok?'ok':'err');}
+function setStatus(){
+  var has=false;try{has=!!localStorage.getItem(DRAFT_KEY);}catch(e){}
+  document.getElementById('status').textContent='Опубликовано: config.json из репозитория · Черновик в браузере: '+(has?'есть':'нет');
+}
+
+async function sha256(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));
+  return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+
+document.getElementById('btn-login').addEventListener('click',async function(){
+  var p=document.getElementById('pwd').value;
+  if(await sha256(p)===HASH){
+    sessionStorage.setItem('dw_admin','1');
+    openEditor();
+  }else{
+    var m=document.getElementById('login-msg');m.textContent='Неверный пароль';m.className='msg err';
   }
+});
+document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btn-login').click();});
 
-  function status(msg, cls){
-    var s = q('#status');
-    s.textContent = msg;
-    s.className = cls || '';
-  }
+function longKey(k){return /about|subtitle|tagline|description|text/i.test(k);}
+function isColor(v){return typeof v==='string'&&/^#[0-9a-fA-F]{6}$/.test(v);}
 
-  // ---------- вход ----------
-  function tryLogin(){
-    var pw = q('#pw').value;
-    sha256Hex(pw).then(function(h){
-      var okSha = (h === SHA);
-      var okFnv = (fnv(pw) === FNV);
-      if(okSha || okFnv){
-        sessionStorage.setItem('dw_admin','1');
-        q('#login').hidden = true;
-        q('#panel').hidden = false;
-        loadFromSite();
-      } else {
-        q('#loginErr').textContent = 'Неверный пароль.';
-      }
-    });
-  }
-  q('#loginBtn').addEventListener('click', tryLogin);
-  q('#pw').addEventListener('keydown', function(e){ if(e.key==='Enter') tryLogin(); });
-
-  q('#logoutBtn').addEventListener('click', function(){
-    sessionStorage.removeItem('dw_admin');
-    q('#panel').hidden = true;
-    q('#login').hidden = false;
-  });
-
-  if(sessionStorage.getItem('dw_admin')==='1'){
-    q('#login').hidden = true;
-    q('#panel').hidden = false;
-    loadFromSite();
-  } else {
-    q('#login').hidden = false;
-  }
-
-  // ---------- работа с конфигом ----------
-  function getPath(o, p){ return p.split('.').reduce(function(a,k){ return a ? a[k] : undefined }, o); }
-  function setPath(o, p, v){
-    var ks = p.split('.'); var c = o;
-    for(var i=0;i<ks.length-1;i++){
-      if(typeof c[ks[i]] !== 'object' || c[ks[i]] === null) c[ks[i]] = {};
-      c = c[ks[i]];
+function buildForm(obj,cont,path){
+  Object.keys(obj).forEach(function(k){
+    var p=path?path+'.'+k:k, v=obj[k];
+    if(k==='links'&&Array.isArray(v)){buildLinks(v);return;}
+    if(v!==null&&typeof v==='object'&&!Array.isArray(v)){buildForm(v,cont,p);return;}
+    if(Array.isArray(v)){return;}
+    var lab=document.createElement('label');
+    lab.innerHTML=esc(k)+' <small>'+esc(p)+'</small>';
+    var inp;
+    if(isColor(v)){
+      var wrap=document.createElement('div');wrap.className='color-row';
+      var c=document.createElement('input');c.type='color';c.value=v;
+      inp=document.createElement('input');inp.type='text';inp.value=v;
+      c.addEventListener('input',function(){inp.value=c.value;});
+      inp.dataset.path=p;inp.dataset.color='1';
+      wrap.appendChild(c);wrap.appendChild(inp);cont.appendChild(lab);cont.appendChild(wrap);
+      return;
     }
-    c[ks[ks.length-1]] = v;
-  }
-
-  function label(p){ return p; }
-
-  function addScalar(container, path, value){
-    var lab = document.createElement('label');
-    lab.textContent = label(path);
-    container.appendChild(lab);
-    var isColor = /^#[0-9a-fA-F]{6}$/.test(value||'');
-    var isLong = (value||'').length > 80 || value === getPath(CFG, path) && /\n/.test(value||'');
-    var isKeyLong = /about|description|text/i.test(path);
-    if(isColor){
-      var row = document.createElement('div'); row.className='colorrow';
-      var c1 = document.createElement('input'); c1.type='color'; c1.value = value || '#000000';
-      var c2 = document.createElement('input'); c2.type='text'; c2.value = value || '';
-      c1.addEventListener('input', function(){ c2.value = c1.value; apply(c1.value); });
-      c2.addEventListener('change', function(){ if(/^#[0-9a-fA-F]{6}$/.test(c2.value)) apply(c2.value); });
-      function apply(v){ setPath(CFG, path, v); }
-      row.appendChild(c1); row.appendChild(c2);
-      container.appendChild(row);
-    } else if(isLong || isKeyLong){
-      var ta = document.createElement('textarea');
-      ta.value = value == null ? '' : value;
-      ta.addEventListener('input', function(){ setPath(CFG, path, ta.value); });
-      container.appendChild(ta);
-    } else {
-      var inp = document.createElement('input');
-      inp.type = 'text'; inp.value = value == null ? '' : value;
-      inp.addEventListener('input', function(){ setPath(CFG, path, inp.value); });
-      container.appendChild(inp);
-    }
-  }
-
-  function addLinkRow(container, item, idx){
-    var row = document.createElement('div'); row.className = 'linkrow';
-    var sel = document.createElement('select');
-    ['youtube','telegram','vk','discord','steam','twitch','tiktok','other'].forEach(function(t){
-      var o = document.createElement('option'); o.value = t; o.textContent = t;
-      if((item.type||'other') === t) o.selected = true;
-      sel.appendChild(o);
-    });
-    var ti = document.createElement('input'); ti.type='text'; ti.value = item.title || '';
-    ti.placeholder = 'Название';
-    var ur = document.createElement('input'); ur.type='text'; ur.value = item.url || '';
-    ur.placeholder = 'https://…';
-    var del = document.createElement('button'); del.type='button'; del.textContent='✕'; del.title='Удалить ссылку';
-    function sync(){ CFG.links[idx] = {type: sel.value, title: ti.value, url: ur.value}; }
-    sel.addEventListener('change', sync); ti.addEventListener('input', sync); ur.addEventListener('input', sync);
-    del.addEventListener('click', function(){
-      CFG.links.splice(idx, 1);
-      renderLinksEditor(q('#linksBox'));
-    });
-    row.appendChild(sel); row.appendChild(ti); row.appendChild(ur); row.appendChild(del);
-    container.appendChild(row);
-  }
-
-  function renderLinksEditor(box){
-    box.innerHTML = '';
-    (CFG.links || []).forEach(function(item, i){ addLinkRow(box, item, i); });
-    var add = document.createElement('button');
-    add.type='button'; add.className='b dim'; add.textContent = '+ Добавить ссылку';
-    add.addEventListener('click', function(){
-      CFG.links = CFG.links || [];
-      CFG.links.push({type:'other', title:'', url:''});
-      renderLinksEditor(q('#linksBox'));
-    });
-    box.appendChild(add);
-  }
-
-  function buildForm(obj, path, container){
-    Object.keys(obj).forEach(function(key){
-      var v = obj[key];
-      var p = path ? path + '.' + key : key;
-      if(key === 'links' && Array.isArray(v)) return; // отдельно
-      if(Array.isArray(v)){
-        if(v.length && typeof v[0] === 'object'){
-          var fs = document.createElement('fieldset');
-          var lg = document.createElement('legend'); lg.textContent = label(p);
-          fs.appendChild(lg);
-          v.forEach(function(item, i){
-            Object.keys(item).forEach(function(k){
-              addScalar(fs, p + '[' + i + '].' + k, item[k]);
-            });
-          });
-          container.appendChild(fs);
-        } else {
-          addScalar(container, p, v.join('\n'));
-        }
-      } else if(typeof v === 'object' && v !== null){
-        var fs2 = document.createElement('fieldset');
-        var lg2 = document.createElement('legend'); lg2.textContent = label(p);
-        fs2.appendChild(lg2);
-        buildForm(v, p, fs2);
-        container.appendChild(fs2);
-      } else {
-        addScalar(container, p, v);
-      }
-    });
-    // редактор ссылок
-    var fsl = document.createElement('fieldset');
-    var lgl = document.createElement('legend'); lgl.textContent = 'links — список ссылок';
-    fsl.appendChild(lgl);
-    var lb = document.createElement('div'); lb.id = 'linksBox';
-    fsl.appendChild(lb);
-    container.appendChild(fsl);
-    renderLinksEditor(lb);
-  }
-
-  function showConfig(cfg, where){
-    CFG = cfg;
-    q('#form').innerHTML = '';
-    buildForm(cfg, '', q('#form'));
-    status(where, 'ok');
-  }
-
-  function loadFromSite(){
-    fetch('config.json?cache=' + Date.now())
-      .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
-      .then(function(c){ showConfig(c, 'Загружен config.json с сайта. Всё, что есть в конфиге, доступно для правки.'); })
-      .catch(function(){
-        status('Не удалось загрузить config.json. Если вы открыли admin.html как файл с диска — браузер блокирует чтение соседних файлов. Открывайте админку по адресу GitHub Pages: …github.io/имя-репозитория/admin.html', 'warn');
-        showConfig({channel:{name:'',handle:'',channelId:'',url:'',avatar:'',tagline:''}, hero:{title:'',subtitle:'',cta:''}, about:'', links:[], theme:{accent:'#660000',accent2:'#320b35'}}, '');
-      });
-  }
-  q('#reloadBtn').addEventListener('click', loadFromSite);
-
-  // ---------- кнопки ----------
-  q('#dlBtn').addEventListener('click', function(){
-    var blob = new Blob([JSON.stringify(CFG, null, 2)], {type:'application/json'});
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'config.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
-    status('Файл config.json скачан. Загрузите его в репозиторий (Add file → Upload files), чтобы изменения увидели все посетители.', 'ok');
+    if(longKey(k)||String(v).length>60){inp=document.createElement('textarea');inp.value=v==null?'':v;}
+    else{inp=document.createElement('input');inp.type='text';inp.value=v==null?'':v;}
+    inp.dataset.path=p;
+    cont.appendChild(lab);cont.appendChild(inp);
   });
+}
 
-  q('#openBtn').addEventListener('click', function(){ q('#fileInput').click(); });
-  q('#fileInput').addEventListener('change', function(e){
-    var f = e.target.files[0]; if(!f) return;
-    var rd = new FileReader();
-    rd.onload = function(){
-      try{
-        showConfig(JSON.parse(rd.result), 'Загружен файл с компьютера: ' + f.name);
-      }catch(err){
-        status('Файл не удалось прочитать: это не корректный JSON.', 'warn');
-      }
-    };
-    rd.readAsText(f);
-  });
+var linksWrap=null;
+function buildLinks(arr){
+  linksWrap=document.createElement('div');
+  var h=document.createElement('label');h.innerHTML='Ссылки <small>links[]</small>';
+  linksWrap.appendChild(h);
+  arr.forEach(function(l,i){linksWrap.appendChild(linkRow(l,i,arr.length));});
+  var add=document.createElement('button');add.className='ghost';add.textContent='+ Добавить ссылку';
+  add.addEventListener('click',function(){arr.push({type:'',title:'',url:''});linksWrap.insertBefore(linkRow(l={},arr.length-1,arr.length),add);});
+  linksWrap.appendChild(add);
+  document.getElementById('form').appendChild(linksWrap);
+}
+function linkRow(l,idx,total){
+  var d=document.createElement('div');d.className='link-row';
+  var r1=document.createElement('div');r1.className='row';
+  function mk(placeholder,val,key){
+    var box=document.createElement('div');
+    var i=document.createElement('input');i.type='text';i.placeholder=placeholder;i.value=val==null?'':val;
+    i.addEventListener('input',function(){l[key]=i.value;});
+    box.appendChild(i);return box;
+  }
+  r1.appendChild(mk('тип: youtube / discord / telegram / vk…',l.type,'type'));
+  r1.appendChild(mk('название',l.title,'title'));
+  r1.appendChild(mk('ссылка https://…',l.url,'url'));
+  d.appendChild(r1);
+  var del=document.createElement('button');del.className='danger';del.textContent='Удалить';
+  del.addEventListener('click',function(){d.remove();});
+  d.appendChild(del);
+  return d;
+}
 
-  q('#draftBtn').addEventListener('click', function(){
-    try{
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(CFG));
-      status('Черновик сохранён в этом браузере. Откройте сайт — он покажет черновик. Чтобы изменения увидели все — нажмите «Скачать config.json» и загрузите файл в репозиторий.', 'ok');
-    }catch(e){ status('Не удалось сохранить черновик (localStorage недоступен).', 'warn'); }
+function collect(){
+  // значения из inputs/textarea по путям
+  document.querySelectorAll('#form [data-path]').forEach(function(inp){
+    var parts=inp.dataset.path.split('.'),o=cfg;
+    for(var i=0;i<parts.length-1;i++){o=o[parts[i]];}
+    var last=parts[parts.length-1];
+    var val=inp.value;
+    if(val!==''&&!isNaN(val)&&typeof o[last]==='number'){val=Number(val);}
+    o[last]=val;
   });
+}
 
-  q('#clearDraftBtn').addEventListener('click', function(){
-    try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
-    status('Черновик удалён. Сайт снова показывает опубликованную версию из репозитория.', 'ok');
-  });
+function download(){
+  collect();
+  var blob=new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='config.json';a.click();
+  msg('config.json скачан. Загрузите его в репозиторий, чтобы опубликовать.',true);
+  setStatus();
+}
 
-  q('#addFieldBtn').addEventListener('click', function(){
-    var name = prompt('Имя нового поля (можно вложенное, например hero.note):');
-    if(!name) return;
-    var val = prompt('Значение поля (оставьте пустым, чтобы заполнить позже):') || '';
-    setPath(CFG, name.trim(), val);
-    q('#form').innerHTML = '';
-    buildForm(CFG, '', q('#form'));
-    status('Поле «' + name.trim() + '» добавлено. Не забудьте скачать config.json и загрузить его в репозиторий.', 'ok');
-  });
-})();
+function openEditor(){
+  document.getElementById('login-box').classList.add('hidden');
+  document.getElementById('editor').classList.remove('hidden');
+  loadPublished();
+}
+async function loadPublished(){
+  try{
+    var r=await fetch('config.json?cb='+Date.now());
+    if(r.ok)cfg=await r.json();else throw 0;
+  }catch(e){msg('Не удалось загрузить config.json из репозитория',false);return;}
+  var f=document.getElementById('form');f.innerHTML='';linksWrap=null;
+  buildForm(cfg,f,'');
+  setStatus();
+}
+
+document.getElementById('btn-download').addEventListener('click',download);
+document.getElementById('btn-save2').addEventListener('click',download);
+document.getElementById('btn-draft').addEventListener('click',function(){
+  collect();
+  try{localStorage.setItem(DRAFT_KEY,JSON.stringify(cfg));msg('Черновик сохранён в браузере. Опубликуйте его через «Скачать config.json».',true);}
+  catch(e){msg('Не удалось сохранить черновик',false);}
+  setStatus();
+});
+document.getElementById('btn-preview').addEventListener('click',function(){
+  collect();
+  try{localStorage.setItem(DRAFT_KEY,JSON.stringify(cfg));}catch(e){}
+  window.open('index.html','_blank');
+});
+document.getElementById('btn-load-draft').addEventListener('click',function(){
+  var raw=null;try{raw=localStorage.getItem(DRAFT_KEY);}catch(e){}
+  if(!raw){msg('Черновика нет',false);return;}
+  cfg=JSON.parse(raw);
+  var f=document.getElementById('form');f.innerHTML='';linksWrap=null;
+  buildForm(cfg,f,'');
+  msg('Черновик загружен в форму',true);
+});
+document.getElementById('btn-del-draft').addEventListener('click',function(){
+  try{localStorage.removeItem(DRAFT_KEY);}catch(e){}
+  msg('Черновик удалён',true);setStatus();
+});
+document.getElementById('btn-add-field').addEventListener('click',function(){
+  var path=prompt('Путь нового поля, например promo.title:');
+  if(!path)return;
+  var val=prompt('Значение поля:');
+  var parts=path.split('.'),o=cfg;
+  for(var i=0;i<parts.length-1;i++){o=o[parts[i]]=(o[parts[i]]||{});}
+  o[parts[parts.length-1]]=val==null?'':val;
+  var f=document.getElementById('form');f.innerHTML='';linksWrap=null;
+  buildForm(cfg,f,'');
+  msg('Поле добавлено: '+path,true);
+});
+
+if(sessionStorage.getItem('dw_admin')==='1')openEditor();
 </script>
 </body>
 </html>

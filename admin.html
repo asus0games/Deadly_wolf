@@ -2,233 +2,154 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Админ-панель — Deadly_wolf</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Админ-панель</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--accent:#660000;--accent2:#320b35;--bg:#0b0b0e;--panel:#141318;--text:#e8e6e3;--muted:#9a97a0;--line:#2a2830}
+:root{--c1:#660000;--c2:#320b35;--bg:#0c0810;--card:#171022;--text:#ece6f4;--dim:#a294bd}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif;font-size:17px;line-height:1.5;
-  background-image:linear-gradient(160deg,rgba(102,0,0,.25),rgba(50,11,53,.25) 60%,transparent);background-attachment:fixed;min-height:100vh}
-.wrap{max-width:820px;margin:0 auto;padding:26px 20px 90px}
-h1{font-size:30px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-h1 span{color:var(--accent)}
-#status{color:var(--muted);font-size:14px;margin-bottom:18px}
-label{display:block;font-weight:600;margin:14px 0 4px}
-label small{color:var(--muted);font-weight:400;letter-spacing:1px}
-input[type=text],input[type=url],textarea{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);
-  font:inherit;padding:9px 12px;border-radius:4px}
-input:focus,textarea:focus{outline:none;border-color:var(--accent)}
-textarea{min-height:80px;resize:vertical}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-.row>div{flex:1;min-width:150px}
-.color-row{display:flex;gap:8px;align-items:center}
-.color-row input[type=color]{width:46px;height:38px;border:1px solid var(--line);background:none;border-radius:4px;padding:2px}
-button{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:4px;padding:9px 16px}
-.btn{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff}
-.btn:hover{filter:brightness(1.25)}
-.ghost{background:none;border:1px solid var(--line);color:var(--text)}
-.ghost:hover{border-color:var(--accent)}
-.danger{background:none;border:1px solid #7a2020;color:#ff9c9c}
-.link-row{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);padding:12px;margin:10px 0;border-radius:4px}
-.panel{background:var(--panel);border:1px solid var(--line);padding:16px;margin:16px 0;border-radius:4px}
-#login-box{max-width:420px;margin:12vh auto;text-align:center}
-#login-box input{margin:14px 0}
-.msg{margin:10px 0;font-weight:600;min-height:22px}
-.msg.ok{color:#7fd77f}.msg.err{color:#ff9c9c}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-.hidden{display:none}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:30px 16px 90px}
+.wrap{max-width:760px;margin:0 auto}
+h1{letter-spacing:2px;text-transform:uppercase;font-size:30px;margin-bottom:18px;display:inline-block;
+ background:linear-gradient(90deg,#ff3b3b,#c04dff);-webkit-background-clip:text;background-clip:text;color:transparent}
+input{width:100%;padding:10px 12px;background:#0f0a17;color:var(--text);border:1px solid rgba(176,77,255,.3);font-size:15px;font-family:inherit}
+button{cursor:pointer;font-weight:700;letter-spacing:1px;color:#fff;border:none;padding:11px 20px;font-size:15px;font-family:inherit;
+ background:linear-gradient(90deg,var(--c1),var(--c2));margin-top:14px}
+#gate{max-width:380px;margin:80px auto 0;background:var(--card);border:1px solid rgba(176,77,255,.25);padding:28px}
+#status{margin:0 0 18px;padding:10px 14px;background:rgba(102,0,0,.2);border:1px solid rgba(255,80,80,.35);color:#ffd9d9;font-size:15px;line-height:1.5}
+fieldset{border:1px solid rgba(176,77,255,.3);padding:14px;margin:14px 0;min-width:0}
+legend{padding:0 8px;color:#c04dff;letter-spacing:1px;font-weight:600;font-size:14px}
+.field{margin:10px 0}
+.field label{display:block;color:var(--dim);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+.row{display:flex;gap:8px;margin:8px 0;align-items:center;flex-wrap:wrap}
+.row input{min-width:0;flex:1}
+.row .del{background:rgba(102,0,0,.5);padding:10px 13px;margin-top:0;flex:none}
+input[type=color]{width:64px;height:42px;padding:2px;flex:none!important}
+.hint{color:var(--dim);font-size:14px;margin-top:14px;line-height:1.6}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div id="login-box">
-    <h1>Админ<span>-</span>панель</h1>
-    <p style="color:var(--muted)">Введите пароль администратора</p>
-    <input type="text" id="pwd" placeholder="Пароль" autocomplete="off">
-    <br><button class="btn" id="btn-login">Войти</button>
-    <div class="msg" id="login-msg"></div>
+  <div id="gate">
+    <h1>Вход</h1>
+    <input id="pass" type="password" placeholder="Пароль">
+    <button onclick="enter()">Войти</button>
+    <div id="gate-msg" class="hint"></div>
   </div>
-
-  <div id="editor" class="hidden">
-    <h1>Админ<span>-</span>панель</h1>
+  <div id="panel" hidden>
+    <h1>Админ-панель</h1>
     <div id="status"></div>
-
-    <div class="toolbar">
-      <button class="btn" id="btn-download">Скачать config.json</button>
-      <button class="btn" id="btn-draft">Сохранить в браузере (черновик)</button>
-      <button class="ghost" id="btn-preview">Предпросмотр</button>
-      <button class="ghost" id="btn-load-draft">Загрузить черновик в форму</button>
-      <button class="danger" id="btn-del-draft">Убрать черновик</button>
-    </div>
-    <div class="msg" id="edit-msg"></div>
-
     <div id="form"></div>
-
-    <div class="toolbar">
-      <button class="ghost" id="btn-add-field">+ Поле</button>
-      <button class="btn" id="btn-save2">Скачать config.json</button>
-    </div>
+    <button id="download">Скачать config.json</button>
+    <p class="hint">Порядок публикации правок: измените поля → «Скачать config.json» → загрузите файл в репозиторий GitHub (Add file → Upload files, замените старый) → обновите сайт через Ctrl+F5. Черновиков больше нет: сайт всегда показывает опубликованную версию из репозитория, и её видят все посетители.</p>
   </div>
 </div>
-
 <script>
-'use strict';
-var HASH = '59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491';
-var DRAFT_KEY = 'dw_draft_config';
-var cfg = null;
+const HASH='59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491';
+let config=null;
 
-function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
-function msg(txt,ok){var m=document.getElementById('edit-msg');m.textContent=txt;m.className='msg '+(ok?'ok':'err');}
-function setStatus(){
-  var has=false;try{has=!!localStorage.getItem(DRAFT_KEY);}catch(e){}
-  document.getElementById('status').textContent='Опубликовано: config.json из репозитория · Черновик в браузере: '+(has?'есть':'нет');
+async function sha256(t){
+ const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));
+ return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0');}).join('');
 }
 
-async function sha256(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));
-  return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+async function enter(){
+ const h=await sha256(document.getElementById('pass').value);
+ if(h===HASH){
+  document.getElementById('gate').hidden=true;
+  document.getElementById('panel').hidden=false;
+  load();
+ }else{
+  document.getElementById('gate-msg').textContent='Неверный пароль';
+ }
+}
 
-document.getElementById('btn-login').addEventListener('click',async function(){
-  var p=document.getElementById('pwd').value;
-  if(await sha256(p)===HASH){
-    sessionStorage.setItem('dw_admin','1');
-    openEditor();
-  }else{
-    var m=document.getElementById('login-msg');m.textContent='Неверный пароль';m.className='msg err';
+async function load(){
+ const st=document.getElementById('status');
+ try{
+  const r=await fetch('config.json?t='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw new Error(r.status);
+  config=await r.json();
+  st.textContent='Конфиг загружен из репозитория.';
+  build();
+ }catch(e){
+  st.textContent='Не удалось загрузить config.json. Открывайте админку по адресу сайта на GitHub Pages (…/admin.html), а не как локальный файл — иначе она не увидит конфиг.';
+ }
+}
+
+function setByPath(obj,path,val){
+ const p=path.split('.');let o=obj;
+ for(let i=0;i<p.length-1;i++)o=o[p[i]];
+ o[p[p.length-1]]=val;
+}
+
+function addStringField(cont,path,val){
+ const d=document.createElement('div');d.className='field';
+ const l=document.createElement('label');l.textContent=path;
+ const i=document.createElement('input');
+ if(/^#[0-9a-fA-F]{6}$/.test(val))i.type='color';else i.type='text';
+ i.value=val;
+ i.addEventListener('input',function(){setByPath(config,path,i.value);});
+ d.append(l,i);cont.append(d);
+}
+
+function buildObj(obj,cont,prefix){
+ Object.keys(obj).forEach(function(key){
+  const val=obj[key],path=prefix?prefix+'.'+key:key;
+  if(typeof val==='string')addStringField(cont,path,val);
+  else if(Array.isArray(val))buildArray(val,cont,path);
+  else if(val&&typeof val==='object'){
+   const fs=document.createElement('fieldset'),lg=document.createElement('legend');
+   lg.textContent=path;fs.append(lg);buildObj(val,fs,path);cont.append(fs);
   }
-});
-document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btn-login').click();});
-
-function longKey(k){return /about|subtitle|tagline|description|text/i.test(k);}
-function isColor(v){return typeof v==='string'&&/^#[0-9a-fA-F]{6}$/.test(v);}
-
-function buildForm(obj,cont,path){
-  Object.keys(obj).forEach(function(k){
-    var p=path?path+'.'+k:k, v=obj[k];
-    if(k==='links'&&Array.isArray(v)){buildLinks(v);return;}
-    if(v!==null&&typeof v==='object'&&!Array.isArray(v)){buildForm(v,cont,p);return;}
-    if(Array.isArray(v)){return;}
-    var lab=document.createElement('label');
-    lab.innerHTML=esc(k)+' <small>'+esc(p)+'</small>';
-    var inp;
-    if(isColor(v)){
-      var wrap=document.createElement('div');wrap.className='color-row';
-      var c=document.createElement('input');c.type='color';c.value=v;
-      inp=document.createElement('input');inp.type='text';inp.value=v;
-      c.addEventListener('input',function(){inp.value=c.value;});
-      inp.dataset.path=p;inp.dataset.color='1';
-      wrap.appendChild(c);wrap.appendChild(inp);cont.appendChild(lab);cont.appendChild(wrap);
-      return;
-    }
-    if(longKey(k)||String(v).length>60){inp=document.createElement('textarea');inp.value=v==null?'':v;}
-    else{inp=document.createElement('input');inp.type='text';inp.value=v==null?'':v;}
-    inp.dataset.path=p;
-    cont.appendChild(lab);cont.appendChild(inp);
-  });
+ });
 }
 
-var linksWrap=null;
-function buildLinks(arr){
-  linksWrap=document.createElement('div');
-  var h=document.createElement('label');h.innerHTML='Ссылки <small>links[]</small>';
-  linksWrap.appendChild(h);
-  arr.forEach(function(l,i){linksWrap.appendChild(linkRow(l,i,arr.length));});
-  var add=document.createElement('button');add.className='ghost';add.textContent='+ Добавить ссылку';
-  add.addEventListener('click',function(){arr.push({type:'',title:'',url:''});linksWrap.insertBefore(linkRow(l={},arr.length-1,arr.length),add);});
-  linksWrap.appendChild(add);
-  document.getElementById('form').appendChild(linksWrap);
-}
-function linkRow(l,idx,total){
-  var d=document.createElement('div');d.className='link-row';
-  var r1=document.createElement('div');r1.className='row';
-  function mk(placeholder,val,key){
-    var box=document.createElement('div');
-    var i=document.createElement('input');i.type='text';i.placeholder=placeholder;i.value=val==null?'':val;
-    i.addEventListener('input',function(){l[key]=i.value;});
-    box.appendChild(i);return box;
+function buildArray(arr,cont,path){
+ const fs=document.createElement('fieldset'),lg=document.createElement('legend');
+ lg.textContent=path;fs.append(lg);
+ const list=document.createElement('div');
+ arr.forEach(function(item,idx){
+  const row=document.createElement('div');row.className='row';
+  if(typeof item==='string'){
+   const i=document.createElement('input');i.type='text';i.value=item;
+   i.addEventListener('input',function(){arr[idx]=i.value;});
+   row.append(i);
+  }else if(item&&typeof item==='object'){
+   Object.keys(item).forEach(function(k){
+    const i=document.createElement('input');i.type='text';i.placeholder=k;
+    i.value=(item[k]==null?'':item[k]);
+    i.addEventListener('input',function(){item[k]=i.value;});
+    row.append(i);
+   });
   }
-  r1.appendChild(mk('тип: youtube / discord / telegram / vk…',l.type,'type'));
-  r1.appendChild(mk('название',l.title,'title'));
-  r1.appendChild(mk('ссылка https://…',l.url,'url'));
-  d.appendChild(r1);
-  var del=document.createElement('button');del.className='danger';del.textContent='Удалить';
-  del.addEventListener('click',function(){d.remove();});
-  d.appendChild(del);
-  return d;
+  const del=document.createElement('button');del.textContent='×';del.className='del';
+  del.addEventListener('click',function(e){e.preventDefault();arr.splice(idx,1);build();});
+  row.append(del);list.append(row);
+ });
+ const add=document.createElement('button');add.textContent='+ Добавить';
+ add.addEventListener('click',function(e){
+  e.preventDefault();
+  if(arr.length&&arr[0]&&typeof arr[0]==='object'){
+   const t={};Object.keys(arr[0]).forEach(function(k){t[k]='';});arr.push(t);
+  }else arr.push('');
+  build();
+ });
+ fs.append(list,add);cont.append(fs);
 }
 
-function collect(){
-  // значения из inputs/textarea по путям
-  document.querySelectorAll('#form [data-path]').forEach(function(inp){
-    var parts=inp.dataset.path.split('.'),o=cfg;
-    for(var i=0;i<parts.length-1;i++){o=o[parts[i]];}
-    var last=parts[parts.length-1];
-    var val=inp.value;
-    if(val!==''&&!isNaN(val)&&typeof o[last]==='number'){val=Number(val);}
-    o[last]=val;
-  });
+function build(){
+ const f=document.getElementById('form');f.innerHTML='';
+ buildObj(config,f,'');
 }
 
-function download(){
-  collect();
-  var blob=new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='config.json';a.click();
-  msg('config.json скачан. Загрузите его в репозиторий, чтобы опубликовать.',true);
-  setStatus();
-}
-
-function openEditor(){
-  document.getElementById('login-box').classList.add('hidden');
-  document.getElementById('editor').classList.remove('hidden');
-  loadPublished();
-}
-async function loadPublished(){
-  try{
-    var r=await fetch('config.json?cb='+Date.now());
-    if(r.ok)cfg=await r.json();else throw 0;
-  }catch(e){msg('Не удалось загрузить config.json из репозитория',false);return;}
-  var f=document.getElementById('form');f.innerHTML='';linksWrap=null;
-  buildForm(cfg,f,'');
-  setStatus();
-}
-
-document.getElementById('btn-download').addEventListener('click',download);
-document.getElementById('btn-save2').addEventListener('click',download);
-document.getElementById('btn-draft').addEventListener('click',function(){
-  collect();
-  try{localStorage.setItem(DRAFT_KEY,JSON.stringify(cfg));msg('Черновик сохранён в браузере. Опубликуйте его через «Скачать config.json».',true);}
-  catch(e){msg('Не удалось сохранить черновик',false);}
-  setStatus();
+document.getElementById('download').addEventListener('click',function(){
+ const blob=new Blob([JSON.stringify(config,null,2)],{type:'application/json'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='config.json';
+ a.click();
 });
-document.getElementById('btn-preview').addEventListener('click',function(){
-  collect();
-  try{localStorage.setItem(DRAFT_KEY,JSON.stringify(cfg));}catch(e){}
-  window.open('index.html','_blank');
-});
-document.getElementById('btn-load-draft').addEventListener('click',function(){
-  var raw=null;try{raw=localStorage.getItem(DRAFT_KEY);}catch(e){}
-  if(!raw){msg('Черновика нет',false);return;}
-  cfg=JSON.parse(raw);
-  var f=document.getElementById('form');f.innerHTML='';linksWrap=null;
-  buildForm(cfg,f,'');
-  msg('Черновик загружен в форму',true);
-});
-document.getElementById('btn-del-draft').addEventListener('click',function(){
-  try{localStorage.removeItem(DRAFT_KEY);}catch(e){}
-  msg('Черновик удалён',true);setStatus();
-});
-document.getElementById('btn-add-field').addEventListener('click',function(){
-  var path=prompt('Путь нового поля, например promo.title:');
-  if(!path)return;
-  var val=prompt('Значение поля:');
-  var parts=path.split('.'),o=cfg;
-  for(var i=0;i<parts.length-1;i++){o=o[parts[i]]=(o[parts[i]]||{});}
-  o[parts[parts.length-1]]=val==null?'':val;
-  var f=document.getElementById('form');f.innerHTML='';linksWrap=null;
-  buildForm(cfg,f,'');
-  msg('Поле добавлено: '+path,true);
-});
-
-if(sessionStorage.getItem('dw_admin')==='1')openEditor();
 </script>
 </body>
 </html>

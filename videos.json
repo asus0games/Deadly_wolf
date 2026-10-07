@@ -1,5 +1,111 @@
 {
-  "updated": "",
-  "channelId": "",
-  "videos": []
+  "updated": "2026-10-07T12:17:41.995150+00:00",
+  "channelId": "UCN3_YEiDPE_tUzS0vkQoYYg",
+  "videos": [
+    {
+      "id": "pRxKpz9FGD4",
+      "title": "прохождение Bramble: The Mountain King (часть 1)",
+      "published": "2026-10-07T00:30:59+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/pRxKpz9FGD4/hqdefault.jpg",
+      "description": "начало всех начал"
+    },
+    {
+      "id": "hBEVmXQ2VaY",
+      "title": "пере прохождение Fractal Space",
+      "published": "2026-09-30T23:20:30+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/hBEVmXQ2VaY/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "FvH2g5NNeEc",
+      "title": "прохожу TITANFALL 2 (часть 6)",
+      "published": "2026-09-28T16:18:51+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/FvH2g5NNeEc/hqdefault.jpg",
+      "description": "напишу на русском на всякий, этот канал зовут зе гидеон геймс"
+    },
+    {
+      "id": "0tWdxzFxNTA",
+      "title": "прохожу TITANFALL 2 (часть 4-5)",
+      "published": "2026-09-28T05:08:26+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/0tWdxzFxNTA/hqdefault.jpg",
+      "description": "очень долго даже не 40 минут"
+    },
+    {
+      "id": "LlydbhmIDZw",
+      "title": "прохожу TITANFALL 2 (часть 3)",
+      "published": "2026-09-25T04:28:34+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/LlydbhmIDZw/hqdefault.jpg",
+      "description": "страшно очень страшно"
+    },
+    {
+      "id": "rKeDYhCgnuk",
+      "title": "прохожу TITANFALL 2 (часть 2)",
+      "published": "2025-05-01T01:15:39+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/rKeDYhCgnuk/hqdefault.jpg",
+      "description": "спустя кучу времени но наконец я это сделал заснял новый видос"
+    },
+    {
+      "id": "a3EW9EFpDss",
+      "title": "Прямая трансляция пользователя Deadly_wolf",
+      "published": "2025-03-15T20:30:02+00:00",
+      "thumbnail": "https://i2.ytimg.com/vi/a3EW9EFpDss/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "1ORhDpEaz74",
+      "title": "прохожу TITANFALL 2 (часть 1)",
+      "published": "2025-03-14T23:09:24+00:00",
+      "thumbnail": "https://i2.ytimg.com/vi/1ORhDpEaz74/hqdefault.jpg",
+      "description": "Что-то там\nКто-то там\nЧто-то снимает"
+    },
+    {
+      "id": "DU01w8cVq5w",
+      "title": "euro track simulator 2 (видос 2)",
+      "published": "2025-03-09T03:15:15+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/DU01w8cVq5w/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "quOX3qS6rfo",
+      "title": "euro truck simulator 2 (видос 1)",
+      "published": "2025-03-08T21:54:14+00:00",
+      "thumbnail": "https://i2.ytimg.com/vi/quOX3qS6rfo/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "7dIdIpnQ3QY",
+      "title": "просто играем lethal company",
+      "published": "2025-03-07T21:53:32+00:00",
+      "thumbnail": "https://i4.ytimg.com/vi/7dIdIpnQ3QY/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "hHeEJ1lNC84",
+      "title": "Прохождение портал полностью",
+      "published": "2022-11-25T16:00:39+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/hHeEJ1lNC84/hqdefault.jpg",
+      "description": "Вот мы с другом играем\nhttps://www.youtube.com/watch?v=cfKI2ek1aPQ&t=1073s"
+    },
+    {
+      "id": "ngZLkqZjhf8",
+      "title": "прохождение fractal space часть 5",
+      "published": "2022-06-09T13:14:49+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/ngZLkqZjhf8/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "xdCA9a3HzZA",
+      "title": "прохождение fractal space часть 4",
+      "published": "2022-05-31T20:02:25+00:00",
+      "thumbnail": "https://i1.ytimg.com/vi/xdCA9a3HzZA/hqdefault.jpg",
+      "description": ""
+    },
+    {
+      "id": "f2QV4ItPLjA",
+      "title": "прохождение fractal Space (часть 3)",
+      "published": "2021-11-18T09:28:51+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/f2QV4ItPLjA/hqdefault.jpg",
+      "description": ""
+    }
+  ]
 }

@@ -128,7 +128,7 @@ function render(){
   $('#chName').textContent=ch.name||'Канал';
   document.title=(ch.name||'Канал');
   $('#tagline').textContent=ch.tagline||'';
-  $('#avatar').src=(ch&&ch.avatar)?ch.avatar:'https://placehold.co/136/660000/ffffff?text=GAME';
+  $('#avatar').src=(ch&&ch.logo)?ch.logo:(ch&&ch.avatar)?ch.avatar:'https://placehold.co/136/660000/ffffff?text=GAME';
   $('#heroTitle').textContent=hero.title||ch.name||'';
   $('#heroSub').textContent=hero.subtitle||'';
   $('#aboutText').textContent=CFG.about||'';

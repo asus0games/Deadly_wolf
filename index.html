@@ -95,7 +95,7 @@ footer{padding:22px 16px 90px;color:#776f85;font-size:14px;border-top:1px solid 
   </section>
 </main>
 </div>
-<footer><span id="footerOwner"></span> · <a href="admin.html" style="color:#9a93a8">админ-панель</a></footer>
+<footer><span id="footerOwner"></span></footer>
 <button id="adminBtn" onclick="location.href='admin.html'">⚙ Админ-панель</button>
 <script>
 const ICONS={
@@ -124,7 +124,7 @@ function render(){
   const c=CFG.colors||{};
   if(c.primary)document.documentElement.style.setProperty('--c1',c.primary);
   if(c.secondary)document.documentElement.style.setProperty('--c2',c.secondary);
-  const ch=CFG.channel||{},hero=CFG.hero||{};
+  const links=Array.isArray(CFG.links)?CFG.links:Array.isArray(CFG.socials)?CFG.socials):[];
   $('#chName').textContent=ch.name||'Канал';
   document.title=(ch.name||'Канал');
   $('#tagline').textContent=ch.tagline||'';

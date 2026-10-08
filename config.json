@@ -1,32 +1,38 @@
 {
   "channel": {
-    "name": "Deadly_wolf",
-    "handle": "@Deadly00wolf",
-    "channelId": "UCN3_YEiDPE_tUzS0vkQoYYg",
-    "url": "https://www.youtube.com/@Deadly00wolf",
-    "avatar": "https://unavatar.io/youtube/Deadly00wolf",
-    "tagline": "Прохождения, геймплей и просто играем"
+    "name": "Deadly Wolf",
+    "tagline": "Игровой канал",
+    "logo": ""
   },
   "hero": {
-    "title": "DEADLY_WOLF",
-    "subtitle": "Игровые прохождения без пафоса: стреляю, застреваю и помираю.",
-    "cta": "Смотреть последние видео"
+    "title": "Добро пожаловать",
+    "subtitle": "Здесь вы найдёте прохождения, обзоры и геймплей"
   },
-  "about": "Привет! Это канал Deadly_wolf. Здесь я выкладываю прохождения игр. Играю в своё удовольствие — если тебе зашло, подписывайся, дальше будет интереснее.",
-  "links": [
+  "about": "Это канал о видеоиграх. Здесь я публикую прохождения, обзоры и интересные моменты из игр. Подписывайтесь!",
+  "channelId": "UCXXXXXXXXXXXXXXXXXXXXXX",
+  "socials": [
     {
-      "type": "youtube",
-      "title": "YouTube",
-      "url": "https://www.youtube.com/@Deadly00wolf"
+      "name": "YouTube",
+      "url": "https://youtube.com/@YOUR_CHANNEL",
+      "icon": "youtube"
     },
     {
-      "type": "discord",
-      "title": "Discord",
-      "url": "https://discord.gg/pjsm5bcatu"
+      "name": "Discord",
+      "url": "https://discord.gg/ССЫЛКА_НА_СЕРВЕР",
+      "icon": "discord"
+    },
+    {
+      "name": "Telegram",
+      "url": "https://t.me/YOUR_CHANNEL",
+      "icon": "telegram"
     }
   ],
+  "videos": {
+    "count": 9
+  },
   "theme": {
-    "accent": "#660000",
-    "accent2": "#320b35"
+    "primary": "#e94560",
+    "secondary": "#7b2cbf",
+    "background": "#0f0e17"
   }
 }

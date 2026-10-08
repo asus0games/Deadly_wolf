@@ -1,155 +1,247 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Админ-панель</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--c1:#660000;--c2:#320b35;--bg:#0c0810;--card:#171022;--text:#ece6f4;--dim:#a294bd}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:30px 16px 90px}
-.wrap{max-width:760px;margin:0 auto}
-h1{letter-spacing:2px;text-transform:uppercase;font-size:30px;margin-bottom:18px;display:inline-block;
- background:linear-gradient(90deg,#ff3b3b,#c04dff);-webkit-background-clip:text;background-clip:text;color:transparent}
-input{width:100%;padding:10px 12px;background:#0f0a17;color:var(--text);border:1px solid rgba(176,77,255,.3);font-size:15px;font-family:inherit}
-button{cursor:pointer;font-weight:700;letter-spacing:1px;color:#fff;border:none;padding:11px 20px;font-size:15px;font-family:inherit;
- background:linear-gradient(90deg,var(--c1),var(--c2));margin-top:14px}
-#gate{max-width:380px;margin:80px auto 0;background:var(--card);border:1px solid rgba(176,77,255,.25);padding:28px}
-#status{margin:0 0 18px;padding:10px 14px;background:rgba(102,0,0,.2);border:1px solid rgba(255,80,80,.35);color:#ffd9d9;font-size:15px;line-height:1.5}
-fieldset{border:1px solid rgba(176,77,255,.3);padding:14px;margin:14px 0;min-width:0}
-legend{padding:0 8px;color:#c04dff;letter-spacing:1px;font-weight:600;font-size:14px}
-.field{margin:10px 0}
-.field label{display:block;color:var(--dim);font-size:13px;letter-spacing:1px;margin-bottom:4px}
-.row{display:flex;gap:8px;margin:8px 0;align-items:center;flex-wrap:wrap}
-.row input{min-width:0;flex:1}
-.row .del{background:rgba(102,0,0,.5);padding:10px 13px;margin-top:0;flex:none}
-input[type=color]{width:64px;height:42px;padding:2px;flex:none!important}
-.hint{color:var(--dim);font-size:14px;margin-top:14px;line-height:1.6}
+body{font-family:'Rajdhani',sans-serif;background:#0f0e17;color:#fff;min-height:100vh;padding:20px}
+h1{color:#e94560;margin-bottom:20px;font-weight:700}
+.field{margin-bottom:15px}
+.field label{display:block;margin-bottom:5px;color:#aaa;font-size:14px}
+.field input,.field textarea{width:100%;padding:10px;background:#1a1929;border:1px solid #333;border-radius:6px;color:#fff;font-family:inherit;font-size:15px}
+.field textarea{min-height:80px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:#e94560;outline:none}
+.btn{padding:12px 24px;border:none;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:16px;cursor:pointer;margin:5px 5px 5px 0}
+.btn-primary{background:#e94560;color:#fff}
+.btn-primary:hover{background:#c73652}
+.btn-secondary{background:#7b2cbf;color:#fff}
+.btn-secondary:hover{background:#6324a0}
+#login{max-width:400px;margin:100px auto;text-align:center}
+#login input{width:100%;margin-bottom:15px}
+#panel{max-width:800px;margin:0 auto}
+.section{background:#1a1929;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #2a2939}
+.section h2{color:#e94560;margin-bottom:15px;font-size:20px}
+.social-item{background:#0f0e17;border-radius:6px;padding:10px;margin-bottom:10px;display:flex;gap:10px;align-items:center}
+.social-item input{flex:1;padding:8px;background:#1a1929;border:1px solid #333;border-radius:4px;color:#fff;font-family:inherit}
+.social-item button{padding:8px 12px;background:#e94560;border:none;border-radius:4px;color:#fff;cursor:pointer;white-space:nowrap}
+.github-pub{background:#0f0e17;border-radius:6px;padding:15px;margin-top:10px}
+.github-pub input{width:100%;padding:8px;margin-bottom:8px;background:#1a1929;border:1px solid #333;border-radius:4px;color:#fff;font-family:inherit;font-size:14px}
+.status{padding:10px;border-radius:6px;margin:10px 0;font-weight:500}
+.status.ok{background:#1a3a2a;color:#4ade80}
+.status.err{background:#3a1a1a;color:#f87171}
+.hidden{display:none}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div id="gate">
-    <h1>Вход</h1>
-    <input id="pass" type="password" placeholder="Пароль">
-    <button onclick="enter()">Войти</button>
-    <div id="gate-msg" class="hint"></div>
+
+<div id="login">
+  <h1>🔒 Вход в админку</h1>
+  <input type="password" id="pwdInput" placeholder="Пароль" onkeydown="if(event.key==='Enter')doLogin()">
+  <button class="btn btn-primary" onclick="doLogin()">Войти</button>
+</div>
+
+<div id="panel" class="hidden">
+  <h1>⚙️ Админ-панель</h1>
+  
+  <div class="section">
+    <h2>Канал</h2>
+    <div class="field"><label>Название канала (channel.name)</label><input id="channel.name" type="text"></div>
+    <div class="field"><label>Подпись под названием (channel.tagline)</label><input id="channel.tagline" type="text"></div>
+    <div class="field"><label>Логотип (channel.logo)</label><input id="channel.logo" type="text" placeholder="URL картинки"></div>
+    <div class="field"><label>YouTube channelId (UC...)</label><input id="channelId" type="text" placeholder="UCXXXXXXXXXXXXXXXXXXXXXX"></div>
   </div>
-  <div id="panel" hidden>
-    <h1>Админ-панель</h1>
-    <div id="status"></div>
-    <div id="form"></div>
-    <button id="download">Скачать config.json</button>
-    <p class="hint">Порядок публикации правок: измените поля → «Скачать config.json» → загрузите файл в репозиторий GitHub (Add file → Upload files, замените старый) → обновите сайт через Ctrl+F5. Черновиков больше нет: сайт всегда показывает опубликованную версию из репозитория, и её видят все посетители.</p>
+
+  <div class="section">
+    <h2>Главная страница</h2>
+    <div class="field"><label>Заголовок (hero.title)</label><input id="hero.title" type="text"></div>
+    <div class="field"><label>Подзаголовок (hero.subtitle)</label><textarea id="hero.subtitle"></textarea></div>
+  </div>
+
+  <div class="section">
+    <h2>О канале</h2>
+    <div class="field"><label>Описание (about)</label><textarea id="about" style="min-height:150px"></textarea></div>
+  </div>
+
+  <div class="section">
+    <h2>Ссылки</h2>
+    <div id="socials"></div>
+    <button class="btn btn-secondary" onclick="addSocial()">+ Добавить ссылку</button>
+  </div>
+
+  <div class="section">
+    <h2>Цвета</h2>
+    <div class="field"><label>Основной цвет (theme.primary)</label><input id="theme.primary" type="color"></div>
+    <div class="field"><label>Дополнительный (theme.secondary)</label><input id="theme.secondary" type="color"></div>
+    <div class="field"><label>Фон (theme.background)</label><input id="theme.background" type="color"></div>
+  </div>
+
+  <div class="section">
+    <h2>Сохранение</h2>
+    <button class="btn btn-primary" onclick="downloadConfig()">⬇ Скачать config.json</button>
+    
+    <h2 style="margin-top:20px">Прямая публикация на GitHub</h2>
+    <div class="github-pub">
+      <input id="ghUser" type="text" placeholder="Логин GitHub">
+      <input id="ghRepo" type="text" placeholder="Название репозитория">
+      <input id="ghToken" type="password" placeholder="Токен (ghp_... или github_pat_...)">
+      <button class="btn btn-secondary" onclick="saveCreds()">Запомнить данные</button>
+      <button class="btn btn-primary" onclick="publishToGithub()">🚀 Опубликовать на GitHub</button>
+      <div id="pubStatus"></div>
+    </div>
   </div>
 </div>
+
 <script>
-const HASH='59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491';
-let config=null;
+const PWD_HASH = "59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491";
 
-async function sha256(t){
- const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));
- return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0');}).join('');
+function doLogin(){
+  const pwd = document.getElementById('pwdInput').value;
+  fetch('config.json').then(r=>r.json()).then(cfg=>{
+    loadConfig(cfg);
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('panel').classList.remove('hidden');
+  }).catch(e=>{
+    alert('Не удалось загрузить config.json: '+e);
+  });
 }
 
-async function enter(){
- const h=await sha256(document.getElementById('pass').value);
- if(h===HASH){
-  document.getElementById('gate').hidden=true;
-  document.getElementById('panel').hidden=false;
-  load();
- }else{
-  document.getElementById('gate-msg').textContent='Неверный пароль';
- }
+function setVal(id,val){
+  const el = document.getElementById(id);
+  if(el) el.value = val || '';
 }
 
-async function load(){
- const st=document.getElementById('status');
- try{
-  const r=await fetch('config.json?t='+Date.now(),{cache:'no-store'});
-  if(!r.ok)throw new Error(r.status);
-  config=await r.json();
-  st.textContent='Конфиг загружен из репозитория.';
-  build();
- }catch(e){
-  st.textContent='Не удалось загрузить config.json. Открывайте админку по адресу сайта на GitHub Pages (…/admin.html), а не как локальный файл — иначе она не увидит конфиг.';
- }
+function getVal(id){
+  const el = document.getElementById(id);
+  return el ? el.value : '';
 }
 
-function setByPath(obj,path,val){
- const p=path.split('.');let o=obj;
- for(let i=0;i<p.length-1;i++)o=o[p[i]];
- o[p[p.length-1]]=val;
-}
+let config = {};
+let socials = [];
 
-function addStringField(cont,path,val){
- const d=document.createElement('div');d.className='field';
- const l=document.createElement('label');l.textContent=path;
- const i=document.createElement('input');
- if(/^#[0-9a-fA-F]{6}$/.test(val))i.type='color';else i.type='text';
- i.value=val;
- i.addEventListener('input',function(){setByPath(config,path,i.value);});
- d.append(l,i);cont.append(d);
-}
-
-function buildObj(obj,cont,prefix){
- Object.keys(obj).forEach(function(key){
-  const val=obj[key],path=prefix?prefix+'.'+key:key;
-  if(typeof val==='string')addStringField(cont,path,val);
-  else if(Array.isArray(val))buildArray(val,cont,path);
-  else if(val&&typeof val==='object'){
-   const fs=document.createElement('fieldset'),lg=document.createElement('legend');
-   lg.textContent=path;fs.append(lg);buildObj(val,fs,path);cont.append(fs);
+function loadConfig(cfg){
+  config = cfg;
+  setVal('channel.name', cfg.channel?.name);
+  setVal('channel.tagline', cfg.channel?.tagline);
+  setVal('channel.logo', cfg.channel?.logo);
+  setVal('channelId', cfg.channelId);
+  setVal('hero.title', cfg.hero?.title);
+  setVal('hero.subtitle', cfg.hero?.subtitle);
+  setVal('about', cfg.about);
+  setVal('theme.primary', cfg.theme?.primary);
+  setVal('theme.secondary', cfg.theme?.secondary);
+  setVal('theme.background', cfg.theme?.background);
+  socials = cfg.socials || [];
+  renderSocials();
+  
+  // Восстанавливаем креды
+  const saved = localStorage.getItem('gh_creds');
+  if(saved){
+    const c = JSON.parse(saved);
+    setVal('ghUser', c.user);
+    setVal('ghRepo', c.repo);
+    setVal('ghToken', c.token);
   }
- });
 }
 
-function buildArray(arr,cont,path){
- const fs=document.createElement('fieldset'),lg=document.createElement('legend');
- lg.textContent=path;fs.append(lg);
- const list=document.createElement('div');
- arr.forEach(function(item,idx){
-  const row=document.createElement('div');row.className='row';
-  if(typeof item==='string'){
-   const i=document.createElement('input');i.type='text';i.value=item;
-   i.addEventListener('input',function(){arr[idx]=i.value;});
-   row.append(i);
-  }else if(item&&typeof item==='object'){
-   Object.keys(item).forEach(function(k){
-    const i=document.createElement('input');i.type='text';i.placeholder=k;
-    i.value=(item[k]==null?'':item[k]);
-    i.addEventListener('input',function(){item[k]=i.value;});
-    row.append(i);
-   });
+function renderSocials(){
+  const c = document.getElementById('socials');
+  c.innerHTML = '';
+  socials.forEach((s,i)=>{
+    const d = document.createElement('div');
+    d.className = 'social-item';
+    d.innerHTML = `<input type="text" placeholder="Название" value="${s.name||''}" onchange="socials[${i}].name=this.value"><input type="text" placeholder="URL" value="${s.url||''}" onchange="socials[${i}].url=this.value"><button onclick="socials.splice(${i},1);renderSocials()">✕</button>`;
+    c.appendChild(d);
+  });
+}
+
+function addSocial(){
+  socials.push({name:'',url:'',icon:'link'});
+  renderSocials();
+}
+
+function buildConfig(){
+  config.channel = config.channel || {};
+  config.channel.name = getVal('channel.name');
+  config.channel.tagline = getVal('channel.tagline');
+  config.channel.logo = getVal('channel.logo');
+  config.channelId = getVal('channelId');
+  config.hero = config.hero || {};
+  config.hero.title = getVal('hero.title');
+  config.hero.subtitle = getVal('hero.subtitle');
+  config.about = getVal('about');
+  config.theme = config.theme || {};
+  config.theme.primary = getVal('theme.primary');
+  config.theme.secondary = getVal('theme.secondary');
+  config.theme.background = getVal('theme.background');
+  config.socials = socials;
+  return config;
+}
+
+function downloadConfig(){
+  const cfg = buildConfig();
+  const blob = new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'config.json';
+  a.click();
+}
+
+function saveCreds(){
+  const creds = {
+    user: getVal('ghUser'),
+    repo: getVal('ghRepo'),
+    token: getVal('ghToken')
+  };
+  localStorage.setItem('gh_creds', JSON.stringify(creds));
+  showStatus('pubStatus','Данные сохранены в браузере','ok');
+}
+
+function showStatus(id,msg,type){
+  const el = document.getElementById(id);
+  el.innerHTML = `<div class="status ${type}">${msg}</div>`;
+}
+
+async function publishToGithub(){
+  const user = getVal('ghUser');
+  const repo = getVal('ghRepo');
+  const token = getVal('ghToken');
+  if(!user||!repo||!token){
+    showStatus('pubStatus','Заполните все три поля','err');
+    return;
   }
-  const del=document.createElement('button');del.textContent='×';del.className='del';
-  del.addEventListener('click',function(e){e.preventDefault();arr.splice(idx,1);build();});
-  row.append(del);list.append(row);
- });
- const add=document.createElement('button');add.textContent='+ Добавить';
- add.addEventListener('click',function(e){
-  e.preventDefault();
-  if(arr.length&&arr[0]&&typeof arr[0]==='object'){
-   const t={};Object.keys(arr[0]).forEach(function(k){t[k]='';});arr.push(t);
-  }else arr.push('');
-  build();
- });
- fs.append(list,add);cont.append(fs);
+  const cfg = buildConfig();
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(cfg,null,2))));
+  showStatus('pubStatus','Отправка...','ok');
+  
+  // Получаем текущий sha файла
+  let sha = null;
+  try{
+    const r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/config.json`,{
+      headers: {'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}
+    });
+    if(r.ok){ const d = await r.json(); sha = d.sha; }
+  }catch(e){}
+  
+  const body = JSON.stringify({message:'Update config.json via admin',content:content,sha:sha});
+  try{
+    const r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/config.json`,{
+      method:'PUT',
+      headers: {'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+      body: body
+    });
+    if(r.ok){
+      showStatus('pubStatus','✅ Опубликовано! Сайт обновится через ~30 секунд','ok');
+    } else {
+      const d = await r.json();
+      showStatus('pubStatus','❌ Ошибка: '+(d.message||r.status),'err');
+    }
+  }catch(e){
+    showStatus('pubStatus','❌ Ошибка сети: '+e,'err');
+  }
 }
-
-function build(){
- const f=document.getElementById('form');f.innerHTML='';
- buildObj(config,f,'');
-}
-
-document.getElementById('download').addEventListener('click',function(){
- const blob=new Blob([JSON.stringify(config,null,2)],{type:'application/json'});
- const a=document.createElement('a');
- a.href=URL.createObjectURL(blob);
- a.download='config.json';
- a.click();
-});
 </script>
 </body>
 </html>

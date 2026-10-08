@@ -1,291 +1,299 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Игровой канал</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deadly Wolf</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--c1:#660000;--c2:#320b35;--bg:#0c0810;--card:#171022;--text:#ece6f4;--dim:#a294bd}
+:root{--primary:#e94560;--secondary:#7b2cbf;--bg:#0f0e17}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
- background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
- background-size:46px 46px}
-.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
- background:radial-gradient(760px 380px at 12% -6%,rgba(102,0,0,.5),transparent 62%),radial-gradient(760px 380px at 92% -2%,rgba(50,11,53,.65),transparent 62%)}
-header{position:relative;z-index:1;padding:54px 20px 36px;text-align:center;
- background:linear-gradient(150deg,rgba(102,0,0,.38),rgba(50,11,53,.5) 70%);
- clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%);border-bottom:1px solid rgba(176,77,255,.25)}
-.avatar{width:96px;height:96px;border-radius:50%;margin:0 auto 14px;
- background:linear-gradient(135deg,var(--c1),var(--c2));
- display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:700;color:#fff;
- box-shadow:0 0 26px rgba(102,0,0,.55),0 0 60px rgba(50,11,53,.6);border:2px solid rgba(255,255,255,.15)}
-h1{font-size:clamp(30px,6vw,52px);letter-spacing:2px;text-transform:uppercase;
- background:linear-gradient(90deg,#ff3b3b,#c04dff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.tagline{color:var(--dim);font-size:17px;letter-spacing:1px;margin-top:2px}
-nav{position:sticky;top:0;z-index:5;display:flex;justify-content:center;gap:6px;padding:10px;flex-wrap:wrap;
- background:rgba(12,8,16,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(176,77,255,.2)}
-nav button{font-family:inherit;font-weight:600;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;
- color:var(--dim);background:none;border:1px solid transparent;padding:8px 18px;cursor:pointer}
-nav button.active{color:#fff;background:linear-gradient(90deg,rgba(102,0,0,.55),rgba(50,11,53,.55));
- border-color:rgba(192,77,255,.5);box-shadow:0 0 14px rgba(102,0,0,.45);
- clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
-main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:30px 18px 100px}
-.sec-title{font-size:24px;letter-spacing:3px;text-transform:uppercase;margin:28px 0 16px;padding-left:12px;border-left:4px solid var(--c1)}
-.hero h2{font-size:clamp(22px,4vw,34px);letter-spacing:1px}
-.hero p{color:var(--dim);font-size:18px;margin-top:6px;max-width:720px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-.vcard{display:block;text-decoration:none;color:inherit;background:var(--card);
- border:1px solid rgba(176,77,255,.18);overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s}
-.vcard:hover{transform:translateY(-3px);box-shadow:0 8px 26px rgba(102,0,0,.4);border-color:rgba(192,77,255,.55)}
-.vthumb{position:relative;height:140px;background:linear-gradient(135deg,#241531,#3a0d0d);background-size:cover;background-position:center}
-.play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;opacity:.85;text-shadow:0 0 18px rgba(0,0,0,.8)}
-.vtitle{padding:10px 12px 4px;font-weight:600;font-size:16px;line-height:1.25}
-.vdate{padding:0 12px 12px;color:var(--dim);font-size:13px;letter-spacing:1px}
-.latest .vcard{display:flex;gap:16px;padding:14px;align-items:stretch}
-.latest .vthumb{width:300px;min-height:170px;height:auto;flex-shrink:0}
-.latest .vtitle{font-size:19px}
-.latest .vmeta{padding:4px 12px 10px;color:var(--dim);font-size:15px}
-.links{display:flex;flex-wrap:wrap;gap:12px}
-.link-chip{display:flex;align-items:center;gap:9px;padding:10px 18px;text-decoration:none;color:var(--text);
- background:var(--card);border:1px solid rgba(176,77,255,.25);font-weight:600;letter-spacing:.5px;
- clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
- transition:box-shadow .15s,border-color .15s}
-.link-chip:hover{border-color:#c04dff;box-shadow:0 0 16px rgba(102,0,0,.55)}
-.link-chip svg{width:20px;height:20px;fill:currentColor}
-.icon-letter{font-weight:700;letter-spacing:1px}
-.note{margin-top:18px;padding:14px 16px;background:rgba(102,0,0,.18);border:1px solid rgba(255,80,80,.35);color:#ffd9d9;line-height:1.5}
-.admin-fab{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9;
- font-family:inherit;font-weight:700;font-size:15px;letter-spacing:1px;color:#fff;cursor:pointer;
- padding:11px 22px;border:none;background:linear-gradient(90deg,var(--c1),var(--c2));
- clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
- box-shadow:0 0 22px rgba(102,0,0,.55)}
-footer{position:relative;z-index:1;text-align:center;padding:26px;color:var(--dim);font-size:14px}
-footer a{color:#c04dff;text-decoration:none}
-@media(max-width:640px){.latest .vcard{flex-direction:column}.latest .vthumb{width:100%}}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{position:sticky;top:0;z-index:100;background:rgba(15,14,23,0.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(233,69,96,0.2)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:15px 0}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.logo-text h1{font-size:22px;font-weight:700;color:var(--primary)}
+.logo-text span{font-size:13px;color:#888}
+nav{display:flex;gap:25px}
+nav a{font-size:16px;font-weight:500;transition:color 0.2s;cursor:pointer}
+nav a:hover{color:var(--primary)}
+.nav-mobile{display:none}
+
+/* Hero */
+.hero{position:relative;padding:80px 0;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(233,69,96,0.15),transparent 70%);pointer-events:none}
+.hero h2{font-size:48px;font-weight:700;margin-bottom:15px;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:20px;color:#aaa;max-width:600px;margin:0 auto;line-height:1.6}
+
+/* Sections */
+.section{padding:60px 0}
+.section-title{font-size:32px;font-weight:700;margin-bottom:30px;display:flex;align-items:center;gap:15px}
+.section-title::before{content:'';width:4px;height:32px;background:var(--primary);border-radius:2px}
+
+/* Videos */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.video-card{background:#1a1929;border-radius:10px;overflow:hidden;transition:transform 0.2s,border-color 0.2s;border:1px solid #2a2939;cursor:pointer}
+.video-card:hover{transform:translateY(-5px);border-color:var(--primary)}
+.video-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;background:#0f0e17}
+.video-info{padding:15px}
+.video-info h3{font-size:16px;font-weight:600;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.video-info span{font-size:13px;color:#666}
+.video-loading{text-align:center;padding:40px;color:#666;font-size:18px}
+.video-error{text-align:center;padding:40px;color:#e94560;font-size:16px}
+
+/* Latest video */
+.latest-video{display:flex;justify-content:center;margin-bottom:30px}
+.latest-video .video-card{max-width:700px;width:100%}
+.latest-video .video-thumb{aspect-ratio:16/9}
+
+/* About */
+.about-text{font-size:18px;line-height:1.8;color:#ccc;max-width:700px}
+.about-text p{margin-bottom:15px}
+
+/* Socials */
+.socials{display:flex;gap:15px;flex-wrap:wrap}
+.social-link{display:flex;align-items:center;gap:10px;padding:12px 24px;background:#1a1929;border:1px solid #2a2939;border-radius:8px;transition:all 0.2s;font-weight:600}
+.social-link:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 5px 20px rgba(233,69,96,0.2)}
+.social-link svg{width:20px;height:20px}
+
+/* Tabs */
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Footer */
+footer{padding:40px 0;border-top:1px solid rgba(233,69,96,0.1);text-align:center}
+.admin-btn{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:8px 20px;background:rgba(26,25,41,0.9);border:1px solid #2a2939;border-radius:20px;color:#666;font-size:13px;cursor:pointer;font-family:inherit;transition:color 0.2s}
+.admin-btn:hover{color:var(--primary)}
+
+@media(max-width:768px){
+  nav{display:none}
+  .nav-mobile{display:block}
+  .hero h2{font-size:32px}
+  .hero p{font-size:16px}
+  .section-title{font-size:24px}
+}
 </style>
 </head>
 <body>
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
 
 <header>
-  <div class="avatar" id="avatar">?</div>
-  <h1 id="ch-name">ЗАГРУЗКА…</h1>
-  <div class="tagline" id="ch-tagline"></div>
+<div class="container header-inner">
+  <div class="logo">
+    <img id="logo" src="" alt="" style="display:none">
+    <div class="logo-text">
+      <h1 id="channelName">Deadly Wolf</h1>
+      <span id="channelTagline"></span>
+    </div>
+  </div>
+  <nav>
+    <a onclick="showTab('home')">Главная</a>
+    <a onclick="showTab('videos')">Видео</a>
+    <a onclick="showTab('about')">О канале</a>
+    <a onclick="showTab('links')">Ссылки</a>
+  </nav>
+</div>
 </header>
 
-<nav>
-  <button data-tab="home" class="active" onclick="showTab('home')">Главная</button>
-  <button data-tab="videos" onclick="showTab('videos')">Видео</button>
-  <button data-tab="about" onclick="showTab('about')">О канале</button>
-  <button data-tab="contacts" onclick="showTab('contacts')">Контакты</button>
-</nav>
-
-<main>
-  <section id="tab-home" class="tab">
-    <div class="hero">
-      <h2 id="hero-title"></h2>
-      <p id="hero-subtitle"></p>
+<div class="tab-content active" id="tab-home">
+  <div class="hero">
+    <div class="container">
+      <h2 id="heroTitle"></h2>
+      <p id="heroSubtitle"></p>
     </div>
-    <h3 class="sec-title">Свежее видео</h3>
-    <div id="latest" class="latest"></div>
-    <div id="feed-note" class="note" hidden></div>
-    <h3 class="sec-title">Ссылки</h3>
-    <div id="links-home" class="links"></div>
-  </section>
+  </div>
+  <div class="section" id="latestSection" style="display:none">
+    <div class="container">
+      <div class="section-title">Свежее видео</div>
+      <div class="latest-video" id="latestVideo"></div>
+    </div>
+  </div>
+</div>
 
-  <section id="tab-videos" class="tab" hidden>
-    <h3 class="sec-title">Видео</h3>
-    <div id="grid" class="grid"></div>
-    <div id="feed-note2" class="note" hidden></div>
-  </section>
+<div class="tab-content" id="tab-videos">
+  <div class="section">
+    <div class="container">
+      <div class="section-title">Видео</div>
+      <div class="video-grid" id="videoGrid">
+        <div class="video-loading">Загрузка видео...</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <section id="tab-about" class="tab" hidden>
-    <h3 class="sec-title">О канале</h3>
-    <div id="about" style="font-size:18px;line-height:1.6;color:var(--dim);max-width:760px"></div>
-  </section>
+<div class="tab-content" id="tab-about">
+  <div class="section">
+    <div class="container">
+      <div class="section-title">О канале</div>
+      <div class="about-text" id="aboutText"></div>
+    </div>
+  </div>
+</div>
 
-  <section id="tab-contacts" class="tab" hidden>
-    <h3 class="sec-title">Контакты</h3>
-    <div id="links-contacts" class="links"></div>
-  </section>
-</main>
+<div class="tab-content" id="tab-links">
+  <div class="section">
+    <div class="container">
+      <div class="section-title">Ссылки</div>
+      <div class="socials" id="socials"></div>
+    </div>
+  </div>
+</div>
 
-<button class="admin-fab" onclick="location.href='admin.html'">⚙ Админ-панель</button>
-<footer>© <span id="ch-name2"></span> · <a href="admin.html">админ-панель</a></footer>
+<footer>
+  <div class="container">
+    <p id="footerText"></p>
+  </div>
+</footer>
+
+<button class="admin-btn" onclick="location.href='admin.html'">⚙️ Админ-панель</button>
 
 <script>
-const $=function(s){return document.querySelector(s)};
-let CONFIG=null,VIDEOS=null;
+let config = {};
+let videos = [];
 
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
-
-const ICONS={
- youtube:'<svg viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6c-.3-1-1-1.8-2-2C18.6 4 12 4 12 4s-6.6 0-8.5.4c-1 .3-1.8 1-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6c.3 1 1 1.8 2 2 1.9.4 8.5.4 8.5.4s6.6 0 8.5-.4c1-.3 1.8-1 2-2 .5-1.8.5-5.6.5-5.6zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg>',
- telegram:'<svg viewBox="0 0 24 24"><path d="M21.9 3.2 2.7 10.6c-1.1.4-1.1 1.9 0 2.3l4.9 1.6 1.9 5.9c.3 1 1.6 1.2 2.2.4l2.7-3.3 5 3.7c.9.6 2.1.1 2.3-1l3-14.4c.2-1.2-1-2.1-2.1-1.6z"/></svg>',
- vk:'<span class="icon-letter">VK</span>',
- discord:'<svg viewBox="0 0 24 24"><path d="M20 5.5A17 17 0 0 0 15.7 4l-.2.4c1.6.4 2.9 1 4.2 1.9-2.3-1.1-4.6-1.6-7.7-1.6s-5.4.5-7.7 1.6c1.3-.9 2.6-1.5 4.2-1.9L8.3 4A17 17 0 0 0 4 5.5C1.7 9 1.1 12.4 1.4 15.8c1.7 1.3 3.4 2 5 2.5l1-1.7c-.9-.3-1.7-.7-2.4-1.2l.6-.4c3.2 1.5 6.7 1.5 9.9 0l.6.4c-.8.5-1.6.9-2.5 1.2l1 1.7c1.7-.5 3.3-1.2 5-2.5.4-3.9-.6-7.2-2.6-10.3zM9 13.7c-.9 0-1.7-.9-1.7-1.9s.7-1.9 1.7-1.9 1.7.9 1.7 1.9-.8 1.9-1.7 1.9zm6 0c-.9 0-1.7-.9-1.7-1.9s.8-1.9 1.7-1.9 1.7.9 1.7 1.9-.8 1.9-1.7 1.9z"/></svg>'
-};
-
-function iconFor(type){
- const t=String(type||'').toLowerCase();
- return ICONS[t]||('<span class="icon-letter">'+esc(String(t||'?').charAt(0).toUpperCase())+'</span>');
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  window.scrollTo(0,0);
 }
 
-function getChannelId(c){
- if(!c)return '';
- if(typeof c.channelId==='string'&&c.channelId)return c.channelId;
- if(c.channel&&c.channel.channelId)return c.channel.channelId;
- return '';
+function applyTheme(){
+  if(config.theme){
+    document.documentElement.style.setProperty('--primary',config.theme.primary||'#e94560');
+    document.documentElement.style.setProperty('--secondary',config.theme.secondary||'#7b2cbf');
+    document.documentElement.style.setProperty('--bg',config.theme.background||'#0f0e17');
+  }
 }
 
-function renderLinks(box,links){
- if(!box)return;
- box.innerHTML=(links||[]).map(function(l){
-  const label=esc(l.label||l.type||'Ссылка');
-  return '<a class="link-chip" href="'+esc(l.url||'#')+'" target="_blank" rel="noopener">'+iconFor(l.type)+'<span>'+label+'</span></a>';
- }).join('');
+function renderChannel(){
+  document.getElementById('channelName').textContent = config.channel?.name || '';
+  document.getElementById('channelTagline').textContent = config.channel?.tagline || '';
+  const logo = document.getElementById('logo');
+  if(config.channel?.logo){
+    logo.src = config.channel.logo;
+    logo.style.display = 'block';
+  }
+  document.getElementById('heroTitle').textContent = config.hero?.title || '';
+  document.getElementById('heroSubtitle').textContent = config.hero?.subtitle || '';
+  document.getElementById('aboutText').innerHTML = (config.about||'').split('\n').map(p=>`<p>${p}</p>`).join('');
+  document.title = config.channel?.name || 'Канал';
 }
 
-function applyConfig(c){
- const root=document.documentElement;
- const col=c.colors||{};
- if(col.primary)root.style.setProperty('--c1',col.primary);
- if(col.secondary)root.style.setProperty('--c2',col.secondary);
- const ch=c.channel||{};
- const name=ch.name||'Канал';
- $('#ch-name').textContent=name;
- $('#ch-name2').textContent=name;
- $('#avatar').textContent=name.charAt(0).toUpperCase();
- $('#ch-tagline').textContent=ch.tagline||'';
- const hero=c.hero||{};
- $('#hero-title').textContent=hero.title||'';
- $('#hero-subtitle').textContent=hero.subtitle||'';
- $('#about').textContent=c.about||'';
- renderLinks($('#links-home'),c.links);
- renderLinks($('#links-contacts'),c.links);
-}
-
-function fmtDate(s){
- try{return new Date(s).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});}
- catch(e){return '';}
-}
-
-function styleThumb(el){
- if(!el)return;
- const card=el.closest('.vcard');
- const img=card?card.getAttribute('data-thumb'):'';
- if(img)el.style.backgroundImage='url("'+img+'"), linear-gradient(135deg,#241531,#3a0d0d)';
-}
-
-function videoCard(v,wide){
- const id=v.id||'';
- const thumb=v.thumbnail||('https://i.ytimg.com/vi/'+id+'/hqdefault.jpg');
- const meta=wide?'<div class="vmeta">'+esc(fmtDate(v.published))+'</div>':'';
- return '<a class="vcard" data-thumb="'+esc(thumb)+'" href="https://youtu.be/'+encodeURIComponent(id)+'" target="_blank" rel="noopener">'
-  +'<div class="vthumb"><div class="play">▶</div></div>'
-  +'<div class="vtitle">'+esc(v.title)+'</div>'
-  +(wide?'':'<div class="vdate">'+esc(fmtDate(v.published))+'</div>')
-  +meta+'</a>';
-}
-
-function noteText(reason){
- if(reason==='fail'){
-  return 'Лента временно недоступна: кэш пуст, а сервисы-посредники не отвечают. Запустите воркфлоу «Update videos» на GitHub (вкладка Actions → Run workflow) — через минуту видео появятся.';
- }
- return 'Пока видео не появилось. Запустите воркфлоу «Update videos» на GitHub (вкладка Actions) — он заполнит ленту автоматически.';
+function renderSocials(){
+  const c = document.getElementById('socials');
+  if(!config.socials || config.socials.length===0){
+    c.innerHTML = '<p style="color:#666">Ссылки не добавлены</p>';
+    return;
+  }
+  const icons = {
+    youtube:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.5 15.5v-7l6.5 3.5z"/></svg>',
+    discord:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.3 5.3A17 17 0 0 0 15 4l-.3.5a12 12 0 0 1 3.8 1.8 13 13 0 0 0-13 0A12 12 0 0 1 9.3 4.5L9 4a17 17 0 0 0-4.3 1.3C2 9.3 1.3 13.2 1.6 17a17 17 0 0 0 5 2.5l.7-1.1a11 11 0 0 1-1.6-.8l.4-.3a12 12 0 0 0 10 0l.4.3a11 11 0 0 1-1.6.8l.7 1.1a17 17 0 0 0 5-2.5c.4-4.6-.7-8.5-3.3-11.7zM8.5 14.8c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>',
+    telegram:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L2 10.5l5.5 2L18 6l-8 7.5L18 19l4-17z"/></svg>',
+    twitch:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 2L2 6v14h5v3h3l3-3h4l5-5V2H4zm16 11l-3 3h-4l-3 3v-3H7V4h13v9zM15 7h2v5h-2zM11 7h2v5h-2z"/></svg>'
+  };
+  c.innerHTML = config.socials.map(s=>`
+    <a href="${s.url}" target="_blank" class="social-link">
+      ${icons[s.icon]||icons[s.name?.toLowerCase()]||'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6c-2 0-3 1-3 3v8c0 2 1 3 3 3h12c2 0 3-1 3-3V9c0-2-1-3-3-3h-4l-2-2H10z"/></svg>'}
+      ${s.name}
+    </a>
+  `).join('');
 }
 
 function renderVideos(){
- const list=VIDEOS;
- const grid=$('#grid'),latest=$('#latest');
- const n1=$('#feed-note'),n2=$('#feed-note2');
- if(list&&list.length){
-  latest.innerHTML=videoCard(list[0],true);
-  styleThumb(latest.querySelector('.vthumb'));
-  grid.innerHTML=list.slice(0,9).map(function(v){return videoCard(v,false);}).join('');
-  grid.querySelectorAll('.vthumb').forEach(styleThumb);
-  n1.hidden=true;n2.hidden=true;
- }else{
-  latest.innerHTML='';grid.innerHTML='';
-  n1.hidden=false;n2.hidden=false;
-  n1.textContent=noteText(list===null?'fail':'empty');
-  n2.textContent=n1.textContent;
- }
-}
-
-async function loadConfig(){
- try{
-  const r=await fetch('config.json?t='+Date.now(),{cache:'no-store'});
-  if(!r.ok)return null;
-  return await r.json();
- }catch(e){return null;}
-}
-
-async function loadVideos(channelId){
- try{
-  const r=await fetch('videos.json?t='+Date.now(),{cache:'no-store'});
-  if(r.ok){
-   const j=await r.json();
-   const list=Array.isArray(j)?j:(j.videos||[]);
-   if(list.length)return list;
+  const grid = document.getElementById('videoGrid');
+  if(videos.length===0){
+    grid.innerHTML = '<div class="video-error">Лента временно недоступна</div>';
+    return;
   }
- }catch(e){}
- if(channelId){
-  const feed='https://www.youtube.com/feeds/videos.xml?channel_id='+encodeURIComponent(channelId);
-  const proxies=[
-   'https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed),
-   'https://api.allorigins.win/raw?url='+encodeURIComponent(feed),
-   'https://corsproxy.io/?'+encodeURIComponent(feed)
-  ];
-  for(const u of proxies){
-   try{
-    const r=await fetch(u);
-    if(!r.ok)continue;
-    const t=await r.text();
-    let items=[];
-    if(t.trim().startsWith('{')){
-     const j=JSON.parse(t);
-     items=(j.items||[]).map(function(v){
-      return {id:String(v.guid||'').replace('yt:video:',''),title:v.title,published:v.pubDate,thumbnail:v.thumbnail};
-     });
-    }else{
-     const doc=new DOMParser().parseFromString(t,'text/xml');
-     items=Array.from(doc.getElementsByTagName('entry')).map(function(en){
-      const vid=en.getElementsByTagName('yt:videoId')[0];
-      const ti=en.getElementsByTagName('title')[0];
-      const pu=en.getElementsByTagName('published')[0];
-      const th=en.getElementsByTagName('media:thumbnail')[0];
-      return {id:vid?vid.textContent:'',title:ti?ti.textContent:'',published:pu?pu.textContent:'',thumbnail:th?th.getAttribute('url'):''};
-     });
+  
+  // Последнее видео на главную
+  const latest = videos[0];
+  const latestSec = document.getElementById('latestSection');
+  const latestEl = document.getElementById('latestVideo');
+  if(latest){
+    latestSec.style.display = 'block';
+    latestEl.innerHTML = `
+      <div class="video-card" onclick="window.open('${latest.url}','_blank')">
+        <img class="video-thumb" src="${latest.thumbnail}" alt="${latest.title}" loading="lazy">
+        <div class="video-info"><h3>${latest.title}</h3><span>${latest.published||''}</span></div>
+      </div>`;
+  }
+  
+  // Все видео во вкладке
+  grid.innerHTML = videos.map(v=>`
+    <div class="video-card" onclick="window.open('${v.url}','_blank')">
+      <img class="video-thumb" src="${v.thumbnail}" alt="${v.title}" loading="lazy">
+      <div class="video-info"><h3>${v.title}</h3><span>${v.published||''}</span></div>
+    </div>
+  `).join('');
+}
+
+async function loadVideos(){
+  // Сначала пробуем локальный videos.json
+  try{
+    const r = await fetch('videos.json?_='+Date.now());
+    if(r.ok){
+      const d = await r.json();
+      if(d.videos && d.videos.length>0){
+        videos = d.videos;
+        renderVideos();
+        return;
+      }
     }
-    if(items.length)return items;
-   }catch(e){}
+  }catch(e){}
+  
+  // Запасной путь — прокси
+  if(config.channelId && !config.channelId.includes('XXXX')){
+    const proxies = [
+      `https://api.allorigins.win/raw?url=https://www.youtube.com/feeds/videos.xml?channel_id=${config.channelId}`,
+      `https://api.codetabs.com/v1/proxy?quest=https://www.youtube.com/feeds/videos.xml?channel_id=${config.channelId}`
+    ];
+    for(const url of proxies){
+      try{
+        const r = await fetch(url);
+        if(r.ok){
+          const text = await r.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text,'text/xml');
+          const entries = doc.querySelectorAll('entry');
+          videos = [];
+          entries.forEach((e,i)=>{
+            if(i>=9) return;
+            const title = e.querySelector('title')?.textContent;
+            const vid = e.querySelector('videoId')?.textContent;
+            const thumb = e.querySelector('thumbnail')?.getAttribute('url');
+            const pub = e.querySelector('published')?.textContent;
+            if(title && vid){
+              videos.push({title,id:vid,url:`https://www.youtube.com/watch?v=${vid}`,thumbnail:thumb||'',published:pub||''});
+            }
+          });
+          if(videos.length>0){renderVideos();return;}
+        }
+      }catch(e){}
+    }
   }
- }
- return null;
+  renderVideos();
 }
 
-function showTab(name){
- document.querySelectorAll('.tab').forEach(function(t){t.hidden=(t.id!=='tab-'+name);});
- document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('active',b.dataset.tab===name);});
- window.scrollTo({top:0,behavior:'smooth'});
+async function init(){
+  try{
+    const r = await fetch('config.json');
+    if(!r.ok){return;}
+    config = await r.json();
+    applyTheme();
+    renderChannel();
+    renderSocials();
+    loadVideos();
+  }catch(e){
+    console.error(e);
+  }
 }
 
-(async function init(){
- CONFIG=await loadConfig();
- if(CONFIG)applyConfig(CONFIG);
- else{
-  $('#ch-name').textContent='КОНФИГ НЕ НАЙДЕН';
-  const n=$('#feed-note');n.hidden=false;
-  n.textContent='index.html не видит config.json: проверьте, что оба файла лежат в корне репозитория, и открывайте сайт по адресу GitHub Pages (…github.io/…), а не как файл с диска.';
- }
- VIDEOS=await loadVideos(CONFIG?getChannelId(CONFIG):'');
- renderVideos();
-})();
+init();
 </script>
 </body>
 </html>

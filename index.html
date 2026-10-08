@@ -267,9 +267,9 @@ function closeAdmin(){
 function checkAdmin(){
   if(document.getElementById('adminPass').value===ADMIN_PASS){
     closeAdmin();
+    sessionStorage.setItem('admin_auth','1');
     window.location.href='admin.html';
   }else{
-    document.getElementById('adminErr').style.display='block';
   }
 }
 document.getElementById('adminModal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAdmin()});

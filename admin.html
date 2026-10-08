@@ -68,6 +68,7 @@ h1{color:#e94560;margin-bottom:20px;font-weight:700}
     <div class="field"><label>Основной цвет (theme.primary)</label><input id="theme.primary" type="color"></div>
     <div class="field"><label>Дополнительный (theme.secondary)</label><input id="theme.secondary" type="color"></div>
     <div class="field"><label>Фон (theme.background)</label><input id="theme.background" type="color"></div>
+    <div class="field"><label>Акцентный — неон (theme.neon)</label><input id="theme.neon" type="color"></div>
   </div>
 
   <div class="section">
@@ -110,6 +111,7 @@ function loadConfig(cfg){
   setVal('theme.primary',cfg.theme?.primary);
   setVal('theme.secondary',cfg.theme?.secondary);
   setVal('theme.background',cfg.theme?.background);
+  setVal('theme.neon',cfg.theme?.neon);
   socials=cfg.socials||[];
   renderSocials();
   const saved=localStorage.getItem('gh_creds');
@@ -143,6 +145,7 @@ function buildConfig(){
   config.theme.primary=getVal('theme.primary');
   config.theme.secondary=getVal('theme.secondary');
   config.theme.background=getVal('theme.background');
+  config.theme.neon=getVal('theme.neon');
   config.socials=socials;
   return config;
 }

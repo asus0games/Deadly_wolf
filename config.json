@@ -13,18 +13,13 @@
   "socials": [
     {
       "name": "YouTube",
-      "url": "https://youtube.com/@YOUR_CHANNEL",
-      "icon": "youtube"
+      "url": "https://youtube.com/@deadly00wolf?si=kgYjXCpR-g-2jYW9",
+      "icon": "link"
     },
     {
       "name": "Discord",
-      "url": "https://discord.gg/ССЫЛКА_НА_СЕРВЕР",
-      "icon": "discord"
-    },
-    {
-      "name": "Telegram",
-      "url": "https://t.me/YOUR_CHANNEL",
-      "icon": "telegram"
+      "url": "https://discord.gg/N2AHWy4Bs",
+      "icon": "link"
     }
   ],
   "videos": {

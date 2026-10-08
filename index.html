@@ -134,14 +134,14 @@ async function loadConfig(){
     if(!r.ok)throw new Error(r.status);
     CFG=await r.json();
   }catch(e){
-    CFG={channel:{name:'Канал',tagline:''},hero:{title:'',subtitle:''},about:'',theme:{primary:'#660000',secondary:'#320b35',background:'#0b0910'},socials:[],channelId:''};
+    CFG={channel:{name:'Канал',tagline:''},hero:{title:'',subtitle:''},about:'',theme:{primary:'#660000',secondary:'#320b35',background:'#0b0910',neon:'#ff2b4a'},socials:[],channelId:''};
   }
   render();
   loadVideos();
 }
 
 function render(){
-  // Цвета: читаем и theme, и colors (для совместимости)
+  // Цвета из theme (с fallback на colors)
   const t=CFG.theme||CFG.colors||{};
   if(t.primary)document.documentElement.style.setProperty('--c1',t.primary);
   if(t.secondary)document.documentElement.style.setProperty('--c2',t.secondary);
@@ -162,9 +162,8 @@ function render(){
   $('#aboutText').textContent=CFG.about||'';
   $('#footerOwner').textContent=ch.owner?('© '+new Date().getFullYear()+' '+ch.owner):'';
 
-  // Соцсети: читаем и socials, и links (для совместимости)
+  // Соцсети: socials или links, с маппингом полей
   var raw=Array.isArray(CFG.socials)?CFG.socials:Array.isArray(CFG.links)?CFG.links:[];
-  // Нормализуем поля: name→title, icon→type
   var links=raw.map(function(l){
     if(!l||!l.url)return null;
     return{
@@ -271,6 +270,7 @@ function checkAdmin(){
     sessionStorage.setItem('admin_auth','1');
     window.location.href='admin.html';
   }else{
+    document.getElementById('adminErr').style.display='block';
   }
 }
 document.getElementById('adminModal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAdmin()});

@@ -19,8 +19,6 @@ h1{color:#e94560;margin-bottom:20px;font-weight:700}
 .btn-primary:hover{background:#c73652}
 .btn-secondary{background:#7b2cbf;color:#fff}
 .btn-secondary:hover{background:#6324a0}
-#login{max-width:400px;margin:100px auto;text-align:center}
-#login input{width:100%;margin-bottom:15px}
 #panel{max-width:800px;margin:0 auto}
 .section{background:#1a1929;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #2a2939}
 .section h2{color:#e94560;margin-bottom:15px;font-size:20px}
@@ -37,13 +35,7 @@ h1{color:#e94560;margin-bottom:20px;font-weight:700}
 </head>
 <body>
 
-<div id="login">
-  <h1>🔒 Вход в админку</h1>
-  <input type="password" id="pwdInput" placeholder="Пароль" onkeydown="if(event.key==='Enter')doLogin()">
-  <button class="btn btn-primary" onclick="doLogin()">Войти</button>
-</div>
-
-<div id="panel" class="hidden">
+<div id="panel">
   <h1>⚙️ Админ-панель</h1>
   
   <div class="section">
@@ -95,153 +87,104 @@ h1{color:#e94560;margin-bottom:20px;font-weight:700}
 </div>
 
 <script>
-const PWD_HASH = "59955d932cb56b499e95ade43256550cd6848b4950fcbf17c803e00ec4081491";
-
-function doLogin(){
-  const pwd = document.getElementById('pwdInput').value;
-  fetch('config.json').then(r=>r.json()).then(cfg=>{
-    loadConfig(cfg);
-    document.getElementById('login').classList.add('hidden');
-    document.getElementById('panel').classList.remove('hidden');
-  }).catch(e=>{
-    alert('Не удалось загрузить config.json: '+e);
-  });
+// Проверка: зашёл ли через index.html с правильным паролем
+if(sessionStorage.getItem('admin_auth')!=='1'){
+  window.location.href='index.html';
 }
 
-function setVal(id,val){
-  const el = document.getElementById(id);
-  if(el) el.value = val || '';
-}
+let config={};
+let socials=[];
 
-function getVal(id){
-  const el = document.getElementById(id);
-  return el ? el.value : '';
-}
-
-let config = {};
-let socials = [];
+function setVal(id,val){const el=document.getElementById(id);if(el)el.value=val||''}
+function getVal(id){const el=document.getElementById(id);return el?el.value:''}
 
 function loadConfig(cfg){
-  config = cfg;
-  setVal('channel.name', cfg.channel?.name);
-  setVal('channel.tagline', cfg.channel?.tagline);
-  setVal('channel.logo', cfg.channel?.logo);
-  setVal('channelId', cfg.channelId);
-  setVal('hero.title', cfg.hero?.title);
-  setVal('hero.subtitle', cfg.hero?.subtitle);
-  setVal('about', cfg.about);
-  setVal('theme.primary', cfg.theme?.primary);
-  setVal('theme.secondary', cfg.theme?.secondary);
-  setVal('theme.background', cfg.theme?.background);
-  socials = cfg.socials || [];
+  config=cfg;
+  setVal('channel.name',cfg.channel?.name);
+  setVal('channel.tagline',cfg.channel?.tagline);
+  setVal('channel.logo',cfg.channel?.logo);
+  setVal('channelId',cfg.channelId);
+  setVal('hero.title',cfg.hero?.title);
+  setVal('hero.subtitle',cfg.hero?.subtitle);
+  setVal('about',cfg.about);
+  setVal('theme.primary',cfg.theme?.primary);
+  setVal('theme.secondary',cfg.theme?.secondary);
+  setVal('theme.background',cfg.theme?.background);
+  socials=cfg.socials||[];
   renderSocials();
-  
-  // Восстанавливаем креды
-  const saved = localStorage.getItem('gh_creds');
-  if(saved){
-    const c = JSON.parse(saved);
-    setVal('ghUser', c.user);
-    setVal('ghRepo', c.repo);
-    setVal('ghToken', c.token);
-  }
+  const saved=localStorage.getItem('gh_creds');
+  if(saved){const c=JSON.parse(saved);setVal('ghUser',c.user);setVal('ghRepo',c.repo);setVal('ghToken',c.token)}
 }
 
 function renderSocials(){
-  const c = document.getElementById('socials');
-  c.innerHTML = '';
+  const c=document.getElementById('socials');
+  c.innerHTML='';
   socials.forEach((s,i)=>{
-    const d = document.createElement('div');
-    d.className = 'social-item';
-    d.innerHTML = `<input type="text" placeholder="Название" value="${s.name||''}" onchange="socials[${i}].name=this.value"><input type="text" placeholder="URL" value="${s.url||''}" onchange="socials[${i}].url=this.value"><button onclick="socials.splice(${i},1);renderSocials()">✕</button>`;
+    const d=document.createElement('div');
+    d.className='social-item';
+    d.innerHTML=`<input type="text" placeholder="Название" value="${s.name||''}" onchange="socials[${i}].name=this.value"><input type="text" placeholder="URL" value="${s.url||''}" onchange="socials[${i}].url=this.value"><button onclick="socials.splice(${i},1);renderSocials()">✕</button>`;
     c.appendChild(d);
   });
 }
 
-function addSocial(){
-  socials.push({name:'',url:'',icon:'link'});
-  renderSocials();
-}
+function addSocial(){socials.push({name:'',url:'',icon:'link'});renderSocials()}
 
 function buildConfig(){
-  config.channel = config.channel || {};
-  config.channel.name = getVal('channel.name');
-  config.channel.tagline = getVal('channel.tagline');
-  config.channel.logo = getVal('channel.logo');
-  config.channelId = getVal('channelId');
-  config.hero = config.hero || {};
-  config.hero.title = getVal('hero.title');
-  config.hero.subtitle = getVal('hero.subtitle');
-  config.about = getVal('about');
-  config.theme = config.theme || {};
-  config.theme.primary = getVal('theme.primary');
-  config.theme.secondary = getVal('theme.secondary');
-  config.theme.background = getVal('theme.background');
-  config.socials = socials;
+  config.channel=config.channel||{};
+  config.channel.name=getVal('channel.name');
+  config.channel.tagline=getVal('channel.tagline');
+  config.channel.logo=getVal('channel.logo');
+  config.channelId=getVal('channelId');
+  config.hero=config.hero||{};
+  config.hero.title=getVal('hero.title');
+  config.hero.subtitle=getVal('hero.subtitle');
+  config.about=getVal('about');
+  config.theme=config.theme||{};
+  config.theme.primary=getVal('theme.primary');
+  config.theme.secondary=getVal('theme.secondary');
+  config.theme.background=getVal('theme.background');
+  config.socials=socials;
   return config;
 }
 
 function downloadConfig(){
-  const cfg = buildConfig();
-  const blob = new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'config.json';
+  const cfg=buildConfig();
+  const blob=new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='config.json';
   a.click();
 }
 
 function saveCreds(){
-  const creds = {
-    user: getVal('ghUser'),
-    repo: getVal('ghRepo'),
-    token: getVal('ghToken')
-  };
-  localStorage.setItem('gh_creds', JSON.stringify(creds));
+  const creds={user:getVal('ghUser'),repo:getVal('ghRepo'),token:getVal('ghToken')};
+  localStorage.setItem('gh_creds',JSON.stringify(creds));
   showStatus('pubStatus','Данные сохранены в браузере','ok');
 }
 
-function showStatus(id,msg,type){
-  const el = document.getElementById(id);
-  el.innerHTML = `<div class="status ${type}">${msg}</div>`;
-}
+function showStatus(id,msg,type){document.getElementById(id).innerHTML=`<div class="status ${type}">${msg}</div>`}
 
 async function publishToGithub(){
-  const user = getVal('ghUser');
-  const repo = getVal('ghRepo');
-  const token = getVal('ghToken');
-  if(!user||!repo||!token){
-    showStatus('pubStatus','Заполните все три поля','err');
-    return;
-  }
-  const cfg = buildConfig();
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(cfg,null,2))));
+  const user=getVal('ghUser'),repo=getVal('ghRepo'),token=getVal('ghToken');
+  if(!user||!repo||!token){showStatus('pubStatus','Заполните все три поля','err');return}
+  const cfg=buildConfig();
+  const content=btoa(unescape(encodeURIComponent(JSON.stringify(cfg,null,2))));
   showStatus('pubStatus','Отправка...','ok');
-  
-  // Получаем текущий sha файла
-  let sha = null;
+  let sha=null;
   try{
-    const r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/config.json`,{
-      headers: {'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}
-    });
-    if(r.ok){ const d = await r.json(); sha = d.sha; }
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/config.json`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(r.ok){const d=await r.json();sha=d.sha}
   }catch(e){}
-  
-  const body = JSON.stringify({message:'Update config.json via admin',content:content,sha:sha});
+  const body=JSON.stringify({message:'Update config.json via admin',content:content,sha:sha});
   try{
-    const r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/config.json`,{
-      method:'PUT',
-      headers: {'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
-      body: body
-    });
-    if(r.ok){
-      showStatus('pubStatus','✅ Опубликовано! Сайт обновится через ~30 секунд','ok');
-    } else {
-      const d = await r.json();
-      showStatus('pubStatus','❌ Ошибка: '+(d.message||r.status),'err');
-    }
-  }catch(e){
-    showStatus('pubStatus','❌ Ошибка сети: '+e,'err');
-  }
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/config.json`,{method:'PUT',headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:body});
+    if(r.ok){showStatus('pubStatus','✅ Опубликовано! Сайт обновится через ~30 секунд','ok')}
+    else{const d=await r.json();showStatus('pubStatus','❌ Ошибка: '+(d.message||r.status),'err')}
+  }catch(e){showStatus('pubStatus','❌ Ошибка сети: '+e,'err')}
 }
+
+// Загрузка конфига при открытии страницы
+fetch('config.json?t='+Date.now()).then(r=>r.json()).then(cfg=>loadConfig(cfg)).catch(e=>alert('Не удалось загрузить config.json: '+e));
 </script>
 </body>
 </html>

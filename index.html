@@ -7,10 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--c1:#660000;--c2:#320b35;--neon:#ff2b4a;--txt:#e8e4ef;--dim:#9a93a8}
+:root{--c1:#660000;--c2:#320b35;--neon:#ff2b4a;--txt:#e8e4ef;--dim:#9a93a8;--bg:#0b0910}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:#0b0910;color:var(--txt);font-family:'Rajdhani',sans-serif;font-size:17px;min-height:100vh}
+body{background:var(--bg);color:var(--txt);font-family:'Rajdhani',sans-serif;font-size:17px;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:
  radial-gradient(900px 520px at 12% -8%, rgba(230,30,60,.20), transparent 62%),
  radial-gradient(900px 520px at 92% 8%, rgba(150,45,165,.18), transparent 62%),
@@ -146,6 +146,7 @@ function render(){
   if(t.primary)document.documentElement.style.setProperty('--c1',t.primary);
   if(t.secondary)document.documentElement.style.setProperty('--c2',t.secondary);
   if(t.background)document.documentElement.style.setProperty('--bg',t.background);
+  if(t.neon)document.documentElement.style.setProperty('--neon',t.neon);
 
   const ch=CFG.channel||{},hero=CFG.hero||{};
   $('#chName').textContent=ch.name||'Канал';

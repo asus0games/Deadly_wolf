@@ -2,7 +2,7 @@
   "channel": {
     "name": "Deadly Wolf",
     "tagline": "Игровой канал",
-    "logo": "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8XA8AAksBZG7LpHYAAAAASUVORK5CYII="
+    "logo": "logo.png"
   },
   "hero": {
     "title": "Добро пожаловать",

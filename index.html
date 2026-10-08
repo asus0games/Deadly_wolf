@@ -124,7 +124,7 @@ function render(){
   const c=CFG.colors||{};
   if(c.primary)document.documentElement.style.setProperty('--c1',c.primary);
   if(c.secondary)document.documentElement.style.setProperty('--c2',c.secondary);
-  const links=Array.isArray(CFG.links)?CFG.links:Array.isArray(CFG.socials)?CFG.socials):[];
+  const links=Array.isArray(CFG.links)?CFG.links:Array.isArray(CFG.socials)?CFG.socials:[];
   $('#chName').textContent=ch.name||'Канал';
   document.title=(ch.name||'Канал');
   $('#tagline').textContent=ch.tagline||'';

@@ -1,6 +1,14 @@
 {
   "videos": [
     {
+      "title": "прохождение Bramble: The Mountain King (часть 3)",
+      "videoId": "zoa6JKVxPr0",
+      "url": "https://www.youtube.com/watch?v=zoa6JKVxPr0",
+      "thumbnail": "https://img.youtube.com/vi/zoa6JKVxPr0/hqdefault.jpg",
+      "published": "2026-10-11",
+      "author": "Deadly_wolf"
+    },
+    {
       "title": "прохождение Bramble: The Mountain King (часть 2)",
       "videoId": "CF9dWnCc8LM",
       "url": "https://www.youtube.com/watch?v=CF9dWnCc8LM",
@@ -86,14 +94,6 @@
       "url": "https://www.youtube.com/watch?v=quOX3qS6rfo",
       "thumbnail": "https://img.youtube.com/vi/quOX3qS6rfo/hqdefault.jpg",
       "published": "2025-03-08",
-      "author": "Deadly_wolf"
-    },
-    {
-      "title": "просто играем lethal company",
-      "videoId": "7dIdIpnQ3QY",
-      "url": "https://www.youtube.com/watch?v=7dIdIpnQ3QY",
-      "thumbnail": "https://img.youtube.com/vi/7dIdIpnQ3QY/hqdefault.jpg",
-      "published": "2025-03-07",
       "author": "Deadly_wolf"
     }
   ],

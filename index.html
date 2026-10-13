@@ -141,7 +141,6 @@ async function loadConfig(){
 }
 
 function render(){
-  // Цвета из theme (с fallback на colors)
   const t=CFG.theme||CFG.colors||{};
   if(t.primary)document.documentElement.style.setProperty('--c1',t.primary);
   if(t.secondary)document.documentElement.style.setProperty('--c2',t.secondary);
@@ -153,7 +152,6 @@ function render(){
   document.title=(ch.name||'Канал');
   $('#tagline').textContent=ch.tagline||'';
 
-  // Лого: сначала logo, потом avatar
   var logo=(ch&&ch.logo)?ch.logo:(ch&&ch.avatar)?ch.avatar:'';
   $('#avatar').src=logo||'https://placehold.co/136/660000/ffffff?text=GAME';
 
@@ -162,7 +160,6 @@ function render(){
   $('#aboutText').textContent=CFG.about||'';
   $('#footerOwner').textContent=ch.owner?('© '+new Date().getFullYear()+' '+ch.owner):'';
 
-  // Соцсети: socials или links, с маппингом полей
   var raw=Array.isArray(CFG.socials)?CFG.socials:Array.isArray(CFG.links)?CFG.links:[];
   var links=raw.map(function(l){
     if(!l||!l.url)return null;
@@ -240,17 +237,29 @@ function ytLink(id){
   return 'https://www.youtube.com/watch?v='+id;
 }
 
+// Достаём ID видео из любого формата записи
+function extractId(v){
+  if(!v)return '';
+  if(v.id)return String(v.id);
+  if(v.videoId)return String(v.videoId);
+  const src=v.link||v.url||'';
+  const m=String(src).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{6,})/);
+  return m?m[1]:'';
+}
+
 function draw(vids){
   const grid=$('#grid'),latest=$('#latest'),note=$('#vidNote');
   if(!vids.length){note.style.display='block';latest.innerHTML='';return;}
   note.style.display='none';
-  const v=vids[0];
-  latest.innerHTML='<div class="card"><div class="embed"><iframe src="https://www.youtube.com/embed/'+encodeURIComponent(v.id)+'" allowfullscreen loading="lazy"></iframe></div><h3 style="margin:12px 0 0">'+esc(v.title)+'</h3><a class="btn" href="'+ytLink(v.id)+'" target="_blank" rel="noopener">Смотреть на YouTube</a></div>';
+  const v=vids[0],vid=extractId(v);
+  latest.innerHTML='<div class="card"><div class="embed"><iframe src="https://www.youtube.com/embed/'+encodeURIComponent(vid)+'" allowfullscreen loading="lazy"></iframe></div><h3 style="margin:12px 0 0">'+esc(v.title)+'</h3><a class="btn" href="'+ytLink(vid)+'" target="_blank" rel="noopener">Смотреть на YouTube</a></div>';
   grid.innerHTML='';
   vids.slice(0,9).forEach(function(x){
+    const id=extractId(x);
+    if(!id)return;
     const a=document.createElement('a');
-    a.className='vcard';a.href=ytLink(x.id);a.target='_blank';a.rel='noopener';
-    a.innerHTML='<img loading="lazy" src="'+esc(x.thumb||('https://i.ytimg.com/vi/'+x.id+'/hqdefault.jpg'))+'" alt=""><div class="t">'+esc(x.title)+'</div><div class="d">'+esc((x.published||'').slice(0,10))+'</div>';
+    a.className='vcard';a.href=ytLink(id);a.target='_blank';a.rel='noopener';
+    a.innerHTML='<img loading="lazy" src="'+esc(x.thumb||('https://i.ytimg.com/vi/'+id+'/hqdefault.jpg'))+'" alt=""><div class="t">'+esc(x.title)+'</div><div class="d">'+esc((x.published||'').slice(0,10))+'</div>';
     grid.appendChild(a);
   });
 }
